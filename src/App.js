@@ -1,34 +1,41 @@
 const express = require("express");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 //mongoose.set('strictQuery', false);
 require("dotenv").config();
-const {addMedicine, getMedicine, updateMedicine, deleteMedicine} = require("./Routes/medicineController");
-const MongoURI = process.env.MONGO_URI ;
-
+const {
+  addMedicine,
+  getMedicine,
+  updateMedicine,
+  deleteMedicine,
+} = require("./controllers/medicine.controller");
+const { router } = require("../src/routes/index");
+const MongoURI = process.env.MONGO_URI;
 
 //App variables
 const app = express();
 const port = process.env.PORT || "8000";
-const medicine = require('./Models/Medicine');
+const medicine = require("./Models/Medicine");
 
-mongoose.connect(MongoURI)
-.then(()=>{
-  console.log("MongoDB is now connected!")
-// Starting server
- app.listen(port, () => {
-    console.log(`Listening to requests on http://localhost:${port}`);
+mongoose
+  .connect(
+    'mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority'
+  )
+  .then(() => {
+    console.log("MongoDB is now connected!");
+    // Starting server
+    app.listen(port, () => {
+      console.log(`Listening to requests on http://localhost:${port}`);
+    });
   })
-})
-.catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 app.get("/home", (req, res) => {
-    res.status(200).send("You have everything installed!");
-  });
+  console.log("You have everything installed!");
+  res.status(200).send("You have everything installed!");
+});
 
 // #Routing to userController here
 
-app.use(express.json())
-app.post("/addMedicine",addMedicine);
-app.get("/medicine", getMedicine);
-app.put("/updateMedicine", updateMedicine);
-app.delete("/deleteMedicine", deleteMedicine);
+app.use(express.json());
+
+app.use("/", router);

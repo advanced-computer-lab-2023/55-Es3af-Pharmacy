@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const medicineSchema = new Schema({
-  Name: {
+  name: {
     type: String,
     required: true,
   },
-  ActiveIngredients: {
+  activeIngredients: {
     type: [String], // ActiveIngredients is an array of strings
     required: true,
   },
-  Quantity: {
+  quantity: {
     type: Number,
     required: true,
   },
-  Price: {
+  price: {
     type: Number,
     required: true,
   }
 }, { timestamps: true });
 
-const Medicine = mongoose.model('Medicine', medicineSchema);
-module.exports = Medicine;
+const medicine = mongoose.model('medicine', medicineSchema);
+module.exports = medicine;
