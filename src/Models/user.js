@@ -22,7 +22,7 @@ const userSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ["adminstrator", "pharmacist", "patient"],
+      enum: ["administrator", "pharmacist", "patient"],
       required: true,
     },
   },
