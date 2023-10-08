@@ -51,8 +51,20 @@ const updateMedicine = async (req, res) => {
 
 const deleteMedicine = async (req, res) => {
     var Name = req.body.Name;
-    await medicineModel.deleteOne({ Name: Name });
-    res.status(200).send("Medicine with name " + Name + " is deleted successfully");
+    await medicineModel.findOne({Name: Name})
+    .then(async (document)=>{
+        if(document){
+            res.status(200).send("Medicine with name " + Name + " is deleted successfully");
+            await medicineModel.deleteOne({ Name: Name })
+        }
+        else{
+            res.status(404).send("Medicine with name "+ Name+" is not found");
+        }
+    })
+    .catch ((error) =>{
+        console.error(error);
+        return;
+    });
 }
 
 
