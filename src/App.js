@@ -17,9 +17,7 @@ const port = process.env.PORT || "8000";
 const medicine = require("./Models/Medicine");
 
 mongoose
-  .connect(
-    'mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority'
-  )
+  .connect(MongoURI)
   .then(() => {
     console.log("MongoDB is now connected!");
     // Starting server
