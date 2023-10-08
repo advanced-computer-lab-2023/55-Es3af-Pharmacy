@@ -5,6 +5,7 @@ const addMedicine = async (req, res) => {
     var newQuantity = req.body.Quantity;
     var Price = req.body.Price;
     var ActiveIngredients = req.body.ActiveIngredients;
+
     medicineModel.findOne({ Name: Name })
         .exec()
         .then((document) => {
@@ -17,7 +18,8 @@ const addMedicine = async (req, res) => {
                     Name: Name,
                     Quantity: newQuantity,
                     Price: Price,
-                    ActiveIngredients: ActiveIngredients
+                    ActiveIngredients: ActiveIngredients,
+                    Sales: 0,
                 });
                 newMed.save().catch(err => console.log(err));
             }

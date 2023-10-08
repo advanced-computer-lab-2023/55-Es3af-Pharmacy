@@ -2,19 +2,23 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const medicineSchema = new Schema({
-  name: {
+  Name: {
     type: String,
     required: true,
   },
-  activeIngredients: {
+  ActiveIngredients: {
     type: [String], // ActiveIngredients is an array of strings
     required: true,
   },
-  quantity: {
+  Quantity: {
     type: Number,
     required: true,
   },
-  price: {
+  Price: {
+    type: Number,
+    required: true,
+  },
+  Sales:{
     type: Number,
     required: true,
   }

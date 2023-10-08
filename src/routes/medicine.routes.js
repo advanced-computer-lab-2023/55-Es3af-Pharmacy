@@ -3,13 +3,13 @@ const medicinController = require('../controllers/medicine.controller')
 
 const medicineRoutes = new Router()
 
-medicineRoutes.post("/", medicinController.addMedicine);
+medicineRoutes.post("/addMedicine", medicinController.addMedicine);
 
-medicineRoutes.get("/", medicinController.getMedicine);
+medicineRoutes.get("/medicine", medicinController.getMedicine);
 
-medicineRoutes.put("/", medicinController.updateMedicine);
+medicineRoutes.put("/updateMedicine", medicinController.updateMedicine);
 
-medicineRoutes.delete("/", medicinController.deleteMedicine);
+medicineRoutes.delete("/deleteMedicine", medicinController.deleteMedicine);
 
 
 module.exports = {medicineRoutes};
