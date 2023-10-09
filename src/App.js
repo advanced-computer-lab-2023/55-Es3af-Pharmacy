@@ -2,19 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 //mongoose.set('strictQuery', false);
 require("dotenv").config();
-const {
-  addMedicine,
-  getMedicine,
-  updateMedicine,
-  deleteMedicine,
-} = require("./controllers/medicine.controller");
+
 const { router } = require("../src/routes/index");
-const MongoURI = process.env.MONGO_URI;
+const MongoURI =
+  process.env.MONGO_URI ||
+  "mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority";
 
 //App variables
 const app = express();
 const port = process.env.PORT || "8000";
-const medicine = require("./Models/Medicine");
 
 mongoose
   .connect(MongoURI)

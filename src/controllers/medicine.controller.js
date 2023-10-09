@@ -1,87 +1,89 @@
-const medicineModel = require('../Models/Medicine.js');
+const medicineModel = require("../Models/Medicine.js");
 
 const addMedicine = async (req, res) => {
-    var Name = req.body.Name;
-    var newQuantity = req.body.Quantity;
-    var Price = req.body.Price;
-    var ActiveIngredients = req.body.ActiveIngredients;
+  var Name = req.body.Name;
+  var newQuantity = req.body.Quantity;
+  var Price = req.body.Price;
+  var ActiveIngredients = req.body.ActiveIngredients;
 
-    medicineModel.findOne({ Name: Name })
-        .exec()
-        .then((document) => {
-            if (document) {
-                medicineModel.findOneAndUpdate({ Name: Name }, { Quantity: newQuantity + document.Quantity })
-                .catch(err => console.log(err));
-            }
-            else {
-                const newMed = new medicineModel({
-                    Name: Name,
-                    Quantity: newQuantity,
-                    Price: Price,
-                    ActiveIngredients: ActiveIngredients,
-                    Sales: 0,
-                });
-                newMed.save().catch(err => console.log(err));
-            }
-        })
-    .catch ((error) =>{
-        console.error(error);
-        return;
-    }
-);
-console.log(Name, " is added successfully");
-res.status(200).send(Name + " is added successfully");
-}
+  const med = medicineModel
+    .findOne({ Name: Name })
+    .exec()
+    .then((document) => {
+      if (document) {
+        medicineModel
+          .findOneAndUpdate(
+            { Name: Name },
+            { Quantity: newQuantity + document.Quantity }
+          )
+          .catch((err) => console.log(err));
+      } else {
+        const newMed = new medicineModel({
+          Name: Name,
+          Quantity: newQuantity,
+          Price: Price,
+          ActiveIngredients: ActiveIngredients,
+          Sales: 0,
+        });
+        newMed.save().catch((err) => console.log(err));
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      return;
+    });
+  res.send(med);
+};
+
+const listMedicine = async (req, res) => {
+  const meds = await medicineModel.find(req.query);
+  res.send(meds);
+};
 
 const getMedicine = async (req, res) => {
-    const meds = await medicineModel.find({});
-    console.log(meds);
-    res.status(200).send(meds);
-}
-
+  const med = await medicineModel.findById(req.params.id);
+  res.send(med);
+};
 
 const updateMedicine = async (req, res) => {
-    var Name = req.body.Name;
-    var Price = req.body.Price;
-    var ActiveIngredients = req.body.ActiveIngredients;
-    medicineModel.findOneAndUpdate({ Name: Name }, { Price: Price, ActiveIngredients: ActiveIngredients })
-        .catch(err => console.log(err));
-    res.status(200).send("Medicine with name " + Name + " is updated successfully");
-}
+  var Name = req.body.Name;
+  var Price = req.body.Price;
+  var ActiveIngredients = req.body.ActiveIngredients;
+  medicineModel
+    .findOneAndUpdate(
+      { Name: Name },
+      { Price: Price, ActiveIngredients: ActiveIngredients }
+    )
+    .catch((err) => console.log(err));
+  res
+    .status(200)
+    .send("Medicine with name " + Name + " is updated successfully");
+};
 
 const deleteMedicine = async (req, res) => {
-    var Name = req.body.Name;
-    await medicineModel.findOne({Name: Name})
-    .then(async (document)=>{
-        if(document){
-            res.status(200).send("Medicine with name " + Name + " is deleted successfully");
-            await medicineModel.deleteOne({ Name: Name })
-        }
-        else{
-            res.status(404).send("Medicine with name "+ Name+" is not found");
-        }
+  var Name = req.body.Name;
+  await medicineModel
+    .findOne({ Name: Name })
+    .then(async (document) => {
+      if (document) {
+        res
+          .status(200)
+          .send("Medicine with name " + Name + " is deleted successfully");
+        await medicineModel.deleteOne({ Name: Name });
+      } else {
+        res.status(404).send("Medicine with name " + Name + " is not found");
+      }
     })
-    .catch ((error) =>{
-        console.error(error);
-        return;
+    .catch((error) => {
+      console.error(error);
+      return;
     });
-}
-const searchMedicine = async (req, res) => {
-    try {
-      const query = { name: req.body};
-      res.send( await medicineModel.find(query));
-    } catch (e) {
-      res.status(400).send(e);
-    }
-  };
+};
 
-  const filterMedicine = async (req, res) => {
-    try {
-        await medicineModel.find({}).select({ medicalUse: 1, _id: 0 });
-    } catch (e) {
-      res.status(400).send(e);
-    }
-  };
-
-
-module.exports = { addMedicine, getMedicine, updateMedicine, deleteMedicine, searchMedicine, filterMedicine };
+module.exports = {
+  addMedicine,
+  listMedicine,
+  updateMedicine,
+  deleteMedicine,
+  getMedicine,
+};

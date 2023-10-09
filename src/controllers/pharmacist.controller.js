@@ -1,7 +1,5 @@
 const pharmacist = require("../Models/pharmacist.js");
 
-const { default: mongoose } = require("mongoose");
-
 const getPharmacist = async (req, res) => {
   try {
     res.send(await pharmacist.findById(req.params.id));
@@ -10,4 +8,4 @@ const getPharmacist = async (req, res) => {
   }
 };
 
-module.exports = { getPharmacist }
+module.exports = { getPharmacist };
