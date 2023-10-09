@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const user = require("./user");
 const Schema = mongoose.Schema;
+
 
 const pharmacistSchema = new Schema({
   hourlyRate: {
@@ -16,7 +18,7 @@ const pharmacistSchema = new Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'user',
     autoRemove: true,
   },
 });
