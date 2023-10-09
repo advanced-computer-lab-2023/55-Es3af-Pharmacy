@@ -5,4 +5,5 @@ const medicineRoutes = new Router()
 
 medicineRoutes.get("/medicine", medicinController.getMedicine);
 
+
 module.exports = {medicineRoutes};

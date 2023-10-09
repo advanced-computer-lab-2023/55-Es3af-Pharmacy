@@ -15,5 +15,9 @@ pharmacistRoutes.put("/updateMedicine", medicineController.updateMedicine);
 
 pharmacistRoutes.delete("/deleteMedicine", medicineController.deleteMedicine);
 
+pharmacistRoutes.get('/searchMedicine', medicineController.searchMedicine);
+
+pharmacistRoutes.get('/getMedicine', medicineController.filterMedicine);
+
 
 module.exports = { pharmacistRoutes };

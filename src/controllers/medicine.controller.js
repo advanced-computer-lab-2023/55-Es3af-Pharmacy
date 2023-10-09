@@ -66,6 +66,22 @@ const deleteMedicine = async (req, res) => {
         return;
     });
 }
+const searchMedicine = async (req, res) => {
+    try {
+      const query = { name: req.body};
+      res.send( await medicineModel.find(query));
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  };
+
+  const filterMedicine = async (req, res) => {
+    try {
+        await medicineModel.find({}).select({ medicalUse: 1, _id: 0 });
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  };
 
 
-module.exports = { addMedicine, getMedicine, updateMedicine, deleteMedicine };
+module.exports = { addMedicine, getMedicine, updateMedicine, deleteMedicine, searchMedicine, filterMedicine };

@@ -22,6 +22,10 @@ const medicineSchema = new Schema({
   Sales:{
     type: Number,
     required: true,
+  },
+  medicalUse:{
+    type: String,
+    reqired: true,
   }
 }, { timestamps: true });
 
