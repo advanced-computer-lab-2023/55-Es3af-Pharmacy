@@ -1,5 +1,4 @@
 const user = require("../Models/user.js");
-const { default: mongoose } = require("mongoose");
 
 const addAdmin = async (req, res) => {
   try {

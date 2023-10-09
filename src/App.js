@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 //mongoose.set('strictQuery', false);
+const cors = require("cors");
 require("dotenv").config();
 
 const { router } = require("../src/routes/index");
@@ -16,10 +17,6 @@ mongoose
   .connect(MongoURI)
   .then(() => {
     console.log("MongoDB is now connected!");
-    // Starting server
-    app.listen(port, () => {
-      console.log(`Listening to requests on http://localhost:${port}`);
-    });
   })
   .catch((err) => console.log(err));
 
@@ -29,7 +26,10 @@ app.get("/home", (req, res) => {
 });
 
 // #Routing to userController here
-
+app.use(cors());
 app.use(express.json());
-
 app.use("/", router);
+
+app.listen(port, () => {
+  console.log(`Listening to requests on http://localhost:${port}`);
+});
