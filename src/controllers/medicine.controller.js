@@ -65,7 +65,16 @@ const deleteMedicine = async (req, res) => {
     await medicineModel.deleteOne({ Name: Name });
     res.status(200).send("Medicine with name " + Name + " is deleted successfully");
 }
-
+const searchMedicinebyName = async(req, res) => {
+    var Name = req.body.Name;
+    const Medicine = await medicineModel.findOne({ Name: Name });
+    res.status(200).send(Medicine);
+}
+const filterMedicinebyUse = async(req, res) => {
+    var MedicalUse = req.body.MedicalUse;
+    const Medicines = await medicineModel.find({ MedicalUse: MedicalUse })
+    res.status(200).send(Medicines);
+}
 
 module.exports = {
   addMedicine,
