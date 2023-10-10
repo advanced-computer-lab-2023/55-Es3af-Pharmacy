@@ -1,17 +1,17 @@
-const userModel = require('../Models/PharmacistRequests.js');
+const pharmacistModel = require('../Models/PharmacistRequests.js');
 const pharmacistModel = require('../Models/pharmacist.js')
 const { default: mongoose } = require('mongoose');
 
 const requestPharmacist = async(req,res) => {
-    userModel.findOne({username: req.body.username})
+    pharmacistModel.findOne({username: req.body.username})
     .exec()
     .then((result) => {
         if(Object.keys(result).length === 0){
-            userModel.findOne({email: req.body.email})
+            pharmacistModel.findOne({email: req.body.email})
             .exec()
             .then((result2)=>{
                 if(Object.keys(result2).length === 0){
-                    const newUser= new userModel({
+                    const newUser= new pharmacistModel({
                         username: req.body.username,
                         name: req.body.name,
                         email: req.body.email,
@@ -20,7 +20,7 @@ const requestPharmacist = async(req,res) => {
                         type:req.body.type,
                        });
                        newUser.save().catch(err => console.log(err));
-                       userModel.findOne({username: req.body.username})
+                       pharmacistModel.findOne({username: req.body.username})
                            .exec()
                            .then((result))
                            .catch((err) => {console.error(err)})
@@ -47,5 +47,13 @@ const requestPharmacist = async(req,res) => {
     })
     .catch((err) => {console.error(err)})
  }
+ 
+const listRequests = async (req, res) => {
+    try {
+      res.send(await pharmacistModel.find());
+    } catch (e) {
+      res.status(400).send(e);
+    }
+  };
 
-module.exports = {requestPharmacist};
+module.exports = {requestPharmacist, listRequests};
