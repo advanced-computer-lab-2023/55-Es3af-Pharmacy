@@ -55,5 +55,14 @@ const deleteMedicine = async (req, res) => {
     res.status(200).send("Medicine with name " + Name + " is deleted successfully");
 }
 
+const searchMedicinebyName = async (req, res) => {
+    var Name = req.body.Name;
+    
+    
+
+
+
+}
+
 
 module.exports = { addMedicine, getMedicine, updateMedicine, deleteMedicine };
