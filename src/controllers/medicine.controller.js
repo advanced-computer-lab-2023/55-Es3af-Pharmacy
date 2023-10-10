@@ -5,7 +5,7 @@ const addMedicine = async (req, res) => {
   var newQuantity = req.body.Quantity;
   var Price = req.body.Price;
   var ActiveIngredients = req.body.ActiveIngredients;
-
+  var medicalUse=req.body.medicalUse;
   const med = medicineModel
     .findOne({ Name: Name })
     .exec()
@@ -17,6 +17,7 @@ const addMedicine = async (req, res) => {
             { Quantity: newQuantity + document.Quantity }
           )
           .catch((err) => console.log(err));
+          res.send("Medicine with name "+Name+" is already in the database; quantity updated successfully");
       } else {
         const newMed = new medicineModel({
           Name: Name,
@@ -24,7 +25,9 @@ const addMedicine = async (req, res) => {
           Price: Price,
           ActiveIngredients: ActiveIngredients,
           Sales: 0,
+          medicalUse:medicalUse
         });
+        res.send("Medicine with name "+Name+" is added successfully");
         newMed.save().catch((err) => console.log(err));
       }
     })
@@ -32,7 +35,6 @@ const addMedicine = async (req, res) => {
       console.error(error);
       return;
     });
-  res.send(med);
 };
 
 const listMedicine = async (req, res) => {
@@ -62,18 +64,54 @@ const updateMedicine = async (req, res) => {
 
 const deleteMedicine = async (req, res) => {
     var Name = req.body.Name;
-    await medicineModel.deleteOne({ Name: Name });
-    res.status(200).send("Medicine with name " + Name + " is deleted successfully");
-}
+    await medicineModel
+      .findOne({ Name: Name })
+      .then(async (document) => {
+        if (document) {
+          res
+            .status(200)
+            .send("Medicine with name " + Name + " is deleted successfully");
+          await medicineModel.deleteOne({ Name: Name });
+        } else {
+          res.status(404).send("Medicine with name " + Name + " is not found");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        return;
+      });
+  };
 const searchMedicinebyName = async(req, res) => {
     var Name = req.body.Name;
-    const Medicine = await medicineModel.findOne({ Name: Name });
-    res.status(200).send(Medicine);
+    const Medicine = await medicineModel.find({ Name: Name })
+    .exec()
+    .then((document) => {
+      if (document) {
+        res.status(200).send(Medicine);
+      } else {
+        res.status(404).send("Medicine with name "+Name+"is not found");
+    }
+})
+.catch((error) => {
+    console.error(error);
+    return;
+  });
 }
 const filterMedicinebyUse = async(req, res) => {
-    var MedicalUse = req.body.MedicalUse;
-    const Medicines = await medicineModel.find({ MedicalUse: MedicalUse })
-    res.status(200).send(Medicines);
+    var medicalUse = req.body.medicalUse;
+    const Medicines = await medicineModel.find({ medicalUse: medicalUse })
+    .exec()
+    .then((document) => {
+        if (document) {
+          res.status(200).send(Medicines);
+        } else {
+          res.status(404).send("Medicine used to treat "+medicalUse+" is not found");
+      }
+  })
+  .catch((error) => {
+      console.error(error);
+      return;
+    });
 }
 
 module.exports = {
@@ -82,4 +120,6 @@ module.exports = {
   updateMedicine,
   deleteMedicine,
   getMedicine,
+  searchMedicinebyName,
+  filterMedicinebyUse
 };
