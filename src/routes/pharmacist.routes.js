@@ -1,10 +1,9 @@
-const { Router } = require('express')
-const pharmacistController = require('../controllers/pharmacist.controller')
+const { Router } = require("express");
 
-const pharmacistRoutes = new Router()
+const pharmacistController = require("../controllers/pharmacist.controller");
 
+const pharmacistRoutes = new Router();
 
-pharmacistRoutes.get('/:id', pharmacistController.getPharmacist)
-
+pharmacistRoutes.get("/:id", pharmacistController.getPharmacist);
 
 module.exports = { pharmacistRoutes };

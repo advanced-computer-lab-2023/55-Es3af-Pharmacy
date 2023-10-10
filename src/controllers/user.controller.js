@@ -1,15 +1,13 @@
-const user = require('../Models/user.js');
-const { default: mongoose } = require("mongoose");
+const user = require("../Models/user.js");
 
 const addAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
-    res.send(await user.create({ username, password, type: 'pharmacist' }));
+    res.send(await user.create({ username, password, type: "administrator" }));
   } catch (e) {
     res.status(400).send(e);
   }
 };
-
 
 const listUsers = async (req, res) => {
   try {
@@ -27,5 +25,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-
-module.exports = { addAdmin, deleteUser, listUsers};
+module.exports = { addAdmin, deleteUser, listUsers };

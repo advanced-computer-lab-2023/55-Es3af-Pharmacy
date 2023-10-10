@@ -1,15 +1,16 @@
-const { Router } = require('express')
-const medicinController = require('../controllers/medicine.controller')
+const { Router } = require("express");
+const medicineController = require("../controllers/medicine.controller");
 
-const medicineRoutes = new Router()
+const medicineRoutes = new Router();
 
-medicineRoutes.post("/addMedicine", medicinController.addMedicine);
+medicineRoutes.post("/", medicineController.addMedicine);
 
-medicineRoutes.get("/medicine", medicinController.getMedicine);
+medicineRoutes.put("/", medicineController.updateMedicine);
 
-medicineRoutes.put("/updateMedicine", medicinController.updateMedicine);
+medicineRoutes.get("/:id", medicineController.getMedicine);
 
-medicineRoutes.delete("/deleteMedicine", medicinController.deleteMedicine);
+medicineRoutes.get("/", medicineController.listMedicine);
 
+medicineRoutes.delete("/", medicineController.deleteMedicine);
 
-module.exports = {medicineRoutes};
+module.exports = { medicineRoutes };

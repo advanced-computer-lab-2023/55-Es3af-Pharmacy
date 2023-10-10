@@ -1,53 +1,64 @@
-const medicineModel = require('../Models/Medicine.js');
+const medicineModel = require("../Models/Medicine.js");
 
 const addMedicine = async (req, res) => {
-    var Name = req.body.Name;
-    var newQuantity = req.body.Quantity;
-    var Price = req.body.Price;
-    var ActiveIngredients = req.body.ActiveIngredients;
+  var Name = req.body.Name;
+  var newQuantity = req.body.Quantity;
+  var Price = req.body.Price;
+  var ActiveIngredients = req.body.ActiveIngredients;
 
-    medicineModel.findOne({ Name: Name })
-        .exec()
-        .then((document) => {
-            if (document) {
-                medicineModel.findOneAndUpdate({ Name: Name }, { Quantity: newQuantity + document.Quantity })
-                .catch(err => console.log(err));
-            }
-            else {
-                const newMed = new medicineModel({
-                    Name: Name,
-                    Quantity: newQuantity,
-                    Price: Price,
-                    ActiveIngredients: ActiveIngredients,
-                    Sales: 0,
-                });
-                newMed.save().catch(err => console.log(err));
-            }
-        })
-    .catch ((error) =>{
-        console.error(error);
-        return;
-    }
-);
-console.log(Name, " is added successfully");
-res.status(200).send(Name + " is added successfully");
-}
+  const med = medicineModel
+    .findOne({ Name: Name })
+    .exec()
+    .then((document) => {
+      if (document) {
+        medicineModel
+          .findOneAndUpdate(
+            { Name: Name },
+            { Quantity: newQuantity + document.Quantity }
+          )
+          .catch((err) => console.log(err));
+      } else {
+        const newMed = new medicineModel({
+          Name: Name,
+          Quantity: newQuantity,
+          Price: Price,
+          ActiveIngredients: ActiveIngredients,
+          Sales: 0,
+        });
+        newMed.save().catch((err) => console.log(err));
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      return;
+    });
+  res.send(med);
+};
+
+const listMedicine = async (req, res) => {
+  const meds = await medicineModel.find(req.query);
+  res.send(meds);
+};
 
 const getMedicine = async (req, res) => {
-    const meds = await medicineModel.find({});
-    console.log(meds);
-    res.status(200).send(meds);
-}
-
+  const med = await medicineModel.findById(req.params.id);
+  res.send(med);
+};
 
 const updateMedicine = async (req, res) => {
-    var Name = req.body.Name;
-    var Price = req.body.Price;
-    var ActiveIngredients = req.body.ActiveIngredients;
-    medicineModel.findOneAndUpdate({ Name: Name }, { Price: Price, ActiveIngredients: ActiveIngredients })
-        .catch(err => console.log(err));
-    res.status(200).send("Medicine with name " + Name + " is updated successfully");
-}
+  var Name = req.body.Name;
+  var Price = req.body.Price;
+  var ActiveIngredients = req.body.ActiveIngredients;
+  medicineModel
+    .findOneAndUpdate(
+      { Name: Name },
+      { Price: Price, ActiveIngredients: ActiveIngredients }
+    )
+    .catch((err) => console.log(err));
+  res
+    .status(200)
+    .send("Medicine with name " + Name + " is updated successfully");
+};
 
 const deleteMedicine = async (req, res) => {
     var Name = req.body.Name;
@@ -55,14 +66,11 @@ const deleteMedicine = async (req, res) => {
     res.status(200).send("Medicine with name " + Name + " is deleted successfully");
 }
 
-const searchMedicinebyName = async (req, res) => {
-    var Name = req.body.Name;
-    
-    
 
-
-
-}
-
-
-module.exports = { addMedicine, getMedicine, updateMedicine, deleteMedicine };
+module.exports = {
+  addMedicine,
+  listMedicine,
+  updateMedicine,
+  deleteMedicine,
+  getMedicine,
+};
