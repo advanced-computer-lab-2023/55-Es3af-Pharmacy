@@ -25,4 +25,5 @@ const deleteUser = async (req, res) => {
   }
 };
 
+
 module.exports = { addAdmin, deleteUser, listUsers };
