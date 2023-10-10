@@ -5,8 +5,10 @@ const pharmacistRequestsController = require("../controllers/PharmacistRequestsC
 const pharmacistRequestsRoutes = new Router();
 
 pharmacistRequestsRoutes.get(
-  "/listRequests",
+  "/",
   pharmacistRequestsController.listRequests
 );
+
+pharmacistRequestsRoutes.post("/newRequest", pharmacistRequestsController.requestPharmacist);
 
 module.exports = { pharmacistRequestsRoutes };
