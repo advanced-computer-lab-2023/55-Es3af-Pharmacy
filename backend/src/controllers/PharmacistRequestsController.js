@@ -2,13 +2,13 @@ const pharmacistRequestModel = require("../Models/PharmacistRequests.js");
 //const pharmacistModel = require("../Models/pharmacist.js");
 const { default: mongoose } = require("mongoose");
 
-const userModel = require('../Models/RequestDoctor.js');
+const userModel = require('../Models/PharmacistRequests.js');
 
 
 
 const pharmacistReq = async(req,res) => {
   try{
-      const newPharmacist = new doctorReqModel({
+      const newPharmacist = new pharmacistRequestModel({
           username: req.body.username,
           password: req.body.password,
           name: req.body.name,

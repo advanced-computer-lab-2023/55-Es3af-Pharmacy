@@ -6,9 +6,9 @@ const pharmacistRequestsRoutes = new Router();
 
 pharmacistRequestsRoutes.get(
   "/",
-  pharmacistRequestsController.listRequests
+  pharmacistRequestsController.getPharmacistReq
 );
 
-pharmacistRequestsRoutes.post("/newRequest", pharmacistRequestsController.requestPharmacist);
+pharmacistRequestsRoutes.post("/newRequest", pharmacistRequestsController.pharmacistReq);
 
 module.exports = { pharmacistRequestsRoutes };
