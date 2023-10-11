@@ -25,7 +25,7 @@ const pharmacistReq = async(req,res) => {
 }
 
 const getPharmacistReq = async (req, res) => {
-  //retrieve all Pharmacist requests from the database
+  //retrieve all Doctor requests from the database
   const PharmReq= await pharmacistRequestModel.find({});
   console.log(PharmReq);
   res.status(200).send(PharmReq);
