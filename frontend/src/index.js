@@ -1,16 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App";
-import AddMedicine from "./components/add-medicine";
-// import AddAdmin from "./components/add-admin";
-// import UsersList from "./components/list-users";
-// import PharmacistRequestList from "./components/pharmacist-requests-list";
+import AdminPage from "./components/admin";
+import PharmacistPage from "./components/pharmacist";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
 root.render(
-  <React.StrictMode>
-    <AddMedicine />
-  </React.StrictMode>
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+
+      <Route path="/admin/*" element={<AdminPage />} />
+
+      <Route path="/pharmacist/*" element={<PharmacistPage />} />
+    </Routes>
+  </BrowserRouter>
 );

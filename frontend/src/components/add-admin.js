@@ -12,8 +12,8 @@ function AddAdmin() {
   const [user, setUser] = useState(initialUserState);
 
   const handleInputChange = (event) => {
-    const { name, password, value } = event.target;
-    setUser({ ...user, [name]: value, [password]: value });
+    const { name, value } = event.target;
+    setUser({ ...user, [name]: value });
   };
 
   async function addAdmin(e) {
