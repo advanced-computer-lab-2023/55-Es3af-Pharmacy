@@ -64,6 +64,10 @@ const updateMedicine = async (req, res) => {
 
 const deleteMedicine = async (req, res) => {
     var Name = req.body.Name;
+    if(Name==null){
+      res.status(400).send("Please Enter A Valid Medicine Name");
+      return;
+    }
     await medicineModel
       .findOne({ Name: Name })
       .then(async (document) => {
