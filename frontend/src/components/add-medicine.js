@@ -8,7 +8,7 @@ function AddMedicine() {
     Name: "",
     Quantity: 0,
     Price:0,
-    ActiveIngredients:[],
+    ActiveIngredients:[""],
     medicalUse:""
   };
 
