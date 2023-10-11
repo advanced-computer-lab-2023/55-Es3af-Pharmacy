@@ -11,7 +11,7 @@ function RegisterPatient() {
     password: "",
     dateOfBirth: "",
     gender: "",
-    mobile: 0,
+    mobile: "01XXXXXXXXX",
     emergencyContact: {
         name: "",
         mobile:0,
@@ -49,7 +49,7 @@ function RegisterPatient() {
               id="name"
               name="name"
               value={patient.name}
-              placeholder="name"
+              placeholder="Enter Name"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -62,7 +62,7 @@ function RegisterPatient() {
               id="email"
               name="email"
               value={patient.email}
-              placeholder="email"
+              placeholder="Enter Email"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -76,7 +76,7 @@ function RegisterPatient() {
               id="username"
               name="username"
               value={patient.username}
-              placeholder="Enter username"
+              placeholder="Enter Username"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -89,7 +89,7 @@ function RegisterPatient() {
               id="password"
               name="password"
               value={patient.password}
-              placeholder="Password"
+              placeholder="Enter Password"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -115,18 +115,18 @@ function RegisterPatient() {
               id="gender"
               name="gender"
               value={patient.gender}
-              placeholder="Enter gender"
+              placeholder="Enter Gender"
               onChange={handleInputChange}
             ></input>
           </div>
           <div className="form-group">
-            <label htmlFor="InputEmergencyContact">Mobile Number</label>
+            <label htmlFor="InputMobile">Mobile Number</label>
             <input
               type="tel"
               className="form-control"
               id="mobile"
               name="mobile"
-              value={patient.emergencyContact}
+              value={patient.number}
               placeholder="Enter Mobile Number"
               onChange={handleInputChange}
             ></input>
@@ -138,20 +138,20 @@ function RegisterPatient() {
               className="form-control"
               id="emergencyContact"
               name="emergencyContact"
-              value={patient.emergencyContact}
+              value={patient.emergencyContact.name}
               placeholder="Enter Emergency Contact Name"
               onChange={handleInputChange}
             ></input>
           </div>
 
           <div className="form-group">
-            <label htmlFor="InputEmergencyContact">Emergency Contact Number</label>
+            <label htmlFor="InputEmergencyContactNo">Emergency Contact Number</label>
             <input
               type="tel"
               className="form-control"
               id="emergencyContact"
               name="emergencyContact"
-              value={patient.emergencyContact}
+              value={patient.emergencyContact.mobile}
               placeholder="Enter Emergency Contact Number"
               onChange={handleInputChange}
             ></input>
