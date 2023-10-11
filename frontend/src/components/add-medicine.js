@@ -100,6 +100,7 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div>
+          <br></br>
           <button type="submit" className="btn btn-primary">
             Add Medicine
           </button>
