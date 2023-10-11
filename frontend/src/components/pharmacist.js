@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import AddMedicine from "./add-medicine";
 import MedicinesList from "./list-medicines";
+import Medicine from "./eachMedicine";
 
 function PharmacistPage() {
   return (
@@ -12,6 +13,10 @@ function PharmacistPage() {
       <Route path="/add-medicine" element={<AddMedicine />} />
 
       <Route path="/medicines" element={<MedicinesList />} />
+
+      <Route path="/medicines" element={<MedicinesList />} />
+
+      <Route path="/medicines-details" element={<Medicine />} />
     </Routes>
   );
 }
@@ -28,6 +33,11 @@ function PharmacistHome() {
         <div>
           <a href="/pharmacist/medicines" rel="noopener noreferrer">
             <button className="btn btn-primary"> view Medicines </button>
+          </a>
+        </div>
+        <div>
+          <a href="/pharmacist/medicines-details" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view Medicines Details</button>
           </a>
         </div>
       </header>
