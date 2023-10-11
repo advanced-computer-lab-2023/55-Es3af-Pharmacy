@@ -5,7 +5,7 @@ import "./index.css";
 import App from "./App";
 import AdminPage from "./components/admin";
 import PharmacistPage from "./components/pharmacist";
-
+import Medicine from "./components/eachMedicine";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
 root.render(
