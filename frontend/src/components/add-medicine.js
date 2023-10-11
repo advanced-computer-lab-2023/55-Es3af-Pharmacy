@@ -15,14 +15,11 @@ function AddMedicine() {
   const [med, setMed] = useState(initialUserState);
 
   const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    if (name === 'ActiveIngredients') {
-        // Split the value into an array of strings using a comma as the delimiter
-        const activeIngredientsList = value.split(',');
-        setMed({ ...med, [name]: activeIngredientsList });
-    } else {
-        setMed({ ...med, [name]: value });
-    }
+    const { name,  value } = event.target;
+    // const stringArray = ActiveIngredients.value.split(',');
+    // const cleanArray = stringArray.map(item => item.trim()).filter(item => item !== "");
+    // ActiveIngredients.value=cleanArray;
+    setMed({ ...med, [name]: value});
   };
 
   async function addMedicine(e) {

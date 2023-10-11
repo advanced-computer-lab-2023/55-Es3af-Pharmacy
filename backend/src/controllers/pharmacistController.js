@@ -17,5 +17,12 @@ const addPharm = async (req, res) => {
     res.status(400).send(e);
   }
 };
+const listPharmacists = async (req, res) => {
+  try {
+    res.send(await pharmacist.find());
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
 
-module.exports = { getPharmacist, addPharm };
+module.exports = { getPharmacist, addPharm , listPharmacists};

@@ -1,54 +1,61 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-import RequestService from "../services/requests.service";
+import MedsService from "../services/medicine.service";
 
-// mot complete
-const PharmacistRequestList = (props) => {
-  const [requests, setRequests] = useState([]);
+const MedicinesList = (props) => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    retrieveRequests();
+    retrieveMedicines();
   }, []);
 
-  const retrieveRequests = () => {
-    RequestService.getAll()
+  const retrieveMedicines = () => {
+    MedsService.getAll()
       .then((response) => {
         console.log(response.data);
-        setRequests(response.data);
+        setUsers(response.data);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-
   return (
     <div>
       <div className="App-header">
-        {requests.length > 0 ? (
-          requests.map((request) => {
+        {users.length > 0 ? (
+          users.map((user) => {
             return (
+
               <div
                 className="card"
-                key={request._id}
+                key={user._id}
                 style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
               >
+                
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {request.name}
+                   name: {user.Name}
                   </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                  price=  {user.Price}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    uses= {user.medicalUse}
+                  </h3>
+                  
                 </div>
               </div>
             );
           })
         ) : (
           <div>
-            <h2>No requests</h2>
+            <h2>No medicines</h2>
           </div>
         )}
       </div>
     </div>
   );
-};
 
-export default PharmacistRequestList;
+}
+export default MedicinesList;
