@@ -15,11 +15,14 @@ function AddMedicine() {
   const [med, setMed] = useState(initialUserState);
 
   const handleInputChange = (event) => {
-    const { Name, Quantity, Price, ActiveIngredients, medicalUse, value } = event.target;
-    const stringArray = ActiveIngredients.value.split(',');
-    const cleanArray = stringArray.map(item => item.trim()).filter(item => item !== "");
-    ActiveIngredients.value=cleanArray;
-    setMed({ ...med, [Name]: value, [Quantity]: value, [Price]: value, [ActiveIngredients]: value, [medicalUse]: value });
+    const { name, value } = event.target;
+    if (name === 'ActiveIngredients') {
+        // Split the value into an array of strings using a comma as the delimiter
+        const activeIngredientsList = value.split(',');
+        setMed({ ...med, [name]: activeIngredientsList });
+    } else {
+        setMed({ ...med, [name]: value });
+    }
   };
 
   async function addMedicine(e) {
@@ -41,7 +44,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputName">Name</label>
             <input
-              type="Name"
+              type="text"
               className="form-control"
               id="Name"
               name="Name"
@@ -54,7 +57,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputQuantity">Quantity</label>
             <input
-              type="Quantity"
+              type="number"
               className="form-control"
               id="Quantity"
               name="Quantity"
@@ -66,7 +69,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputPrice">Price</label>
             <input
-              type="Price"
+              type="number"
               className="form-control"
               id="Price"
               name="Price"
@@ -75,9 +78,9 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div><div className="form-group">
-            <label htmlFor="InputActiveIngredients">ActiveIngredients</label>
+            <label htmlFor="InputActiveIngredients">Active Ingredients</label>
             <input
-              type="ActiveIngredients"
+              type="text"
               className="form-control"
               id="ActiveIngredients"
               name="ActiveIngredients"
@@ -86,9 +89,9 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div><div className="form-group">
-            <label htmlFor="InputmedicalUse">medicalUse</label>
+            <label htmlFor="InputmedicalUse">Medical Use</label>
             <input
-              type="medicalUse"
+              type="text"
               className="form-control"
               id="medicalUse"
               name="medicalUse"
