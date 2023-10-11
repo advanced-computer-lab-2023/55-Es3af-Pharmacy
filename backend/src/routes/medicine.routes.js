@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const medicineController = require("../controllers/medicine.controller");
+const medicineController = require("../controllers/medicineController");
 
 const medicineRoutes = new Router();
 
@@ -10,6 +10,10 @@ medicineRoutes.put("/", medicineController.updateMedicine);
 medicineRoutes.get("/:id", medicineController.getMedicine);
 
 medicineRoutes.get("/", medicineController.listMedicine);
+
+medicineRoutes.get("/searchByName", medicineController.searchMedicinebyName);
+
+medicineRoutes.get("/filter", medicineController.filterMedicinebyUse);
 
 medicineRoutes.delete("/", medicineController.deleteMedicine);
 

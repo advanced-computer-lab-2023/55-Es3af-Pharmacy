@@ -5,7 +5,7 @@ import UserService from "../services/user.service";
 
 function AddAdmin() {
   const initialUserState = {
-    name: "",
+    username: "",
     password: "",
   };
 
@@ -37,9 +37,9 @@ function AddAdmin() {
             <input
               type="username"
               className="form-control"
-              id="name"
-              name="name"
-              value={user.name}
+              id="username"
+              name="username"
+              value={user.username}
               placeholder="Enter username"
               onChange={handleInputChange}
             ></input>

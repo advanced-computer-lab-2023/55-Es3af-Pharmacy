@@ -13,6 +13,12 @@ const MongoURI =
 const app = express();
 const port = process.env.PORT || "8000";
 
+
+const patientController = require('./controllers/patientController')
+const RegisterPatientController = require('./controllers/RegisterPatientController');
+const PharmacistRequestsController = require('./controllers/PharmacistRequestsController');
+const userController= require('./controllers/userController');
+
 mongoose
   .connect(MongoURI)
   .then(() => {
@@ -33,3 +39,11 @@ app.use("/", router);
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
+
+
+
+app.post("/registerPatient", RegisterPatientController.registerPatient)
+app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq)
+app.get("/users", userController.getUsers)
+app.get("/patients", patientController.getPatients)
+app.get("/getPharmReq", PharmacistRequestsController.getPharmacistReq)

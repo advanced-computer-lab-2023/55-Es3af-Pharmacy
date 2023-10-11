@@ -8,6 +8,10 @@ class UserService {
   addAdmin(user) {
     return http.post("/user/admin", user);
   }
+
+  deleteUser(id) {
+    return http.delete(`/user/${id}`);
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

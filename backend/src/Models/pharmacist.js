@@ -1,9 +1,22 @@
 const mongoose = require("mongoose");
-const user = require("./user");
+const userModel = require("./user");
 const Schema = mongoose.Schema;
 
 
 const pharmacistSchema = new Schema({
+
+  name: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  dateOfBirth: {
+    type: Date,
+    required: true
+  },
   hourlyRate: {
     type: Number,
     required: true,
@@ -15,13 +28,8 @@ const pharmacistSchema = new Schema({
   educationBackground: {
     type: String,
     required: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    autoRemove: true,
-  },
+  }
 });
 
-const pharmacist = mongoose.model("pharmacist", pharmacistSchema);
+const pharmacist= userModel.discriminator('pharmacist', pharmacistSchema);
 module.exports = pharmacist;
