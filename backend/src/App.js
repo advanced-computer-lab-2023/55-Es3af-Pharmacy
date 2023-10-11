@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const { router } = require("../src/routes/index");
 const MongoURI =
-  process.env.MONGO_URI ||
+  "mongodb+srv://55Es3af_Pharmacy:H2Wk2njprBuDdho2@55es3afpharmacy.ustsrxb.mongodb.net/" ||
   "mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority";
 
 //App variables
