@@ -1,40 +1,32 @@
 const pharmacistRequestModel = require("../Models/PharmacistRequests.js");
-//const pharmacistModel = require("../Models/pharmacist.js");
-const { default: mongoose } = require("mongoose");
 
-const userModel = require('../Models/PharmacistRequests.js');
-
-const pharmacistReq = async(req,res) => {
-  try{
-      const newPharmacist = new pharmacistRequestModel({
-          username: req.body.username,
-          password: req.body.password,
-          name: req.body.name,
-          email: req.body.email,
-          dateOfBirth: req.body.dateOfBirth,
-          hourlyRate: req.body.hourlyRate,
-          affiliation: req.body.affiliation,
-          educationBackground: req.body.educationBackground
-      });
-      newPharmacist.save().catch(err => console.log(err));
-      res.status(200).send("Request sent.");
+const pharmacistReq = async (req, res) => {
+  try {
+    const newPharmacist = new pharmacistRequestModel({
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name,
+      email: req.body.email,
+      dateOfBirth: req.body.dateOfBirth,
+      hourlyRate: req.body.hourlyRate,
+      affiliation: req.body.affiliation,
+      educationBackground: req.body.educationBackground,
+    });
+    newPharmacist.save().catch((err) => console.log(err));
+    res.status(200).send("Request sent.");
+  } catch (error) {
+    pharmacistReq.status(400).send({ error: error });
   }
-  catch(error){
-    pharmacistReq.status(400).send({error:error});
-  }
-}
+};
 
 const getPharmacistReq = async (req, res) => {
   //retrieve all Doctor requests from the database
-  const PharmReq= await pharmacistRequestModel.find({});
+  const PharmReq = await pharmacistRequestModel.find({});
   console.log(PharmReq);
   res.status(200).send(PharmReq);
- }
+};
 
-module.exports = {pharmacistReq, getPharmacistReq};
-
-
-
+module.exports = { pharmacistReq, getPharmacistReq };
 
 // const requestPharmacist = async (req, res) => {
 //   pharmacistRequestModel

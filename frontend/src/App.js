@@ -15,6 +15,11 @@ function App() {
             <button className="btn btn-primary"> Pharmacist </button>
           </a>
         </div>
+        <div>
+          <a href="/patient" rel="noopener noreferrer">
+            <button className="btn btn-primary"> Patient </button>
+          </a>
+        </div>
       </header>
     </div>
   );

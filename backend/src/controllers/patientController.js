@@ -1,5 +1,4 @@
 const patient = require("../Models/patient.js");
-const { default: mongoose } = require("mongoose");
 
 const getPatient = async (req, res) => {
   try {
@@ -11,9 +10,9 @@ const getPatient = async (req, res) => {
 
 const getPatients = async (req, res) => {
   //retrieve all patients from the database
-  const patients= await patient.find({});
+  const patients = await patient.find({});
   console.log(patients);
   res.status(200).send(patients);
- }
+};
 
-module.exports = { getPatient,getPatients }
+module.exports = { getPatient, getPatients };
