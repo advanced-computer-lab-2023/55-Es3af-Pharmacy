@@ -42,8 +42,6 @@ app.listen(port, () => {
 
 
 
-app.post("/registerPatient", RegisterPatientController.registerPatient)
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq)
 app.get("/users", userController.getUsers)
-app.get("/patients", patientController.getPatients)
 app.get("/getPharmReq", PharmacistRequestsController.getPharmacistReq)
