@@ -4,8 +4,6 @@ const { default: mongoose } = require("mongoose");
 
 const userModel = require('../Models/PharmacistRequests.js');
 
-
-
 const pharmacistReq = async(req,res) => {
   try{
       const newPharmacist = new pharmacistRequestModel({
@@ -27,7 +25,7 @@ const pharmacistReq = async(req,res) => {
 }
 
 const getPharmacistReq = async (req, res) => {
-  //retrieve all Doctor requests from the database
+  //retrieve all Pharmacist requests from the database
   const PharmReq= await pharmacistRequestModel.find({});
   console.log(PharmReq);
   res.status(200).send(PharmReq);
