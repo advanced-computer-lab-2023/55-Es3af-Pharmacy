@@ -4,8 +4,6 @@ const { default: mongoose } = require("mongoose");
 
 const userModel = require('../Models/PharmacistRequests.js');
 
-
-
 const pharmacistReq = async(req,res) => {
   try{
       const newPharmacist = new pharmacistRequestModel({

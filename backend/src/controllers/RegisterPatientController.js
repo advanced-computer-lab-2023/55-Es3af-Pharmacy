@@ -1,4 +1,4 @@
-const { error } = require("console");
+// const { error } = require("console");
 const userModel = require("../Models/patient.js");
 const patientModel = require("../Models/patient.js");
 const { default: mongoose } = require("mongoose");
@@ -15,8 +15,8 @@ const registerPatient = async(req,res) => {
           mobile: req.body.mobile,
           emergencyContact: req.body.emergencyContact
       });
-      newPatient.save();
-      return res.redirect('Patient Registered.');
+      newPatient.save().catch(err => console.log(err));
+      res.status(200).send("Patient Registered.");
   }
   catch(error){
       registerPatient.status(400).send({error:error});
