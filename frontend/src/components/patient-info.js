@@ -1,18 +1,18 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-import RequestService from "../services/requests.service";
+import PatientService from "../services/patient.service";
 
 // mot complete
-const PharmacistRequestList = (props) => {
+const PatientList = (props) => {
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
-    retrieveRequests();
+    retrievePatients();
   }, []);
 
-  const retrieveRequests = () => {
-    RequestService.getAll()
+  const retrievePatients = () => {
+    PatientService.getAll()
       .then((response) => {
         console.log(response.data);
         setRequests(response.data);
@@ -37,6 +37,12 @@ const PharmacistRequestList = (props) => {
                   <h3 className="card-title" style={{ color: "white" }}>
                     {request.name}
                   </h3>
+                  <h2 className="card-title" style={{ color: "white" }}>
+                    {request.gender}
+                  </h2>
+                  <h2 className="card-title" style={{ color: "white" }}>
+                    {request.dateOfBirth}
+                  </h2>
                 </div>
               </div>
             );
@@ -51,4 +57,4 @@ const PharmacistRequestList = (props) => {
   );
 };
 
-export default PharmacistRequestList;
+export default PatientList;
