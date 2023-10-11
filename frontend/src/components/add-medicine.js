@@ -41,7 +41,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputName">Name</label>
             <input
-              type="Name"
+              type="text"
               className="form-control"
               id="Name"
               name="Name"
@@ -54,7 +54,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputQuantity">Quantity</label>
             <input
-              type="Quantity"
+              type="number"
               className="form-control"
               id="Quantity"
               name="Quantity"
@@ -66,7 +66,7 @@ function AddMedicine() {
           <div className="form-group">
             <label htmlFor="InputPrice">Price</label>
             <input
-              type="Price"
+              type="number"
               className="form-control"
               id="Price"
               name="Price"
@@ -75,9 +75,9 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div><div className="form-group">
-            <label htmlFor="InputActiveIngredients">ActiveIngredients</label>
+            <label htmlFor="InputActiveIngredients">Active Ingredients</label>
             <input
-              type="ActiveIngredients"
+              type="text"
               className="form-control"
               id="ActiveIngredients"
               name="ActiveIngredients"
@@ -86,9 +86,9 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div><div className="form-group">
-            <label htmlFor="InputmedicalUse">medicalUse</label>
+            <label htmlFor="InputmedicalUse">Medical Use</label>
             <input
-              type="medicalUse"
+              type="text"
               className="form-control"
               id="medicalUse"
               name="medicalUse"
@@ -97,6 +97,7 @@ function AddMedicine() {
               onChange={handleInputChange}
             ></input>
           </div>
+          <br></br>
           <button type="submit" className="btn btn-primary">
             Add Medicine
           </button>
