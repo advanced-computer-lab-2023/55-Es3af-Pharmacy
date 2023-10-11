@@ -25,4 +25,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { addAdmin, deleteUser, listUsers };
+const getUsers = async (req, res) => {
+  //retrieve all users from the database
+  const users= await user.find({});
+  console.log(users);
+  res.status(200).send(users);
+ }
+
+module.exports = { addAdmin, deleteUser, listUsers, getUsers };

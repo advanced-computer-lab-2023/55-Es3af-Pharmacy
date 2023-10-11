@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const user = require("./user");
+const userModel = require("./user");
 const Schema = mongoose.Schema;
 
 
@@ -26,9 +26,9 @@ const pharmacistRequestSchema = new Schema({
     required: true,
   },
   
-  type: {
-    type: String, default: "pharmacist",
-  },
+  // type: {
+  //   type: String, default: "pharmacist",
+  // },
   
   hourlyRate: {
     type: Number,
@@ -42,11 +42,11 @@ const pharmacistRequestSchema = new Schema({
     type: String,
     required: true,
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user',
-    autoRemove: true,
-  },
+  // user: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'user',
+  //   autoRemove: true,
+  // },
   status: {
     type: String,
     enum : ["Pending", "Rejected"],
