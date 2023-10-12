@@ -29,14 +29,14 @@ const patientSchema = new Schema({
     type: String,
     required: true,
   },
-  emergencyContact: {
-    name: {
-      type: String,
-    },
-    mobile: {
-      type: String,
-    }
-  }
+  emergencyContactName: {
+    type: String,
+    required: true,
+  },
+  emergencyContactMobile: {
+    type: String,
+    required: true,
+  },
 });
 
 //const patient = mongoose.model("patient", patientSchema);
