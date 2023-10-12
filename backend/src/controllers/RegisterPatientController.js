@@ -1,4 +1,4 @@
-const patientModel = require("../Models/patient.js");
+const patientModel =require("../Models/patient.js");
 
 const registerPatient = async (req, res) => {
   try {
@@ -10,7 +10,8 @@ const registerPatient = async (req, res) => {
       dateOfBirth: req.body.dateOfBirth,
       gender: req.body.gender,
       mobile: req.body.mobile,
-      emergencyContact: req.body.emergencyContact,
+      emergencyContactName: req.body.emergencyContactName,
+      emergencyContactMobile: req.body.emergencyContactMobile,
     });
     newPatient.save().catch((err) => console.log(err));
     res.status(200).send("Patient Registered.");

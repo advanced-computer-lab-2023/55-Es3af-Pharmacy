@@ -21,6 +21,8 @@ root.render(
       <Route path="/pharmacist/*" element={<PharmacistPage />} />
 
       <Route path="/patient/*" element={<PatientPage />} />
+      <Route path="/pharmacist-requests/newRequest/*" element={<PharmacistReq />} />
+      <Route path="/patient/registerPatient/*" element={<RegisterPatient />} />
     </Routes>
   </BrowserRouter>
 );

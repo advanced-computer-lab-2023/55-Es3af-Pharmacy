@@ -1,32 +1,31 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import RegisterPatientService from "../services/RegisterPatientService";
+import PharmacistService from "../services/RequestPharmacistService";
 
-function RegisterPatient() {
+function PharmacistReq() {
   const initialUserState = {
     name: "",
     email: "",
     username: "",
     password: "",
     dateOfBirth: "",
-    gender: "",
-    mobile: "01XXXXXXXXX",
-    emergencyContactName: "",
-    emergencyContactMobile: "",
+    hourlyRate: "",
+    affiliation: "",
+    educationBackground: "",
   };
 
-  const [patient, setPatient] = useState (initialUserState);
+  const [pharma, setPharma] = useState (initialUserState);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setPatient({ ...patient, [name]: value });
+    setPharma({ ...pharma, [name]: value });
   };
 
-  async function registerPatient(e) {
+  async function pharmacistReq(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
-    RegisterPatientService.registerPatient(patient)
+    PharmacistService.pharmacistReq(pharma)
       .then((response) => {
         console.log(response.data);
       })
@@ -38,7 +37,7 @@ function RegisterPatient() {
   return (
     <div className="App">
       <header className="App-header">
-        <form className="App-header" onSubmit={registerPatient}>
+        <form className="App-header" onSubmit={pharmacistReq}>
         <div className="form-group">
             <label htmlFor="InputName">Name</label>
             <input
@@ -46,7 +45,7 @@ function RegisterPatient() {
               className="form-control"
               id="name"
               name="name"
-              value={patient.name}
+              value={pharma.name}
               placeholder="Enter Name"
               onChange={handleInputChange}
             ></input>
@@ -59,7 +58,7 @@ function RegisterPatient() {
               className="form-control"
               id="email"
               name="email"
-              value={patient.email}
+              value={pharma.email}
               placeholder="Enter Email"
               onChange={handleInputChange}
             ></input>
@@ -73,7 +72,7 @@ function RegisterPatient() {
               className="form-control"
               id="username"
               name="username"
-              value={patient.username}
+              value={pharma.username}
               placeholder="Enter Username"
               onChange={handleInputChange}
             ></input>
@@ -86,7 +85,7 @@ function RegisterPatient() {
               className="form-control"
               id="password"
               name="password"
-              value={patient.password}
+              value={pharma.password}
               placeholder="Enter Password"
               onChange={handleInputChange}
             ></input>
@@ -99,66 +98,55 @@ function RegisterPatient() {
               className="form-control"
               id="dateOfBirth"
               name="dateOfBirth"
-              value={patient.dateOfBirth}
+              value={pharma.dateOfBirth}
               placeholder="dateOfBirth"
               onChange={handleInputChange}
             ></input>
           </div>
 
           <div className="form-group">
-            <label htmlFor="InputGender">Gender</label>
+            <label htmlFor="InputHourlyRate">Hourly Rate</label>
             <input
-              type="text"
+              type="number"
               className="form-control"
-              id="gender"
-              name="gender"
-              value={patient.gender}
-              placeholder="Enter Gender"
+              id="hourlyRate"
+              name="hourlyRate"
+              value={pharma.hourlyRate}
+              placeholder="Enter Hourly Rate"
               onChange={handleInputChange}
             ></input>
           </div>
           <div className="form-group">
-            <label htmlFor="InputMobile">Mobile Number</label>
-            <input
-              type="tel"
-              className="form-control"
-              id="mobile"
-              name="mobile"
-              value={patient.number}
-              placeholder="Enter Mobile Number"
-              onChange={handleInputChange}
-            ></input>
-          </div>
-          <div className="form-group">
-            <label htmlFor="InputEmergencyContactName">Emergency Contact Name</label>
+            <label htmlFor="InputAffiliation">Affiliation</label>
             <input
               type="text"
               className="form-control"
-              id="emergencyContactName"
-              name="emergencyContactName"
-              value={patient.emergencyContactName}
-              placeholder="Enter Emergency Contact Name"
+              id="affiliation"
+              name="affiliation"
+              value={pharma.affiliation}
+              placeholder="Enter Affiliation"
               onChange={handleInputChange}
             ></input>
           </div>
 
           <div className="form-group">
-            <label htmlFor="InputEmergencyContactMobile">Emergency Contact Mobile</label>
+            <label htmlFor="InputEducationBackground">Education Background</label>
             <input
-              type="tel"
+              type="text"
               className="form-control"
-              id="emergencyContactMobile"
-              name="emergencyContactMobile"
-              value={patient.emergencyContactMobile}
-              placeholder="Enter Emergency Contact Mobile"
+              id="educationBackground"
+              name="educationBackground"
+              value={pharma.educationBackground}
+              placeholder="Enter Education Background"
               onChange={handleInputChange}
             ></input>
           </div>
+          
 
 
 
           <button type="submit" className="btn btn-primary">
-            Register
+            Request
           </button>
         </form>
       </header>
@@ -166,4 +154,4 @@ function RegisterPatient() {
   );
 }
 
-export default RegisterPatient;
+export default PharmacistReq;
