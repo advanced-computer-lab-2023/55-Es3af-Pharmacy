@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import AdminPage from "./components/admin";
 import PharmacistPage from "./components/pharmacist";
+import PatientPage from "./components/patient";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
@@ -16,6 +17,8 @@ root.render(
       <Route path="/admin/*" element={<AdminPage />} />
 
       <Route path="/pharmacist/*" element={<PharmacistPage />} />
+
+      <Route path="/patient/*" element={<PatientPage />} />
     </Routes>
   </BrowserRouter>
 );
