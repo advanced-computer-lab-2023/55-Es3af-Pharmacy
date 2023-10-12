@@ -86,7 +86,7 @@ const deleteMedicine = async (req, res) => {
       });
   };
 const searchMedicinebyName = async(req, res) => {
-    var Name = req.body.Name;
+/*     var Name = req.body.Name;
     const Medicine = await medicineModel.find({ Name: Name })
     .exec()
     .then((document) => {
@@ -99,10 +99,25 @@ const searchMedicinebyName = async(req, res) => {
 .catch((error) => {
     console.error(error);
     return;
-  });
+  }); */
+  try {
+    const Name = req.body.Name;
+    const medicine = await medicineModel
+      .find({ Name: Name })
+      .exec();
+
+    if (medicine) {
+      res.status(200).send(medicine);
+    } else {
+      res.status(404).send("Medicine with name " + Name + " is not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 }
 const filterMedicinebyUse = async(req, res) => {
-    var medicalUse = req.body.medicalUse;
+/*     var medicalUse = req.body.medicalUse;
     const Medicines = await medicineModel.find({ medicalUse: medicalUse })
     .exec()
     .then((document) => {
@@ -115,7 +130,22 @@ const filterMedicinebyUse = async(req, res) => {
   .catch((error) => {
       console.error(error);
       return;
-    });
+    }); */
+    try {
+      const medicalUse = req.body.medicalUse;
+      const Medicines = await medicineModel
+        .find({ medicalUse: medicalUse })
+        .exec();
+  
+      if (Medicines.length > 0) {
+        res.status(200).send(Medicines);
+      } else {
+        res.status(404).send("Medicine used to treat " + medicalUse + " is not found");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
 }
 
 module.exports = {
