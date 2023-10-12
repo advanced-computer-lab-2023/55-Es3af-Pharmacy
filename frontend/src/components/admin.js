@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import AddAdmin from "./add-admin";
 import UsersList from "./list-users";
 import PharmacistRequestList from "./pharmacist-requests-list";
+import PharmacistList from "./pharmacist-info";
+import PatientList from "./patient-info";
 
 function AdminPage() {
   return (
@@ -15,6 +17,12 @@ function AdminPage() {
       <Route path="/users" element={<UsersList />} />
 
       <Route path="/requests" element={<PharmacistRequestList />} />
+
+      <Route path="/pharmacistList" element={<PharmacistList />} />
+
+      <Route path="/patientList" element={<PatientList />} />
+
+
     </Routes>
   );
 }
@@ -36,6 +44,16 @@ function AdminHome() {
         <div>
           <a href="/admin/requests" rel="noopener noreferrer">
             <button className="btn btn-primary"> view requests </button>
+          </a>
+        </div>
+        <div>
+          <a href="/admin/pharmacistList" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view pharmacists </button>
+          </a>
+        </div>
+        <div>
+          <a href="/admin/patientList" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view patients </button>
           </a>
         </div>
       </header>

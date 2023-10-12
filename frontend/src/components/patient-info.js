@@ -49,7 +49,7 @@ const PatientList = (props) => {
           })
         ) : (
           <div>
-            <h2>No requests</h2>
+            <h2>No patients</h2>
           </div>
         )}
       </div>

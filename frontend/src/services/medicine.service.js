@@ -17,7 +17,7 @@ class MedsService {
   }
 
   updateMedicine(Name, Price, ActiveIngredients) {
-    return http.put("/medicine", { Name, Price, ActiveIngredients });
+    return http.put("/medicine/update", { Name, Price, ActiveIngredients });
   }
 
   deleteMedicine(Name) {

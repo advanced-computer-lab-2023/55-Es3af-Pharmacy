@@ -48,6 +48,9 @@ const UsersList = (props) => {
                   <h3 className="card-title" style={{ color: "white" }}>
                     {user.username}
                   </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    {user.type}
+                  </h3>
                   <button
                     style={{ backgroundColor: "red" }}
                     name={user._id}

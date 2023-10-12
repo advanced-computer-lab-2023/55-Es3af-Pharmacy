@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import PatientService from "../services/RegisterPatientService";
+import RegisterPatientService from "../services/RegisterPatientService";
 
 function RegisterPatient() {
   const initialUserState = {
@@ -28,7 +28,7 @@ function RegisterPatient() {
   async function registerPatient(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
-    PatientService.registerPatient(patient)
+    RegisterPatientService.registerPatient(patient)
       .then((response) => {
         console.log(response.data);
       })

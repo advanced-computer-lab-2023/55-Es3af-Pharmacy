@@ -5,7 +5,7 @@ const medicineRoutes = new Router();
 
 medicineRoutes.post("/", medicineController.addMedicine);
 
-medicineRoutes.put("/", medicineController.updateMedicine);
+medicineRoutes.put("/update", medicineController.updateMedicine);
 
 //medicineRoutes.get("/:id", medicineController.getMedicine);
 

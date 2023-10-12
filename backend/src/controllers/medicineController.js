@@ -48,13 +48,15 @@ const getMedicine = async (req, res) => {
 };
 
 const updateMedicine = async (req, res) => {
-  var Name = req.body.Name;
-  var Price = req.body.Price;
-  var ActiveIngredients = req.body.ActiveIngredients;
+  const {Name, Price, ActiveIngredients}= req.body;
+ // var Name = req.body.Name;
+  //var Price = req.body.Price;
+  //var ActiveIngredients = req.body.ActiveIngredients;
   medicineModel
     .findOneAndUpdate(
       { Name: Name },
-      { Price: Price, ActiveIngredients: ActiveIngredients }
+      { Price: Price},
+      { ActiveIngredients: ActiveIngredients }
     )
     .catch((err) => console.log(err));
   res

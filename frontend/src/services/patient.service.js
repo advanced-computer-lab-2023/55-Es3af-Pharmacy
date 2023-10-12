@@ -2,7 +2,7 @@ import http from "./http-common";
 
 class PatientService {
     getAll() {
-      return http.get("/patients");
+      return http.get("/patient/patients");
     }
 }  
 
