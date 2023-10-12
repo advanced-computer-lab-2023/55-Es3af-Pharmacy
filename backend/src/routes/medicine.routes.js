@@ -7,7 +7,7 @@ medicineRoutes.post("/", medicineController.addMedicine);
 
 medicineRoutes.put("/", medicineController.updateMedicine);
 
-medicineRoutes.get("/:id", medicineController.getMedicine);
+//medicineRoutes.get("/:id", medicineController.getMedicine);
 
 medicineRoutes.get("/", medicineController.listMedicine);
 
