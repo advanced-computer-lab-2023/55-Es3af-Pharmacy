@@ -5,20 +5,22 @@ import MedsService from "../services/medicine.service";
 
 function SearchMedicine() {
   const initialUserState = {
-    username: ""
+    Name: ""
   };
 
-  const [user, setUser] = useState(initialUserState);
+  const [medicine, setMedicine] = useState(initialUserState);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setUser({ ...user, [name]: value });
+    setMedicine({ ...medicine, [name]: value });
   };
 
   async function search(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
-    MedsService.searchByName(user.Name)
+
+    const query= medicine.Name;
+    MedsService.search(query)
       .then((response) => {
         console.log(response.data);
       })
@@ -34,19 +36,19 @@ function SearchMedicine() {
           <div className="form-group">
             <label htmlFor="InputUsername">medicine name</label>
             <input
-              type="username"
+              type="string"
               className="form-control"
-              id="username"
-              name="username"
-              value={user.username}
-              placeholder="Enter username"
+              id="Name"
+              name="Name"
+              value={medicine.Name}
+              placeholder="enter medicine name"
               onChange={handleInputChange}
             ></input>
           </div>
           <button type="submit" className="btn btn-primary">
             Search
           </button>
-
+            
           
         </form>
       </header>

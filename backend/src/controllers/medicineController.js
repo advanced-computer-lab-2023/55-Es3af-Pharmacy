@@ -38,6 +38,7 @@ const addMedicine = async (req, res) => {
 };
 
 const listMedicine = async (req, res) => {
+  console.log('ana geet '+ req.query.Name);
   const meds = await medicineModel.find(req.query);
   res.send(meds);
 };
@@ -49,6 +50,7 @@ const getMedicine = async (req, res) => {
 
 const updateMedicine = async (req, res) => {
   const {Name, Price, ActiveIngredients}= req.body;
+  
  // var Name = req.body.Name;
   //var Price = req.body.Price;
   //var ActiveIngredients = req.body.ActiveIngredients;
@@ -103,7 +105,8 @@ const searchMedicinebyName = async(req, res) => {
     return;
   }); */
   try {
-    const Name = req.body.Name;
+    
+    var Name = req.body.Name;
     const medicine = await medicineModel
       .find({ Name: Name })
       .exec();

@@ -28,7 +28,7 @@ const deleteUser = async (req, res) => {
 const getUsers = async (req, res) => {
   //retrieve all users from the database
   const users= await user.find({});
-  console.log(users);
+  //console.log(users);
   res.status(200).send(users);
  }
 
