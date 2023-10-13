@@ -22,6 +22,7 @@ function AddAdmin() {
     UserService.addAdmin(user)
       .then((response) => {
         console.log(response.data);
+        
       })
       .catch((e) => {
         console.log(e);

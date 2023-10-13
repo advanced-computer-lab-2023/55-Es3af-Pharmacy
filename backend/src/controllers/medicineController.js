@@ -38,7 +38,6 @@ const addMedicine = async (req, res) => {
 };
 
 const listMedicine = async (req, res) => {
-  console.log('ana geet '+ req.query.Name);
   const meds = await medicineModel.find(req.query);
   res.send(meds);
 };

@@ -3,12 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import MedsService from "../services/medicine.service";
 
-function SearchMedicine() {
+function FilterMedicine() {
   const initialUserState = {
     Name: "",
-    Quantity:0,
-    ActiveIngredients: [""],
-    Price: 0
+    medicalUse: ""
+    
   };
 
   const [medicine, setMedicine] = useState(initialUserState);
@@ -23,10 +22,10 @@ function SearchMedicine() {
     e.preventDefault();
     // no need to console log response data, only for testing
   
-    const query= medicine.Name;
-    MedsService.search(query)
+    const query= medicine.medicalUse;
+    MedsService.filter(query)
       .then((response) => {
-        console.log(response.data[0]);
+        console.log(response.data);
         setMedicine(response.data[0]);
       })
       .catch((e) => {
@@ -43,10 +42,10 @@ function SearchMedicine() {
             <input
               type="string"
               className="form-control"
-              id="Name"
-              name="Name"
-              value={medicine.Name}
-              placeholder="enter medicine name"
+              id="medicalUse"
+              name="medicalUse"
+              value={medicine.medicalUse}
+              placeholder="enter medical use"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -57,12 +56,6 @@ function SearchMedicine() {
             <p>results</p>
             <p>name= </p>
             {medicine.Name}
-            <p>ActiveIngredients= </p>
-            {medicine.ActiveIngredients}
-            <p>Quantity= </p>
-            {medicine.Quantity}
-            <p>Price= </p>
-            {medicine.Price}
 
             
           
@@ -72,4 +65,4 @@ function SearchMedicine() {
   );
 }
 
-export default SearchMedicine;
+export default FilterMedicine;

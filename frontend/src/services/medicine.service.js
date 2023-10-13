@@ -6,7 +6,10 @@ class MedsService {
 
   search(query){
     
-    return http.get("/medicine/?Name", query);
+    return http.get(`/medicine?Name=${query}`);
+  }
+  filter(query){
+    return http.get(`/medicine?medicalUse=${query}`);
   }
 
   async searchByName(medicine) {

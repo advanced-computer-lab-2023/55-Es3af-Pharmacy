@@ -9,14 +9,15 @@ import PatientPage from "./components/patient";
 import RegisterPatient from "./components/RegisterPatient";
 import SearchMedicine from "./components/search-medicine";
 import EditMedicine from "./components/edit-medicine";
-import PharmacistReq from "./components/RequestPharmacist"
+import PharmacistReq from "./components/RequestPharmacist";
+import FilterMedicine from "./components/filter-medicine";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<SearchMedicine />} />
+      <Route path="/" element={<FilterMedicine />} />
 
       <Route path="/admin/*" element={<AdminPage />} />
 
