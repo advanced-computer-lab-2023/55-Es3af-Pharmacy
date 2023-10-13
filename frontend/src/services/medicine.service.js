@@ -4,8 +4,13 @@ class MedsService {
     return http.get("/medicine");
   }
 
-  async searchByName(Name) {
-    return http.get("/medicine/searchByName", Name);
+  search(query){
+    
+    return http.get("/medicine/?Name", query);
+  }
+
+  async searchByName(medicine) {
+    return http.get("/medicine/searchByName", medicine);
   }
 
   filterMedicinebyUse(medicinalUse) {
@@ -16,8 +21,8 @@ class MedsService {
     return http.post("/medicine", med);
   }
 
-  updateMedicine(Name, Price, ActiveIngredients) {
-    return http.put("/medicine/update", { Name, Price, ActiveIngredients });
+  updateMedicine(medicine) {
+    return http.put("/medicine/update", medicine);
   }
 
   deleteMedicine(Name) {

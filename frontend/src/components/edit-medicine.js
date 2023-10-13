@@ -14,15 +14,19 @@ function EditMedicine() {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setMedicine({ ...medicine, [name]: value });
-  };
-
+    if(name=== 'ActiveIngredients'){
+      const activeIngredientsList = value.split(',');
+      setMedicine({ ...medicine, [name]: activeIngredientsList});
+    }else{
+      setMedicine({...medicine, [name]:value});
+  }
+  }
   async function update(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
     MedsService.updateMedicine(medicine)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -36,7 +40,7 @@ function EditMedicine() {
           <div className="form-group">
             <label htmlFor="InputUsername">medicine name</label>
             <input
-              type="username"
+              type="string"
               className="form-control"
               id="Name"
               name="Name"
@@ -61,7 +65,7 @@ function EditMedicine() {
           <div className="form-group">
             <label htmlFor="InputPassword1">active ingredients</label>
             <input
-              type="username"
+              type="string"
               className="form-control"
               id="ActiveIngredients"
               name="ActiveIngredients"
