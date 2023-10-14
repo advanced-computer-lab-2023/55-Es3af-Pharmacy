@@ -4,34 +4,17 @@ import { useState } from "react";
 import MedsService from "../services/medicine.service";
 
 function FilterMedicine() {
-  const initialUserState = {
-    Name: "",
-    medicalUse: ""
-    
+  const [results, setResults] = useState([]);
+
+  const search = async (event) => {
+    event.preventDefault();
+
+    const query = event.target.medicalUse.value;
+
+    const response = await MedsService.filter(query);
+
+    setResults(response.data);
   };
-
-  const [medicine, setMedicine] = useState(initialUserState);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setMedicine({ ...medicine, [name]: value });
-  };
-
-  async function search(e) {
-
-    e.preventDefault();
-    // no need to console log response data, only for testing
-  
-    const query= medicine.medicalUse;
-    MedsService.filter(query)
-      .then((response) => {
-        console.log(response.data);
-        setMedicine(response.data[0]);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  }
 
   return (
     <div className="App">
@@ -44,20 +27,36 @@ function FilterMedicine() {
               className="form-control"
               id="medicalUse"
               name="medicalUse"
-              value={medicine.medicalUse}
               placeholder="enter medical use"
-              onChange={handleInputChange}
-            ></input>
+              
+            />
           </div>
           <button type="submit" className="btn btn-primary">
             Search
           </button>
-            
-            <p>results</p>
-            <p>name= </p>
-            {medicine.Name}
-
-            
+          <p>results</p>
+          {results.length > 0 ? (
+          results.map((result) => {
+            return (
+              <div
+                className="card"
+                key={result._id}
+                style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
+              >
+                <div className="card-body">
+                  <h3 className="card-title" style={{ color: "white" }}>
+                   name: {result.Name}
+                  </h3>
+                  <p style={{ color: "white" }}>price= {result.Price}</p>
+                  </div>
+              </div>
+            );
+          })
+        ) : (
+          <div>
+            <h2>No medicines found</h2>
+          </div>
+        )}
           
         </form>
       </header>
