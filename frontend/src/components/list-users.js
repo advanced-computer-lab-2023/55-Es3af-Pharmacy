@@ -49,7 +49,7 @@ const UsersList = (props) => {
                     {user.username}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.type}
+                    {user.__t}
                   </h3>
                   <button
                     style={{ backgroundColor: "red" }}

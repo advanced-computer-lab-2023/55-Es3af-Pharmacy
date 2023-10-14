@@ -55,8 +55,7 @@ function SearchMedicine() {
           </button>
             
             <p>results</p>
-            <p>name= </p>
-            {medicine.Name}
+            
             <p>ActiveIngredients= </p>
             {medicine.ActiveIngredients}
             <p>Quantity= </p>

@@ -6,7 +6,8 @@ import UsersList from "./list-users";
 import PharmacistRequestList from "./pharmacist-requests-list";
 import PharmacistList from "./pharmacist-info";
 import PatientList from "./patient-info";
-
+import SearchMedicine from "./search-medicine"
+import FilterMedicine from "./filter-medicine";
 function AdminPage() {
   return (
     <Routes>
@@ -21,6 +22,14 @@ function AdminPage() {
       <Route path="/pharmacistList" element={<PharmacistList />} />
 
       <Route path="/patientList" element={<PatientList />} />
+
+      <Route path="/searchMedicine" element={<SearchMedicine />} />
+
+      <Route path="/filterMedicine" element={<FilterMedicine />} />
+
+
+
+
 
 
     </Routes>
@@ -56,6 +65,18 @@ function AdminHome() {
             <button className="btn btn-primary"> view patients </button>
           </a>
         </div>
+        <div>
+          <a href="/admin/searchMedicine" rel="noopener noreferrer">
+            <button className="btn btn-primary"> search medicine </button>
+          </a>
+        </div>
+
+        <div>
+          <a href="/admin/filterMedicine" rel="noopener noreferrer">
+            <button className="btn btn-primary"> filter medicine </button>
+          </a>
+        </div>
+
       </header>
     </div>
   );

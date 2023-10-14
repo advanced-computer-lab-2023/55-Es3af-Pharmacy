@@ -17,7 +17,7 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<FilterMedicine />} />
+      <Route path="/" element={<App />} />
 
       <Route path="/admin/*" element={<AdminPage />} />
 
