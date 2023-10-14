@@ -35,13 +35,19 @@ const PatientList = (props) => {
               >
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {request.name}
+                  Patient Name:  {request.name}
                   </h3>
                   <h2 className="card-title" style={{ color: "white" }}>
-                    {request.gender}
+                  Gender:  {request.gender}
                   </h2>
                   <h2 className="card-title" style={{ color: "white" }}>
-                    {request.dateOfBirth}
+                  Date Of Birth:  {request.dateOfBirth}
+                  </h2>
+                  <h2 className="card-title" style={{ color: "white" }}>
+                  Emergency Contact Name:  {request.emergencyContactName}
+                  </h2>
+                  <h2 className="card-title" style={{ color: "white" }}>
+                  Emergency Contact Number:  {request.emergencyContactMobile}
                   </h2>
                 </div>
               </div>

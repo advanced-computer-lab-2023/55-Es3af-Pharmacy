@@ -8,6 +8,7 @@ import PharmacistList from "./pharmacist-info";
 import PatientList from "./patient-info";
 import SearchMedicine from "./search-medicine"
 import FilterMedicine from "./filter-medicine";
+import MedicinesList from "./list-medicines";
 function AdminPage() {
   return (
     <Routes>
@@ -27,10 +28,7 @@ function AdminPage() {
 
       <Route path="/filterMedicine" element={<FilterMedicine />} />
 
-
-
-
-
+      <Route path="/allMedicine" element={<MedicinesList />} />
 
     </Routes>
   );
@@ -47,33 +45,38 @@ function AdminHome() {
         </div>
         <div>
           <a href="/admin/users" rel="noopener noreferrer">
-            <button className="btn btn-primary"> view users </button>
+            <button className="btn btn-primary"> View/Remove users </button>
           </a>
         </div>
         <div>
           <a href="/admin/requests" rel="noopener noreferrer">
-            <button className="btn btn-primary"> view requests </button>
+            <button className="btn btn-primary"> View Pharmacist Requests </button>
           </a>
         </div>
         <div>
           <a href="/admin/pharmacistList" rel="noopener noreferrer">
-            <button className="btn btn-primary"> view pharmacists </button>
+            <button className="btn btn-primary"> View Pharmacists </button>
           </a>
         </div>
         <div>
           <a href="/admin/patientList" rel="noopener noreferrer">
-            <button className="btn btn-primary"> view patients </button>
+            <button className="btn btn-primary"> View Patients </button>
+          </a>
+        </div>
+        <div>
+          <a href="/admin/allMedicine" rel="noopener noreferrer">
+            <button className="btn btn-primary"> View All Medicine </button>
           </a>
         </div>
         <div>
           <a href="/admin/searchMedicine" rel="noopener noreferrer">
-            <button className="btn btn-primary"> search medicine </button>
+            <button className="btn btn-primary"> Search Medicine </button>
           </a>
         </div>
 
         <div>
           <a href="/admin/filterMedicine" rel="noopener noreferrer">
-            <button className="btn btn-primary"> filter medicine </button>
+            <button className="btn btn-primary"> Filter Medicine </button>
           </a>
         </div>
 

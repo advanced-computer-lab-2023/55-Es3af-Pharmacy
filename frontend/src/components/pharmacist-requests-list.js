@@ -35,7 +35,22 @@ const PharmacistRequestList = (props) => {
               >
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {request.name}
+                    Pharmacist Name: {request.name}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Email: {request.email}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Date of Birth: {request.dateOfBirth}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Hourly Rate: {request.hourlyRate}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Affiliation: {request.affiliation}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Education Background: {request.educationBackground}
                   </h3>
                 </div>
               </div>

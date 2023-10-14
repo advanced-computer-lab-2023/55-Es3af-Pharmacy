@@ -21,20 +21,20 @@ function SearchMedicine() {
       <header className="App-header">
         <form className="App-header" onSubmit={search}>
           <div className="form-group">
-            <label htmlFor="InputUsername">medicine name</label>
+            <label htmlFor="InputUsername">Medicine Name</label>
             <input
               type="string"
               className="form-control"
               id="Name"
               name="Name"
-              placeholder="enter medicine name"
+              placeholder="Enter Medicine Name"
               
             />
           </div>
           <button type="submit" className="btn btn-primary">
             Search
           </button>
-          <p>results</p>
+          <p>Results</p>
           {results.length > 0 ? (
           results.map((result) => {
             return (
@@ -45,9 +45,10 @@ function SearchMedicine() {
               >
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                   name: {result.Name}
+                   Name: {result.Name}
                   </h3>
-                  <p style={{ color: "white" }}>price= {result.Price}</p>
+                  <p style={{ color: "white" }}>Price= {result.Price}</p>
+                  <p style={{ color: "white" }}>Uses: {result.medicalUse}</p>
                   </div>
 
               </div>

@@ -37,8 +37,10 @@ const UsersList = (props) => {
     <div>
       <div className="App-header">
         {users.length > 0 ? (
-          users.map((user) => {
-            return (
+             users
+            .filter(user => user.__t === "patient" || user.__t === "pharmacist") // Filter out admin users
+            .map((user) => {
+              return (
               <div
                 className="card"
                 key={user._id}
