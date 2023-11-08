@@ -32,6 +32,7 @@ class MedsService {
     return http.delete(`/medicine`, Name);
   }
   
+  
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
