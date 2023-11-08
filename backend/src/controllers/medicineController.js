@@ -1,11 +1,30 @@
+const express = require('express');
+const multer = require('multer');
+const fs = require('fs');
 const medicineModel = require("../Models/Medicine.js");
 
+const upload = multer({ dest: 'uploads/' });
+
 const addMedicine = async (req, res) => {
+
+upload.single('image')(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+
   var Name = req.body.Name;
   var newQuantity = req.body.Quantity;
   var Price = req.body.Price;
   var ActiveIngredients = req.body.ActiveIngredients;
   var medicalUse=req.body.medicalUse;
+  var image = {
+    data: fs.readFileSync(req.file.path),
+    contentType: req.file.mimetype,
+  };
+});
+  
   const med = medicineModel
     .findOne({ Name: Name })
     .exec()
@@ -152,6 +171,37 @@ const filterMedicinebyUse = async(req, res) => {
     }
 }
 
+const uploadImage = async (req, res) => {
+  upload.single('image')(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      return res.status(500).json(err);
+    } else if (err) {
+      return res.status(500).json(err);
+    }
+
+    const Name = req.body.Name; 
+    const image = {
+      data: fs.readFileSync(req.file.path),
+      contentType: req.file.mimetype,
+    };
+
+    medicineModel.findOneAndUpdate({ Name: Name }, { image: image }, { new: true })
+      .then(doc => {
+        return res.status(200).send("Image uploaded for " + Name);
+      })
+      .catch(err => {
+        return res.status(500).json(err);
+      });
+  });
+};
+
+
+
+
+
+
+
+
 module.exports = {
   addMedicine,
   listMedicine,
@@ -159,5 +209,6 @@ module.exports = {
   deleteMedicine,
   getMedicine,
   searchMedicinebyName,
-  filterMedicinebyUse
+  filterMedicinebyUse,
+  uploadImage,
 };
