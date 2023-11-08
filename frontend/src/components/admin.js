@@ -6,9 +6,11 @@ import UsersList from "./list-users";
 import PharmacistRequestList from "./pharmacist-requests-list";
 import PharmacistList from "./pharmacist-info";
 import PatientList from "./patient-info";
-import SearchMedicine from "./search-medicine"
+import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
 import MedicinesList from "./list-medicines";
+import Navbar from "./navbar";
+
 function AdminPage() {
   return (
     <Routes>
@@ -29,7 +31,6 @@ function AdminPage() {
       <Route path="/filterMedicine" element={<FilterMedicine />} />
 
       <Route path="/allMedicine" element={<MedicinesList />} />
-
     </Routes>
   );
 }
@@ -37,6 +38,7 @@ function AdminPage() {
 function AdminHome() {
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <div>
           <a href="/admin/add-admin" rel="noopener noreferrer">
@@ -50,7 +52,10 @@ function AdminHome() {
         </div>
         <div>
           <a href="/admin/requests" rel="noopener noreferrer">
-            <button className="btn btn-primary"> View Pharmacist Requests </button>
+            <button className="btn btn-primary">
+              {" "}
+              View Pharmacist Requests{" "}
+            </button>
           </a>
         </div>
         <div>
@@ -79,7 +84,6 @@ function AdminHome() {
             <button className="btn btn-primary"> Filter Medicine </button>
           </a>
         </div>
-
       </header>
     </div>
   );

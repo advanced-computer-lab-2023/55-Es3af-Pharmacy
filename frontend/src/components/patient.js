@@ -2,8 +2,9 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import MedicinesList from "./list-medicines";
-import SearchMedicine from "./search-medicine"
+import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
+import Navbar from "./navbar";
 function PatientPage() {
   return (
     <Routes>
@@ -21,6 +22,7 @@ function PatientPage() {
 function PatientHome() {
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <div>
           <a href="/patient/medicines" rel="noopener noreferrer">

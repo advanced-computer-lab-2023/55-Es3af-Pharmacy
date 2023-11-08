@@ -5,8 +5,9 @@ import AddMedicine from "./add-medicine";
 import MedicinesList from "./list-medicines";
 import Medicine from "./eachMedicine";
 import EditMedicine from "./edit-medicine";
-import SearchMedicine from "./search-medicine"
+import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
+import Navbar from "./navbar";
 function PharmacistPage() {
   return (
     <Routes>
@@ -23,10 +24,6 @@ function PharmacistPage() {
       <Route path="/searchMedicine" element={<SearchMedicine />} />
 
       <Route path="/filterMedicine" element={<FilterMedicine />} />
-
-      
-
-
     </Routes>
   );
 }
@@ -34,6 +31,7 @@ function PharmacistPage() {
 function PharmacistHome() {
   return (
     <div className="App">
+      <Navbar />
       <header className="App-header">
         <div>
           <a href="/pharmacist/add-medicine" rel="noopener noreferrer">

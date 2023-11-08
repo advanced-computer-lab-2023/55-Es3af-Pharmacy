@@ -16,7 +16,7 @@ function RegisterPatient() {
     emergencyContactMobile: "",
   };
 
-  const [patient, setPatient] = useState (initialUserState);
+  const [patient, setPatient] = useState(initialUserState);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -39,7 +39,7 @@ function RegisterPatient() {
     <div className="App">
       <header className="App-header">
         <form className="App-header" onSubmit={registerPatient}>
-        <div className="form-group">
+          <div className="form-group">
             <label htmlFor="InputName">Name</label>
             <input
               type="text"
@@ -64,8 +64,7 @@ function RegisterPatient() {
               onChange={handleInputChange}
             ></input>
           </div>
-          
-          
+
           <div className="form-group">
             <label htmlFor="InputUsername">Username</label>
             <input
@@ -130,7 +129,9 @@ function RegisterPatient() {
             ></input>
           </div>
           <div className="form-group">
-            <label htmlFor="InputEmergencyContactName">Emergency Contact Name</label>
+            <label htmlFor="InputEmergencyContactName">
+              Emergency Contact Name
+            </label>
             <input
               type="text"
               className="form-control"
@@ -143,7 +144,9 @@ function RegisterPatient() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="InputEmergencyContactMobile">Emergency Contact Mobile</label>
+            <label htmlFor="InputEmergencyContactMobile">
+              Emergency Contact Mobile
+            </label>
             <input
               type="tel"
               className="form-control"
@@ -154,8 +157,6 @@ function RegisterPatient() {
               onChange={handleInputChange}
             ></input>
           </div>
-
-
 
           <button type="submit" className="btn btn-primary">
             Register
