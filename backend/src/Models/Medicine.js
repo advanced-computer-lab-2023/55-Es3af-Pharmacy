@@ -27,6 +27,10 @@ const medicineSchema = new Schema(
       type: String,
       reqired: true,
     },
+    image: {
+    data: Buffer,
+    contentType: String
+  }
   },
   { timestamps: true }
 );

@@ -9,7 +9,6 @@ require("dotenv").config();
 const { router } = require("../src/routes/index");
 const MongoURI =
   "mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority";
-
 //App variables
 const app = express();
 const port = process.env.PORT || "8000";

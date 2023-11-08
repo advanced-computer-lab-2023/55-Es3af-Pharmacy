@@ -17,4 +17,6 @@ medicineRoutes.get("/filter", medicineController.filterMedicinebyUse);
 
 medicineRoutes.delete("/", medicineController.deleteMedicine);
 
+medicineRoutes.post('/uploadImage', medicineController.uploadImage);
+
 module.exports = { medicineRoutes };
