@@ -28,7 +28,8 @@ const pharmacistSchema = new Schema({
   educationBackground: {
     type: String,
     required: true,
-  }
+  },
+  
 });
 
 const pharmacist= userModel.discriminator('pharmacist', pharmacistSchema);

@@ -2,12 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const userModel = require('./user.js')
 
+
 const patientSchema = new Schema({
-  // user: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'user',
-  //   autoRemove: true,
-  // },
+  
   name: {
     type: String,
     required: true
@@ -22,7 +19,7 @@ const patientSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ["male", "female", "Male", "Female"],
+    enum: ["male", "female"],
     required: true,
   },
   mobile: {
@@ -37,6 +34,25 @@ const patientSchema = new Schema({
     type: String,
     required: true,
   },
+  cart: 
+   [{
+    medID:{
+      type: mongoose.Types.ObjectId,
+      ref: 'medicine',
+    },
+    qty:{
+      type:Number,
+      required: true,
+      default: 1,
+    },
+   }],
+   cartTotal:{
+      type:Number,
+      required: false,
+      default: 0,
+   }
+  
+
 });
 
 //const patient = mongoose.model("patient", patientSchema);
