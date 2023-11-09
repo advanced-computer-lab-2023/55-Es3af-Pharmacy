@@ -1,4 +1,5 @@
 const Router = require("express");
+const userController = require("../controllers/userController");
 const { medicineRoutes } = require("./medicine.routes");
 const { userRoutes } = require("./user.routes");
 const { patientRoutes } = require("./patient.routes");
@@ -15,7 +16,8 @@ router.use("/patient", patientRoutes);
 
 router.use("/pharmacist", pharmacistRoutes);
 
-router.use("/pharmacist-requests",pharmacistRequestsRoutes )
+router.use("/pharmacist-requests", pharmacistRequestsRoutes);
+
+router.get("/logout", userController.logout);
 
 module.exports = { router };
-

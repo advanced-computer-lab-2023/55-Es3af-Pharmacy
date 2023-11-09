@@ -9,6 +9,14 @@ class UserService {
     return http.post("/user/admin", user);
   }
 
+  login(user) {
+    return http.post("/login", user);
+  }
+
+  logout() {
+    return http.get("/logout");
+  }
+
   deleteUser(id) {
     return http.delete(`/user/${id}`);
   }
