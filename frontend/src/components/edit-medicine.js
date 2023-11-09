@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
+import axios from 'axios';
 import MedsService from "../services/medicine.service";
 
 function EditMedicine() {
@@ -11,6 +12,7 @@ function EditMedicine() {
   };
 
   const [medicine, setMedicine] = useState(initialUserState);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -32,6 +34,29 @@ function EditMedicine() {
         console.log(e);
       });
   }
+  
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
+  };
+
+  const handleImageUpload = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+    formData.append('Name', medicine.Name);
+
+    try {
+      await axios.post('http://localhost:8000/medicine/uploadImage', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('Image uploaded successfully');
+    } catch (error) {
+      alert('Error uploading image');
+    }
+  };
+
 
   return (
     <div className="App">
@@ -45,7 +70,7 @@ function EditMedicine() {
               id="Name"
               name="Name"
               value={medicine.Name}
-              placeholder="Enter username"
+              placeholder="Enter name"
               onChange={handleInputChange}
             ></input>
           </div>
@@ -74,6 +99,22 @@ function EditMedicine() {
               onChange={handleInputChange}
             ></input>
           </div>
+
+          <div className="form-group">
+            <label htmlFor="InputImage">Upload Image</label>
+            <input
+              type="file"
+              className="form-control"
+              id="image"
+              name="image"
+              onChange={handleFileChange}
+            />
+            </div>
+
+            <button type="submit" className="btn btn-primary" onClick={handleImageUpload}>
+              Upload Image
+            </button>
+
           <button type="submit" className="btn btn-primary">
             update medicine
           </button>

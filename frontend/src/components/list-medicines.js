@@ -13,6 +13,16 @@ const MedicinesList = (props) => {
     retrieveMedicines();
   }, []);
 
+  const arrayBufferToBase64 = (buffer) => {
+    let binary = '';
+    const bytes = new Uint8Array(buffer);
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
+    return window.btoa(binary);
+  };
+
   const retrieveMedicines = () => {
     MedsService.getAll()
       .then((response) => {
@@ -57,6 +67,15 @@ const MedicinesList = (props) => {
                   <h3 className="card-title" style={{ color: "white" }}>
                     uses= {user.medicalUse}
                   </h3>
+                  {user.image && user.image.data && user.image.contentType && (
+                <div>
+                  <img
+                    src={`data:${user.image.contentType};base64,${arrayBufferToBase64(user.image.data.data)}`}
+                    alt={user.Name} 
+                    style={{ width: "200px", height: "200px",color: "white" }}
+                  />
+                </div>
+              )}
                   <button
                     style={{ backgroundColor: "red" }}
                     name={user._id}
