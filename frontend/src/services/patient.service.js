@@ -7,12 +7,17 @@ class PatientService {
     seeCart(){
       return http.get("/patient/Cart");
     }
-    removeOne(){
-      return http.get("/patient/removeItem")
+    removeOne(id){
+      return http.post(`/patient/removeItem?id=${id}`)
     }
+
+    addOne(id){
+      return http.post(`/patient/addItem?id=${id}`)
+    }
+    
     addToCart(id){
       
-      return http.post(`/patient/addToCart/${id}`);
+      return http.post(`/patient/addToCart?id=${id}`);
       
     }
 }  

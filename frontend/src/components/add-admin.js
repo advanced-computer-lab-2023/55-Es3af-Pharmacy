@@ -25,6 +25,7 @@ function AddAdmin() {
         
       })
       .catch((e) => {
+        console.log(user);
         console.log(e);
       });
   }

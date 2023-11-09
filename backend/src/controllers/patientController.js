@@ -47,12 +47,12 @@ const addToCart = async (req, res) => {
         res.status(401).json({message:"You are not logged in."})
         // res.redirect('/login');
       } else {
-        console.log(decodedToken.name + " me bro") ;
+        
         id= decodedToken.name;
       }
     });
-  console.log(id );
-  const med = await medicine.findById(req.params.id);
+ 
+  const med = await medicine.findById(req.query.id);
   const p = await patient.findById(id);
   var exists = false;
   var s = 0;
@@ -86,8 +86,24 @@ const addToCart = async (req, res) => {
 };
 
 const removeItem = async (req, res) => {
-  const med = await medicine.findById(req.body.id);
-  const p = await patient.findById(req.query);
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        
+        id= decodedToken.name;
+      }
+    });
+    
+
+  console.log(req.query.id+ " mazen");
+  const med = await medicine.findById(req.query.id);
+  const p = await patient.findById(id);
   var exists = false;
   var s = 0;
   if (p.cart.length > 0) {
@@ -102,7 +118,51 @@ const removeItem = async (req, res) => {
     if (exists) {
       existingInCart = p.cart[s];
       existingInCart.qty -= 1;
+      if (existingInCart.qty === 0) {
+        // If quantity becomes zero, remove the item from the cart array
+        p.cart.splice(s, 1);
+      }
       p.cartTotal -= med.Price;
+      p.save().catch((err) => console.log(err));
+      res.send("Cart saved.");
+    }
+  }
+};
+const addItem = async (req, res) => {
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        
+        id= decodedToken.name;
+      }
+    });
+    
+
+ 
+  const med = await medicine.findById(req.query.id);
+  const p = await patient.findById(id);
+  var exists = false;
+  var s = 0;
+  if (p.cart.length > 0) {
+    for (let i = 0; i < p.cart.length; i++) {
+      if (p.cart[i].medID.toString() === med._id.toString()) {
+        exists = true;
+        s = i;
+        break;
+      }
+    }
+
+    if (exists) {
+      existingInCart = p.cart[s];
+      existingInCart.qty += 1;
+      
+      p.cartTotal += med.Price;
       p.save().catch((err) => console.log(err));
       res.send("Cart saved.");
     }
@@ -110,7 +170,7 @@ const removeItem = async (req, res) => {
 };
 
 const checkout = async (req, res) => {
-  console.log("hi");
+  
   const p = await patient.findById(req.query);
   newOrder = new Order({
     pID: p._id,
@@ -127,4 +187,5 @@ module.exports = {
   addToCart,
   removeItem,
   checkout,
+  addItem,
 };

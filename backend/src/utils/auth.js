@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const auth = (req, res, next) => {
   
-  console.log("ana hena");
+
   const token = req.cookies.jwt;
   
   // check json web token exists & is verified
@@ -15,7 +15,7 @@ const auth = (req, res, next) => {
         res.status(401).json({ message: "You are not logged in." });
         // res.redirect('/login');
       } else {
-        console.log(req.body);
+        
         
         next();
         
