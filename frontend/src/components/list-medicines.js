@@ -35,6 +35,7 @@ const MedicinesList = (props) => {
   };
   const addToCart = (event) => {
     const { name } = event.target;
+    
     patientService.addToCart(name)
       .then((response) => {
         console.log(response.data);
@@ -77,7 +78,7 @@ const MedicinesList = (props) => {
                 </div>
               )}
                   <button
-                    style={{ backgroundColor: "red" }}
+                    style={{ backgroundColor: "blue" }}
                     name={user._id}
                     onClick={(user) => addToCart(user)}
                   >

@@ -5,6 +5,7 @@ import MedicinesList from "./list-medicines";
 import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
 import Navbar from "./navbar";
+import MyCart from "./view-cart";
 function PatientPage() {
   return (
     <Routes>
@@ -15,6 +16,10 @@ function PatientPage() {
       <Route path="/searchMedicine" element={<SearchMedicine />} />
 
       <Route path="/filterMedicine" element={<FilterMedicine />} />
+
+     <Route path="/cart" element={<MyCart />}></Route>
+
+
     </Routes>
   );
 }
@@ -38,6 +43,11 @@ function PatientHome() {
         <div>
           <a href="/patient/filterMedicine" rel="noopener noreferrer">
             <button className="btn btn-primary"> filter medicine </button>
+          </a>
+        </div>
+        <div>
+          <a href="/patient/cart" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view cart </button>
           </a>
         </div>
       </header>

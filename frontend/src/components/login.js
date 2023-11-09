@@ -24,10 +24,9 @@ function Login(props) {
 
     UserService.login(user)
       .then((response) => {
+        
         switch (response.data.__t) {
-          case "administrator":
-            navigate("../admin", { replace: true });
-            break;
+          
           case "pharmacist":
             navigate("../pharmacist", { replace: true });
             break;
@@ -35,7 +34,7 @@ function Login(props) {
             navigate("../patient", { replace: true });
             break;
           default:
-            return;
+            navigate("../admin", { replace: true });
         }
       })
       .catch((e) => {

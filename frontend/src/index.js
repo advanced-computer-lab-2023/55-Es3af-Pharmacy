@@ -9,7 +9,7 @@ import PatientPage from "./components/patient";
 import RegisterPatient from "./components/RegisterPatient";
 import PharmacistReq from "./components/RequestPharmacist";
 import Login from "./components/login";
-import ListCart from "./components/view-cart";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
 root.render(

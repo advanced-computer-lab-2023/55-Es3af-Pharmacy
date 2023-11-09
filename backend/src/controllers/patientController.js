@@ -1,6 +1,7 @@
 const medicine = require("../Models/Medicine.js");
 const patient = require("../Models/patient.js");
 const Order = require("../Models/order.js");
+const jwt = require('jsonwebtoken');
 const getPatient = async (req, res) => {
   try {
     res.send(await patient.findById(req.params.id));
@@ -17,13 +18,42 @@ const getPatients = async (req, res) => {
 };
 
 const viewCart = async (req, res) => {
-  const p = await patient.find(req.query);
-  res.send(p[0].cart);
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+       
+        id= decodedToken.name;
+      }
+    });
+    const p = await patient.findById(id);
+
+  res.send(p.cart);
 };
 
 const addToCart = async (req, res) => {
-  const med = await medicine.findById(req.body.id);
-  const p = await patient.findById(req.query);
+ 
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        console.log(decodedToken.name + " me bro") ;
+        id= decodedToken.name;
+      }
+    });
+  console.log(id );
+  const med = await medicine.findById(req.params.id);
+  const p = await patient.findById(id);
   var exists = false;
   var s = 0;
   if (p.cart.length > 0) {
@@ -38,19 +68,19 @@ const addToCart = async (req, res) => {
     if (exists == false) {
       p.cartTotal = p.cartTotal + med.Price;
       p.cart.push({ medID: med._id, qty: 1 });
-      p.save().catch((err) => console.log(err));
+      p.save().catch((err) => res.send(err));
       res.status(200).send("Cart saved.");
     } else {
       existingInCart = p.cart[s];
       existingInCart.qty += 1;
       p.cartTotal += med.Price;
-      p.save().catch((err) => console.log(err));
+      p.save().catch((err) => res.send(err));
       res.status(200).send("Cart saved.");
     }
   } else {
     p.cartTotal = med.Price;
     p.cart.push({ medID: med._id, qty: 1 });
-    p.save().catch((err) => console.log(err));
+    p.save().catch((err) => res.send(err));
     res.status(200).send("Cart saved.");
   }
 };
