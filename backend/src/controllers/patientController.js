@@ -90,6 +90,12 @@ const checkout = async (req, res) => {
   res.send(newOrder);
 };
 
+const getPassword = async(req, res) => {
+  const userID = req.params.id
+  var user = await patient.findById(userID);
+  res.status(200).send(user.password)
+}
+
 module.exports = {
   getPatient,
   getPatients,
@@ -97,4 +103,5 @@ module.exports = {
   addToCart,
   removeItem,
   checkout,
+  getPassword,
 };
