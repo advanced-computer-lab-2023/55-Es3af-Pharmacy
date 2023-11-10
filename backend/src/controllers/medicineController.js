@@ -43,6 +43,7 @@ const addMedicine = async (req, res) => {
 };
 
 const listMedicine = async (req, res) => {
+  
   const meds = await medicineModel.find(req.query);
   res.send(meds);
 };

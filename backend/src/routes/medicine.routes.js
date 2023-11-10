@@ -9,7 +9,7 @@ medicineRoutes.put("/update", medicineController.updateMedicine);
 
 //medicineRoutes.get("/:id", medicineController.getMedicine);
 
-medicineRoutes.get("/", medicineController.listMedicine);
+medicineRoutes.get("/",medicineController.listMedicine);
 
 medicineRoutes.get("/searchByName", medicineController.searchMedicinebyName);
 

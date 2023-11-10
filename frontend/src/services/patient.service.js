@@ -4,12 +4,20 @@ class PatientService {
     getAll() {
       return http.get("/patient/patients");
     }
-    seeCart(query){
-      return http.get(`/patient/Cart?_id=${query}`);
+    seeCart(){
+      return http.get("/patient/Cart");
     }
-    addToCart(query){
-      const id= "6548e4a43fc52b59ba77a428";
-      return http.get(`/patient/addToCart?_id=${id}`, query);
+    removeOne(id){
+      return http.post(`/patient/removeItem?id=${id}`)
+    }
+
+    addOne(id){
+      return http.post(`/patient/addItem?id=${id}`)
+    }
+    
+    addToCart(id){
+      
+      return http.post(`/patient/addToCart?id=${id}`);
       
     }
 }  

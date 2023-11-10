@@ -4,6 +4,7 @@ const pharmacistController = require("../controllers/pharmacistController");
 
 const pharmacistRoutes = new Router();
 
+
 pharmacistRoutes.get("/", pharmacistController.listPharmacists);
 
 pharmacistRoutes.get("/:id", pharmacistController.getPharmacist);

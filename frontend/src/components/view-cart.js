@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
 
-const ListCart = (props) => {
+const MyCart = (props) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -12,10 +12,36 @@ const ListCart = (props) => {
 
   const retrieveUsers = () => {
     
-    PatientService.getAll(query)
+    PatientService.seeCart()
       .then((response) => {
         console.log(response.data);
+       
         setUsers(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+      
+  };
+  const removeOne = (event) => {
+    const { name } = event.target;
+    console.log(name);
+    PatientService.removeOne(name)
+      .then((response) => {
+        console.log(response.data);
+        window.location.reload(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const addOne = (event) => {
+    const { name } = event.target;
+    console.log(name);
+    PatientService.addOne(name)
+      .then((response) => {
+        console.log(response.data);
+        window.location.reload(false);
       })
       .catch((e) => {
         console.log(e);
@@ -27,24 +53,50 @@ const ListCart = (props) => {
   return (
     <div>
       <div className="App-header">
+      <button
+                    style={{ backgroundColor: "red" }}
+                    
+                    
+                  >
+                    checkout
+                  </button>
+        
+
         {users.length > 0 ? (
              users
             .map((user) => {
               return (
+            
               <div
                 className="card"
-                key={user.cart._id}
+                key={user._id}
                 style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
               >
+                
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.cart.mID}
+                    {user.medID}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.cart.qty}
+                    {user.qty}
                   </h3>
                  
                 </div>
+                <button
+                    style={{ backgroundColor: "red" }}
+                    name={user.medID}
+                    onClick={(user) => removeOne(user)}
+                  >
+                    -
+                  </button>
+                  <button
+                    style={{ backgroundColor: "green" }}
+                    name={user.medID}
+                    onClick={(user) => addOne(user)}
+                  >
+                    +
+                  </button>
+                  
               </div>
             );
           })
@@ -58,4 +110,4 @@ const ListCart = (props) => {
   );
 };
 
-export default ListCart;
+export default MyCart;

@@ -10,8 +10,7 @@ const addAdmin = async (req, res) => {
 
     const user = await User.create({
       username,
-      password: hashedPassword,
-      type: "administrator",
+      password: hashedPassword
     });
 
     const token = createToken(user.name);
@@ -48,7 +47,7 @@ const getUsers = async (req, res) => {
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-
+  
   try {
     const user = await User.findOne({ username });
 
@@ -65,7 +64,7 @@ const login = async (req, res) => {
     const maxAge = 3 * 24 * 60 * 60;
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-
+    
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });

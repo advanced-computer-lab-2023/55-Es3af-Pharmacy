@@ -15,6 +15,8 @@ patientRoutes.post("/addToCart",patientController.addToCart);
 
 patientRoutes.post("/removeItem",patientController.removeItem);
 
+patientRoutes.post("/addItem",patientController.addItem);
+
 
 
 module.exports = { patientRoutes };
