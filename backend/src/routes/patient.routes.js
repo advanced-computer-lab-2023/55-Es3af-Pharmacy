@@ -28,5 +28,7 @@ patientRoutes.delete("/cancel" , patientController.cancelOrder);
 
 patientRoutes.get("/dropdownOptions", patientController.dropdown);
 
+patientRoutes.post("/deleteMed", patientController.removeMed);
+
 
 module.exports = { patientRoutes };

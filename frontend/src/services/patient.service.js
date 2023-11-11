@@ -33,6 +33,11 @@ class PatientService {
     cancelOrder(){
       return http.delete("patient/cancel");
     }
+    removeMed(id){
+      return http.post(`/patient/deleteMed?id=${id}`)
+    }
+
+
 }  
 
 export default new PatientService();

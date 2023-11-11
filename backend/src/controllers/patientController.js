@@ -101,6 +101,7 @@ const removeItem = async (req, res) => {
       }
     });
     
+    
 
   console.log(req.query.id+ " mazen");
   const med = await medicine.findById(req.query.id);
@@ -129,6 +130,53 @@ const removeItem = async (req, res) => {
     }
   }
 };
+
+const removeMed = async (req, res) => {
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        
+        id= decodedToken.name;
+      }
+    });
+    
+    
+
+  
+  const med = await medicine.findById(req.query.id);
+  const p = await patient.findById(id);
+  var exists = false;
+  var s = 0;
+  if (p.cart.length > 0) {
+    for (let i = 0; i < p.cart.length; i++) {
+      if (p.cart[i].medID.toString() === med._id.toString()) {
+        exists = true;
+        s = i;
+        break;
+      }
+    }
+
+    if (exists) {
+      existingInCart = p.cart[s];
+      
+      
+        // If quantity becomes zero, remove the item from the cart array
+        p.cart.splice(s, 1);
+      
+      p.cartTotal -= (med.Price * existingInCart.qty);
+      p.save().catch((err) => console.log(err));
+      res.send("Cart saved.");
+    }
+  }
+};
+
+
 const addItem = async (req, res) => {
   const token = req.cookies.jwt;
   var id;
@@ -297,5 +345,6 @@ module.exports = {
   addDelivery,
   viewOrder,
   cancelOrder,
-  dropdown
+  dropdown,
+  removeMed,
 };

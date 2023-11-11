@@ -35,6 +35,18 @@ const MyCart = (props) => {
         console.log(e);
       });
   };
+  const removeMed = (event) => {
+    const { name } = event.target;
+    console.log(name);
+    PatientService.removeMed(name)
+      .then((response) => {
+        
+        window.location.reload(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const addOne = (event) => {
     const { name } = event.target;
     console.log(name);
@@ -84,6 +96,13 @@ const MyCart = (props) => {
                   </h3>
                  
                 </div>
+                <button
+                    style={{ backgroundColor: "red" }}
+                    name={user.medID}
+                    onClick={(user) => removeMed(user)}
+                  >
+                    remove this medicine
+                  </button>
                 <button
                     style={{ backgroundColor: "red" }}
                     name={user.medID}
