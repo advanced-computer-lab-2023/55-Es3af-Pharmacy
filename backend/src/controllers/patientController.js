@@ -197,6 +197,14 @@ const checkout = async (req, res) => {
   res.send(newOrder);
 };
 
+const getPassword = async(req, res) => {
+  const userID = req.params.id
+  var user = await patient.findById(userID);
+  res.status(200).send(user.password)
+}
+
+
+
 const addDelivery = async (req, res) => {
   const token = req.cookies.jwt;
   var id;
@@ -284,6 +292,7 @@ module.exports = {
   addToCart,
   removeItem,
   checkout,
+  getPassword,
   addItem,
   addDelivery,
   viewOrder,
