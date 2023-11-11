@@ -3,6 +3,8 @@ const userController = require("../controllers/userController");
 
 const userRoutes = new Router();
 
+
+
 userRoutes.post("/admin", userController.addAdmin);
 
 userRoutes.get("/", userController.listUsers);

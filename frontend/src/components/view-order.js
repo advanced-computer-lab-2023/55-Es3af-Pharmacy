@@ -2,8 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
-import { useNavigate } from "react-router-dom";
-const MyCart = (props) => {
+
+const MyOrder = (props) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const MyCart = (props) => {
 
   const retrieveUsers = () => {
     
-    PatientService.seeCart()
+    PatientService.viewOrder()
       .then((response) => {
         console.log(response.data);
        
@@ -23,50 +23,26 @@ const MyCart = (props) => {
       });
       
   };
-  const removeOne = (event) => {
+  const cancel = (event) => {
     const { name } = event.target;
     console.log(name);
-    PatientService.removeOne(name)
+    PatientService.cancelOrder()
       .then((response) => {
-        console.log(response.data);
+        
         window.location.reload(false);
       })
       .catch((e) => {
         console.log(e);
       });
   };
-  const addOne = (event) => {
-    const { name } = event.target;
-    console.log(name);
-    PatientService.addOne(name)
-      .then((response) => {
-        console.log(response.data);
-        window.location.reload(false);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  let navigate = useNavigate();
-
-  const checkout = (event) => {
-    navigate("../checkout", { replace: true });
-  };
-
-  
 
   return (
     <div>
       <div className="App-header">
-     
-            <button onClick={(user) =>checkout()}
-             className="btn btn-primary"> checkout </button>
          
-        
-
         {users.length > 0 ? (
-             users
-            .map((user) => {
+             
+            users.map((user) => {
               return (
             
               <div
@@ -77,26 +53,21 @@ const MyCart = (props) => {
                 
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.medID}
+                    Your order's total is  
+                    {" "+user.total}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.qty}
+                    Your order's status is
+                    {" "+user.status}
                   </h3>
                  
                 </div>
                 <button
                     style={{ backgroundColor: "red" }}
                     name={user.medID}
-                    onClick={(user) => removeOne(user)}
+                    onClick={(user) => cancel(user)}
                   >
-                    -
-                  </button>
-                  <button
-                    style={{ backgroundColor: "green" }}
-                    name={user.medID}
-                    onClick={(user) => addOne(user)}
-                  >
-                    +
+                    cancel my order
                   </button>
                   
               </div>
@@ -104,7 +75,7 @@ const MyCart = (props) => {
           })
         ) : (
           <div>
-            <h2>No items in your cart bro</h2>
+            <h2>You have no orders</h2>
           </div>
         )}
       </div>
@@ -112,4 +83,4 @@ const MyCart = (props) => {
   );
 };
 
-export default MyCart;
+export default MyOrder;

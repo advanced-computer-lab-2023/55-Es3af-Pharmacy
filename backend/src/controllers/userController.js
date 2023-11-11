@@ -14,9 +14,9 @@ const addAdmin = async (req, res) => {
     });
 
     const token = createToken(user.name);
-
+    
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.send(user);
+    res.status(200).send("admin added");
   } catch (e) {
     res.status(400).send(e);
   }

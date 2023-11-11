@@ -13,6 +13,10 @@ const orderSchema = new Schema(
         enum: ["pending", "on the way", "delivered"],
         required: false,
     },
+    total:{
+      type: Number,
+      required: true,
+    }
     
   },
   { timestamps: true }

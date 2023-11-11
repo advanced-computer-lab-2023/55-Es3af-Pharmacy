@@ -5,7 +5,7 @@ const cors = require("cors");
 
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
-//const {register, auth} = require("./utils/auth");
+const { auth, reg} = require("./utils/auth");
 
 const { router } = require("../src/routes/index");
 const MongoURI =
@@ -42,7 +42,7 @@ app.use(express.json());
 app.use("/login", userController.login);
 
 app.use(cookieParser());
-//app.use(auth);
+app.use(auth);
 app.use("/", router);
 
 app.listen(port, () => {

@@ -20,6 +20,19 @@ class PatientService {
       return http.post(`/patient/addToCart?id=${id}`);
       
     }
+    addDel(address){
+      console.log(address);
+      return http.post("patient/addDel",address);
+    }
+    checkout(){
+      return http.post("patient/checkout")
+    }
+    viewOrder(){
+      return http.get("patient/order");
+    }
+    cancelOrder(){
+      return http.delete("patient/cancel");
+    }
 }  
 
 export default new PatientService();

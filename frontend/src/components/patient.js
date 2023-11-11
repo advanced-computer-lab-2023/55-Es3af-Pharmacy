@@ -6,6 +6,9 @@ import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
 import Navbar from "./navbar";
 import MyCart from "./view-cart";
+import AddDelivery from "./add-delivery";
+import CheckoutPage from "./checkout";
+import MyOrder from "./view-order";
 function PatientPage() {
   return (
     <Routes>
@@ -18,6 +21,12 @@ function PatientPage() {
       <Route path="/filterMedicine" element={<FilterMedicine />} />
 
      <Route path="/cart" element={<MyCart />}></Route>
+
+     <Route path="/addDel" element={<AddDelivery />}></Route>
+
+     <Route path="/checkout" element={<CheckoutPage />}></Route>
+
+     <Route path="/order" element={<MyOrder />}></Route>
 
 
     </Routes>
@@ -48,6 +57,16 @@ function PatientHome() {
         <div>
           <a href="/patient/cart" rel="noopener noreferrer">
             <button className="btn btn-primary"> view cart </button>
+          </a>
+        </div>
+        <div>
+          <a href="/patient/addDel" rel="noopener noreferrer">
+            <button className="btn btn-primary"> add delivery address </button>
+          </a>
+        </div>
+        <div>
+          <a href="/patient/order" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view my orders </button>
           </a>
         </div>
       </header>

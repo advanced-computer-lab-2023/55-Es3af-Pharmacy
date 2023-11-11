@@ -50,7 +50,12 @@ const patientSchema = new Schema({
       type:Number,
       required: false,
       default: 0,
-   }
+   },
+   delivery: {
+    type: [String], 
+    required: false,
+    default: [],
+  },
   
 
 });

@@ -2,6 +2,7 @@ const medicine = require("../Models/Medicine.js");
 const patient = require("../Models/patient.js");
 const Order = require("../Models/order.js");
 const jwt = require('jsonwebtoken');
+const { pid } = require("process");
 const getPatient = async (req, res) => {
   try {
     res.send(await patient.findById(req.params.id));
@@ -171,14 +172,110 @@ const addItem = async (req, res) => {
 
 const checkout = async (req, res) => {
   
-  const p = await patient.findById(req.query);
-  newOrder = new Order({
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        
+        id= decodedToken.name;
+      }
+
+    });
+    const p = await patient.findById(id);
+  const newOrder = await Order.create({
     pID: p._id,
     status: "pending",
+    total: p.cartTotal,
+
   });
   newOrder.save().catch((err) => console.log(err));
   res.send(newOrder);
 };
+
+const addDelivery = async (req, res) => {
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, 'supersecret', (err, decodedToken) => {
+      if (err) {
+        // console.log('You are not logged in.');
+        // res send status 401 you are not logged in
+        res.status(401).json({message:"You are not logged in."})
+        // res.redirect('/login');
+      } else {
+        
+        id= decodedToken.name;
+      }
+
+    });
+    const p = await patient.findById(id);
+    p.delivery.push(req.body.delivery);
+    p.save().catch((err) => console.log(err));
+    res.send("patient saved");
+
+  }
+  const viewOrder = async (req, res) => {
+    const token = req.cookies.jwt;
+    var id;
+    jwt.verify(token, 'supersecret', (err, decodedToken) => {
+        if (err) {
+          // console.log('You are not logged in.');
+          // res send status 401 you are not logged in
+          res.status(401).json({message:"You are not logged in."})
+          // res.redirect('/login');
+        } else {
+         
+          id= decodedToken.name;
+        }
+      });
+      const p = await Order.find({pID : id});
+      
+    res.send(p);
+  };
+
+  const cancelOrder = async (req, res) => {
+    const token = req.cookies.jwt;
+    var id;
+    jwt.verify(token, 'supersecret', (err, decodedToken) => {
+        if (err) {
+          // console.log('You are not logged in.');
+          // res send status 401 you are not logged in
+          res.status(401).json({message:"You are not logged in."})
+          // res.redirect('/login');
+        } else {
+          
+          id= decodedToken.name;
+        }
+      });
+    const p = await patient.findById(id);
+    const order= await Order.findOne({pID: id});
+    order.deleteOne();
+    res.status(200).send("Order cancelled succesfully");
+  };
+
+
+  const dropdown = async (req, res) => {
+ 
+    const token = req.cookies.jwt;
+    var id;
+    jwt.verify(token, 'supersecret', (err, decodedToken) => {
+        if (err) {
+          // console.log('You are not logged in.');
+          // res send status 401 you are not logged in
+          res.status(401).json({message:"You are not logged in."})
+          // res.redirect('/login');
+        } else {
+          
+          id= decodedToken.name;
+        }
+      });
+      const p = await patient.findById(id);
+      res.status(200).send(p.delivery);
+    }
 
 module.exports = {
   getPatient,
@@ -188,4 +285,8 @@ module.exports = {
   removeItem,
   checkout,
   addItem,
+  addDelivery,
+  viewOrder,
+  cancelOrder,
+  dropdown
 };
