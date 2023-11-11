@@ -69,6 +69,9 @@ function Login(props) {
               placeholder="Password"
               onChange={handleInputChange}
             ></input>
+            <a href="/pharmacist-requests/newRequest" rel="noopener noreferrer">
+              Forgot your password?
+            </a>
           </div>
 
           <button className="btn btn-primary" type="submit">

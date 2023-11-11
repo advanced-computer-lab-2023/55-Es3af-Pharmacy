@@ -1,6 +1,7 @@
 const User = require("../Models/user.js");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
+const nodemailer = require("nodemailer");
 
 const addAdmin = async (req, res) => {
   try {
@@ -10,11 +11,11 @@ const addAdmin = async (req, res) => {
 
     const user = await User.create({
       username,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     const token = createToken(user.name);
-    
+
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).send("admin added");
   } catch (e) {
@@ -47,7 +48,7 @@ const getUsers = async (req, res) => {
 
 const login = async (req, res) => {
   const { username, password } = req.body;
-  
+
   try {
     const user = await User.findOne({ username });
 
@@ -64,7 +65,7 @@ const login = async (req, res) => {
     const maxAge = 3 * 24 * 60 * 60;
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    
+
     res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -78,4 +79,50 @@ const logout = (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-module.exports = { addAdmin, deleteUser, listUsers, getUsers, login, logout };
+const forgetPassword = async (req, res) => {
+  const { username, email } = req.body;
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "55es3afclinicpharmacy@gmail.com",
+      pass: "55Es3afACL",
+    },
+  });
+
+  const mailOptions = {
+    from: "55es3afclinicpharmacy@gmail.com",
+    to: "zeinaayman666@gmail.com",
+    subject: "Password restoration",
+    text: "Your new password is: 55Es3afACL",
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("Email sent: " + info.response);
+      res.status.send("done");
+    }
+  });
+
+  // User.findOne({username: username, email: email})
+  // .exec()
+  // .then((result) => {
+  //   if(!result) {res.status.send('username or email is wrong')}
+  //   else{
+
+  //   }
+  // })
+  // .catch((err) => {console.error(err)})
+};
+
+module.exports = {
+  addAdmin,
+  deleteUser,
+  listUsers,
+  getUsers,
+  login,
+  logout,
+  forgetPassword,
+};
