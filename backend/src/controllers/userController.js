@@ -81,30 +81,31 @@ const logout = (req, res) => {
 
 const forgetPassword = async (req, res) => {
   const { username, email } = req.body;
+  res.status(200).send('test')
 
-  const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: "55es3afclinicpharmacy@gmail.com",
-      pass: "55Es3afACL",
-    },
-  });
+  // const transporter = nodemailer.createTransport({
+  //   service: "gmail",
+  //   auth: {
+  //     user: "55es3afclinicpharmacy@gmail.com",
+  //     pass: "55Es3afACL",
+  //   },
+  // });
 
-  const mailOptions = {
-    from: "55es3afclinicpharmacy@gmail.com",
-    to: "zeinaayman666@gmail.com",
-    subject: "Password restoration",
-    text: "Your new password is: 55Es3afACL",
-  };
+  // const mailOptions = {
+  //   from: "55es3afclinicpharmacy@gmail.com",
+  //   to: "zeinaayman666@gmail.com",
+  //   subject: "Password restoration",
+  //   text: "Your new password is: 55Es3afACL",
+  // };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      res.status.send("done");
-    }
-  });
+  // transporter.sendMail(mailOptions, (error, info) => {
+  //   if (error) {
+  //     console.error(error);
+  //   } else {
+  //     console.log("Email sent: " + info.response);
+  //     res.status.send("done");
+  //   }
+  // });
 
   // User.findOne({username: username, email: email})
   // .exec()

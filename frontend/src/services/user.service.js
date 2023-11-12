@@ -20,6 +20,10 @@ class UserService {
   deleteUser(id) {
     return http.delete(`/user/${id}`);
   }
+
+  forgetPassword(){
+    return http.get('/forgetPassword')
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

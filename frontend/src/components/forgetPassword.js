@@ -1,7 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import PharmacistService from "../services/RequestPharmacistService";
+import userService from "../services/user.service";
 
 function ForgetPassword() {
 
@@ -29,7 +29,7 @@ function ForgetPassword() {
   async function forgetPassword(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
-    PharmacistService.pharmacistReq(pharma)
+    userService.forgetPassword()
       .then((response) => {
         console.log(response.data);
       })
@@ -49,7 +49,7 @@ function ForgetPassword() {
               className="form-control"
               id="username"
               name="username"
-              value={pharma.username}
+              value={username}
               placeholder="Enter Username"
               onChange={handleInputChange}
             ></input>
@@ -61,7 +61,7 @@ function ForgetPassword() {
               className="form-control"
               id="email"
               name="email"
-              value={pharma.email}
+              value={email}
               placeholder="Enter Email"
               onChange={handleInputChange}
             ></input>
