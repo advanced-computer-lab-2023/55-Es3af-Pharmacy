@@ -35,6 +35,11 @@ function App() {
             <button className="btn btn-primary"> Login </button>
           </a>
         </div>
+        <div>
+          <a href="/forgetpassword" rel="noopener noreferrer">
+            <button className="btn btn-primary"> forget password </button>
+          </a>
+        </div>
       </header>
     </div>
   );

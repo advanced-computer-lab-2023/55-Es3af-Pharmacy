@@ -9,6 +9,7 @@ import PatientPage from "./components/patient";
 import RegisterPatient from "./components/RegisterPatient";
 import PharmacistReq from "./components/RequestPharmacist";
 import Login from "./components/login";
+import ForgetPassword from "./components/forgetPassword";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 // root will not render AddAdmin component remove when everyone gets the idea
@@ -27,6 +28,9 @@ root.render(
         element={<PharmacistReq />}
       />
       <Route path="/patient/registerPatient/*" element={<RegisterPatient />} />
+
+      <Route path="/forgetpassword/*" element={<ForgetPassword />} />
+
       <Route path="/login" element={<Login />} />
     </Routes>
   </BrowserRouter>

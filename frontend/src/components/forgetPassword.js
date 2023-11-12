@@ -9,22 +9,22 @@ function ForgetPassword() {
   const [username, setUsername] = useState('')
   const [message, setMessage] = useState('')
 
-//   const handleInputChange = (event) => {
-//     const { name, value } = event.target;
-//     if(name == 'password'){
-//       if (value.length < 6) {
-//         setMessage('Password is too short');
-//       } else if (!/\d/.test(value)) {
-//         setMessage('Password should contain at least one digit');
-//       } else if(!/[A-Z]/.test(value)){
-//         setMessage('Password should contain at least one capital letters');
-//       }
-//       else {
-//         setMessage('Password strength is good');
-//       }
-//     }
-//     setPharma({ ...pharma, [name]: value });
-//   };
+   const handleInputChange = (event) => {
+     const { name, value } = event.target;
+     if(name == 'password'){
+       if (value.length < 6) {
+         setMessage('Password is too short');
+       } else if (!/\d/.test(value)) {
+         setMessage('Password should contain at least one digit');
+       } else if(!/[A-Z]/.test(value)){
+         setMessage('Password should contain at least one capital letters');
+       }
+       else {
+         setMessage('Password strength is good');
+       }
+     }
+    // setPharma({ ...pharma, [name]: value });
+   };
 
   async function forgetPassword(e) {
     e.preventDefault();
