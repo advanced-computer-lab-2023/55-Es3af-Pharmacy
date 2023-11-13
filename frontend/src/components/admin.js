@@ -10,6 +10,7 @@ import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
 import MedicinesList from "./list-medicines";
 import Navbar from "./navbar";
+import UpdatePassword from "./updatePassword";
 
 function AdminPage() {
   return (
@@ -31,6 +32,8 @@ function AdminPage() {
       <Route path="/filterMedicine" element={<FilterMedicine />} />
 
       <Route path="/allMedicine" element={<MedicinesList />} />
+
+      <Route path="/updatePassword" element={<UpdatePassword />} />
     </Routes>
   );
 }
@@ -82,6 +85,11 @@ function AdminHome() {
         <div>
           <a href="/admin/filterMedicine" rel="noopener noreferrer">
             <button className="btn btn-primary"> Filter Medicine </button>
+          </a>
+        </div>
+        <div>
+          <a href="/admin/updatePassword" rel="noopener noreferrer">
+            <button className="btn btn-primary"> Update Password </button>
           </a>
         </div>
       </header>
