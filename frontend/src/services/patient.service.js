@@ -37,7 +37,15 @@ class PatientService {
       return http.post(`/patient/deleteMed?id=${id}`)
     }
 
+    // getPassword(password){
+    //   console.log('service')
+    //   return http.post(`/patient/updatePassword`, password)
+    // }
 
-}  
+    updatePassword(password){
+      return http.put(`/patient/updatePassword`, password)
+    }
+
+} 
 
 export default new PatientService();

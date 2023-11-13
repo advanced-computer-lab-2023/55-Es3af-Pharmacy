@@ -4,6 +4,8 @@ const RegisterPatientController= require('../controllers/RegisterPatientControll
 const patient = require('../Models/patient')
 const patientRoutes = new Router()
 
+//patientRoutes.post('/updatePassword', patientController.getPassword)
+
 patientRoutes.get("/patients", patientController.getPatients)
 
 patientRoutes.get("/Cart", patientController.viewCart );
@@ -30,5 +32,8 @@ patientRoutes.get("/dropdownOptions", patientController.dropdown);
 
 patientRoutes.post("/deleteMed", patientController.removeMed);
 
+
+
+patientRoutes.put('/updatePassword', patientController.changePassword)
 
 module.exports = { patientRoutes };

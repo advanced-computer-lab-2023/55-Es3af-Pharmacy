@@ -9,6 +9,7 @@ import MyCart from "./view-cart";
 import AddDelivery from "./add-delivery";
 import CheckoutPage from "./checkout";
 import MyOrder from "./view-order";
+import UpdatePassword from "./updatePassword";
 function PatientPage() {
   return (
     <Routes>
@@ -27,6 +28,8 @@ function PatientPage() {
      <Route path="/checkout" element={<CheckoutPage />}></Route>
 
      <Route path="/order" element={<MyOrder />}></Route>
+     
+     <Route path="/updatePassword" element={<UpdatePassword />}></Route>
 
 
     </Routes>
@@ -67,6 +70,11 @@ function PatientHome() {
         <div>
           <a href="/patient/order" rel="noopener noreferrer">
             <button className="btn btn-primary"> view my orders </button>
+          </a>
+        </div>
+        <div>
+          <a href="/patient/updatePassword" rel="noopener noreferrer">
+            <button className="btn btn-primary"> update password</button>
           </a>
         </div>
       </header>

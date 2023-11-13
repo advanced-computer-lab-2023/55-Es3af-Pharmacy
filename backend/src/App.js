@@ -16,6 +16,7 @@ const port = process.env.PORT || "8000";
 
 const PharmacistRequestsController = require("./controllers/PharmacistRequestsController");
 const userController = require("./controllers/userController");
+const patientController = require('./controllers/patientController')
 
 mongoose
   .connect(MongoURI)
@@ -41,7 +42,8 @@ app.use(express.json());
 
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
-app.get('/forgetPassword', userController.forgetPassword)
+app.put('/forgetPassword', userController.forgetPassword)
+//app.post('/testRoute', patientController.getPassword)
 app.use(cookieParser());
 
 
