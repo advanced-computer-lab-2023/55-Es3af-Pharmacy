@@ -26,9 +26,11 @@ patientRoutes.post("/addDel" ,patientController.addDelivery);
 
 patientRoutes.get("/order", patientController.viewOrder);
 
+patientRoutes.get("/dropdown",patientController.dropdown)
+
 patientRoutes.delete("/cancel" , patientController.cancelOrder);
 
-patientRoutes.get("/dropdownOptions", patientController.dropdown);
+//patientRoutes.get("/dropdown",patientController.dropdown)
 
 patientRoutes.post("/deleteMed", patientController.removeMed);
 

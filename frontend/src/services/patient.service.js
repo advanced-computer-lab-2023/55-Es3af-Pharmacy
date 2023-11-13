@@ -30,6 +30,10 @@ class PatientService {
     viewOrder(){
       return http.get("patient/order");
     }
+    viewAddress(){
+      console.log("hennnaa");
+      return http.get("patient/dropdown");
+    }
     cancelOrder(){
       return http.delete("patient/cancel");
     }

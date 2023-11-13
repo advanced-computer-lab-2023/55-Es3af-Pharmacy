@@ -258,12 +258,14 @@ const getPassword = async(req, res) => {
 
 
 const addDelivery = async (req, res) => {
+  console.log("akhooya");
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, 'supersecret', (err, decodedToken) => {
       if (err) {
         // console.log('You are not logged in.');
         // res send status 401 you are not logged in
+        console.log("here ");
         res.status(401).json({message:"You are not logged in."})
         // res.redirect('/login');
       } else {
@@ -272,6 +274,7 @@ const addDelivery = async (req, res) => {
       }
 
     });
+    console.log("hiiii "+ id);
     const p = await patient.findById(id);
     p.delivery.push(req.body.delivery);
     p.save().catch((err) => console.log(err));

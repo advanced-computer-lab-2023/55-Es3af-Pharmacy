@@ -10,7 +10,7 @@ const reg=(req,res,next)=>{
 
 
 const auth = (req, res, next) => {
-  
+
   const token = req.cookies.jwt;
   
   // check json web token exists & is verified

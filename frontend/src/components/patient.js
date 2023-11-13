@@ -9,6 +9,7 @@ import MyCart from "./view-cart";
 import AddDelivery from "./add-delivery";
 import CheckoutPage from "./checkout";
 import MyOrder from "./view-order";
+import AllAddress from "./view-address";
 function PatientPage() {
   return (
     <Routes>
@@ -27,6 +28,8 @@ function PatientPage() {
      <Route path="/checkout" element={<CheckoutPage />}></Route>
 
      <Route path="/order" element={<MyOrder />}></Route>
+
+     <Route path="/dropdown" element={<AllAddress />}></Route>
 
 
     </Routes>
@@ -69,8 +72,14 @@ function PatientHome() {
             <button className="btn btn-primary"> view my orders </button>
           </a>
         </div>
+        <div>
+          <a href="/patient/dropdown" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view addresses </button>
+          </a>
+        </div>
       </header>
     </div>
+    
   );
 }
 
