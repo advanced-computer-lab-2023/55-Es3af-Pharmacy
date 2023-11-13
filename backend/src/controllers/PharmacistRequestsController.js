@@ -1,21 +1,78 @@
 const pharmacistRequestModel = require("../Models/PharmacistRequests.js");
 
+
+
+const express = require('express');
+const router = express.Router();
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const mongoose = require('mongoose');
+
+const storage = multer.memoryStorage();
+const uploads = multer({ storage: storage });
+//const docReq = require('../Models/RequestDoctor.js')
+
+const bcrypt = require("bcrypt");
+const { createToken } = require("../utils/auth.js");
+
 const pharmacistReq = async (req, res) => {
   try {
-    const newPharmacist = new pharmacistRequestModel({
+
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);  
+      const newPharmacist = new pharmacistRequestModel({
       username: req.body.username,
-      password: req.body.password,
+      password: hashedPassword,
       name: req.body.name,
       email: req.body.email,
       dateOfBirth: req.body.dateOfBirth,
       hourlyRate: req.body.hourlyRate,
       affiliation: req.body.affiliation,
       educationBackground: req.body.educationBackground,
+      status: req.body.status || "Pending",
     });
-    newPharmacist.save().catch((err) => console.log(err));
-    res.status(200).send("Request sent.");
+
+    // Handle file uploads
+    if (req.files) {
+      
+      if (req.files.IDfile) {
+        newPharmacist.IDfile = {
+          name: req.files.IDfile[0].originalname,
+          data: req.files.IDfile[0].buffer,
+          contentType: req.files.IDfile[0].mimetype,
+        };
+      }
+
+      if (req.files.WorkingLicenses) {
+        newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
+          name: license.originalname,
+          data: license.buffer,
+          contentType: license.mimetype,
+        }));
+      }
+
+      if (req.files.PharmacyDegree) {
+        newPharmacist.PharmacyDegree = {
+          name: req.files.PharmacyDegree[0].originalname,
+          data: req.files.PharmacyDegree[0].buffer,
+          contentType: req.files.PharmacyDegree[0].mimetype,
+        };
+      }
+    }
+
+    
+    newPharmacist.save().catch(err => console.log(err));
+    
+    const token = createToken(newPharmacist._id);
+    const maxAge = 3 * 24 * 60 * 60;
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.status(200).send(newDoctor);
+    //res.status(200).send('Pharmacist registered successfully.');
   } catch (error) {
-    pharmacistReq.status(400).send({ error: error });
+    console.error(error);
+    res.status(400).send({ error: 'Error during registration.' });
   }
 };
 

@@ -51,7 +51,22 @@ const pharmacistRequestSchema = new Schema({
     type: String,
     enum : ["Pending", "Rejected"],
     default: "Pending"
-  }
+  },
+  IDfile: {
+    name: String,
+    data: Buffer,
+    contentType: String
+  },
+  WorkingLicenses: [{
+    name: String,
+    data: Buffer,
+    contentType: String
+  }],
+  PharmacyDegree: {
+    name: String,
+    data: Buffer,
+    contentType: String
+  },
 });
 
 const pharmacistReq = mongoose.model("pharmacistRequests", pharmacistRequestSchema);
