@@ -237,14 +237,14 @@ const checkout = async (req, res) => {
 async function getPassword(id, password){
   var user = await patient.findById(id)
 
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(password, salt);
-  var newPassword = hashedPassword;
+  // const salt = await bcrypt.genSalt();
+  // const hashedPassword = await bcrypt.hash(password, salt);
+  // var newPassword = hashedPassword;
 
   console.log(`user password: ${user.password}`)
-  console.log(`new password: ${newPassword}`)
+  console.log(`old password: ${password}`)
 
-  const isPasswordValid = await bcrypt.compare(newPassword, user.password);
+  const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if(isPasswordValid) return true
   else return false
@@ -288,7 +288,7 @@ async function getPassword(id, password){
 const changePassword = async (req, res) => {
   //const currPassword = req.body.password
   const token = req.cookies.jwt;
-  var id = '6550ca7d9bb5cfdbc3cfa9c6'
+  var id = ''
   jwt.verify(token, "supersecret", (err, decodedToken) => {
     if (err) {
       console.log('You are not logged in.');
@@ -305,7 +305,7 @@ const changePassword = async (req, res) => {
   const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
   var newPassword = hashedPassword;
 
-  console.log(`current hashed password: ${newPassword}`)
+  console.log(`current password: ${req.body.oldPassword}`)
 
   var message = ''
 

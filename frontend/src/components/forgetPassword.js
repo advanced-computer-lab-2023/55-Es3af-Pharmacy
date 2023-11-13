@@ -27,17 +27,6 @@ function ForgetPassword() {
     .catch((e) => {console.error(e)})
   }
 
-  // async function forgetPassword(e) {
-  //   e.preventDefault();
-  //   // no need to console log response data, only for testing
-  //   userService.forgetPassword()
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // }
 
   return (
     <div className="App">

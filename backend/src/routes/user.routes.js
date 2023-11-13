@@ -11,6 +11,8 @@ userRoutes.delete("/:id", userController.deleteUser);
 
 userRoutes.put('/forgetPassword', userController.forgetPassword)
 
+userRoutes.put('/updatePassword', userController.changePassword)
+
 //userRoutes.get('/forgetPassword', userController.forgetPassword)
 
 module.exports = { userRoutes };
