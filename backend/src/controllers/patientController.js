@@ -237,9 +237,11 @@ const checkout = async (req, res) => {
     });
     const p = await patient.findById(id);
   const newOrder = await Order.create({
+    
     pID: p._id,
     status: "pending",
     total: p.cartTotal,
+    address:" ",
 
   });
   newOrder.save().catch((err) => console.log(err));
@@ -258,14 +260,14 @@ const getPassword = async(req, res) => {
 
 
 const addDelivery = async (req, res) => {
-  console.log("akhooya");
+  
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, 'supersecret', (err, decodedToken) => {
       if (err) {
         // console.log('You are not logged in.');
         // res send status 401 you are not logged in
-        console.log("here ");
+        
         res.status(401).json({message:"You are not logged in."})
         // res.redirect('/login');
       } else {
@@ -274,7 +276,7 @@ const addDelivery = async (req, res) => {
       }
 
     });
-    console.log("hiiii "+ id);
+   
     const p = await patient.findById(id);
     p.delivery.push(req.body.delivery);
     p.save().catch((err) => console.log(err));
@@ -318,6 +320,31 @@ const addDelivery = async (req, res) => {
     const order= await Order.findOne({pID: id});
     order.deleteOne();
     res.status(200).send("Order cancelled succesfully");
+  };
+
+
+
+  const orderAddress = async (req, res) => {
+    const token = req.cookies.jwt;
+    var id;
+    jwt.verify(token, 'supersecret', (err, decodedToken) => {
+        if (err) {
+          // console.log('You are not logged in.');
+          // res send status 401 you are not logged in
+          res.status(401).json({message:"You are not logged in."})
+          // res.redirect('/login');
+        } else {
+          
+          id= decodedToken.name;
+        }
+      });
+    const p = await patient.findById(id);
+    const order= await Order.findOne({pID: id});
+    //console.log(order);
+    order.address = req.body.address;
+    order.status = "on the way"
+    order.save().catch((err) => console.log(err));
+    res.send(order);
   };
 
 
@@ -370,6 +397,7 @@ const addDelivery = async (req, res) => {
     };
     const checkoutSession = async (req,res)=>{
       try{
+        
         const  lineItems  = req.body.lineItems;
         const success_url=req.body.success_url;
         const cancel_url= req.body.cancel_url;
@@ -403,5 +431,6 @@ module.exports = {
   dropdown,
   removeMed,
   checkoutSession,
-  withdrawFromWallet
+  withdrawFromWallet,
+  orderAddress
 };

@@ -19,8 +19,8 @@ function AddDelivery() {
   async function add(e) {
     e.preventDefault();
     // no need to console log response data, only for testing
-    
-    PatientService.addDel(user.delivery)
+    const deliveryobj = { delivery: user.delivery };
+    PatientService.addDel(deliveryobj)
       .then((response) => {
        
         console.log(response.data);

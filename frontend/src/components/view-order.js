@@ -60,6 +60,10 @@ const MyOrder = (props) => {
                     Your order's status is
                     {" "+user.status}
                   </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Your order's address is
+                    {" "+user.address}
+                  </h3>
                  
                 </div>
                 <button

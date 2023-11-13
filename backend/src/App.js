@@ -16,6 +16,7 @@ const port = process.env.PORT || "8000";
 
 const PharmacistRequestsController = require("./controllers/PharmacistRequestsController");
 const userController = require("./controllers/userController");
+const patientController = require("./controllers/patientController");
 
 mongoose
   .connect(MongoURI)
@@ -41,7 +42,9 @@ app.use(express.json());
 
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
+app.post("/patient/createSession",patientController.checkoutSession)
 app.use(cookieParser());
+
 app.use(auth);
 app.use("/", router);
 

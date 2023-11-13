@@ -16,6 +16,10 @@ const orderSchema = new Schema(
     total:{
       type: Number,
       required: true,
+    },
+    address:{
+      type: String,
+      required: false,
     }
     
   },

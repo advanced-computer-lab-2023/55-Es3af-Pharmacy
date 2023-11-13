@@ -21,7 +21,7 @@ class PatientService {
       
     }
     addDel(address){
-      console.log(address);
+      
       return http.post("patient/addDel",address);
     }
     checkout(){
@@ -39,6 +39,10 @@ class PatientService {
     }
     removeMed(id){
       return http.post(`/patient/deleteMed?id=${id}`)
+    }
+    selectAdd(address){
+     
+      return http.post("/patient/selectAddress", address)
     }
     async createSession(body){
       return http.post("/patient/createSession", body)

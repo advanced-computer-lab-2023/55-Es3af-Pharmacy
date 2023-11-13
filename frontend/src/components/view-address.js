@@ -1,7 +1,6 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
+import axios from "axios";
 
 const AllAddress = (props) => {
   const [users, setUsers] = useState([]);
@@ -23,13 +22,21 @@ const AllAddress = (props) => {
   };
 
   const handleAddressChange = (event) => {
-    setSelectedAddress(event.target.value);
-  };
-
-  const handleChooseAddress = () => {
-    // Handle the logic when the user chooses an address
-    console.log("Selected Address:", selectedAddress);
-    // Add your logic here, for example, redirecting or performing an action with the selected address
+    const selectedAddress = event.target.value;
+    setSelectedAddress(selectedAddress);
+    
+    const addressObject = { address: selectedAddress };
+    PatientService.selectAdd(addressObject)
+    .then((response) => {
+      console.log(response.data);
+      setUsers(response.data);
+    })
+    .catch((e) => {
+      
+      console.log(e);
+    });
+    //axios.post("http://localhost:8000/patient/selectAddress",addressObject);
+    // You can add additional logic here if needed
   };
 
   return (
@@ -52,7 +59,6 @@ const AllAddress = (props) => {
                 </option>
               ))}
             </select>
-           
           </div>
         ) : (
           <div>

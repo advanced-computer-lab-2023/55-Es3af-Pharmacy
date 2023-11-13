@@ -160,17 +160,7 @@ function CheckoutPage() {
       <header className="App-header">
         <form className="App-header" onSubmit={add}>
           <div className="form-group">
-            <label htmlFor="InputUsername">Address</label>
-            <input
-              type="text"
-              className="form-control"
-              id="delivery"
-              name="delivery"
-              value={user.delivery}
-              placeholder="Enter address"
-              onChange={handleInputChange}
-            ></input>
-            <br/>
+            
           </div>
           <div className="form-group">
             <label>Select a Payment Method:</label>
