@@ -78,6 +78,9 @@ function PatientHome() {
         <div>
           <a href="/patient/updatePassword" rel="noopener noreferrer">
             <button className="btn btn-primary"> update password</button>
+            </a>
+            </div>
+            <div>
           <a href="/patient/dropdown" rel="noopener noreferrer">
             <button className="btn btn-primary"> view addresses </button>
           </a>
