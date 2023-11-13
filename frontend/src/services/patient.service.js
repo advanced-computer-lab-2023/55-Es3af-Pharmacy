@@ -44,6 +44,11 @@ class PatientService {
      
       return http.post("/patient/selectAddress", address)
     }
+
+    // getPassword(password){
+    //   console.log('service')
+    //   return http.post(`/patient/updatePassword`, password)
+    // }
     async createSession(body){
       return http.post("/patient/createSession", body)
     }
@@ -51,6 +56,10 @@ class PatientService {
       return http.put("/patient/widrawFromWallet",body)
     }
 
-}  
+    updatePassword(password){
+      return http.put(`/patient/updatePassword`, password)
+    }
+
+} 
 
 export default new PatientService();

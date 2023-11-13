@@ -29,7 +29,7 @@ root.render(
       />
       <Route path="/patient/registerPatient/*" element={<RegisterPatient />} />
 
-      <Route path="/forgetpassword/*" element={<ForgetPassword />} />
+      <Route path="/forgetpassword" element={<ForgetPassword />} />
 
       <Route path="/login" element={<Login />} />
     </Routes>

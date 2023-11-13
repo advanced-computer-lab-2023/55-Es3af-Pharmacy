@@ -81,41 +81,52 @@ const logout = (req, res) => {
 
 const forgetPassword = async (req, res) => {
   const { username, email } = req.body;
-  res.status(200).send('test')
+  console.log('backend etnada')
 
-   const transporter = nodemailer.createTransport({
-     service: "gmail",
-     auth: {
-       user: "55es3afclinicpharmacy@gmail.com",
-       pass: "55Es3afACL",
-     },
-   });
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash('55Es3afACL', salt);
+  var newPassword = hashedPassword;
 
-   const mailOptions = {
-     from: "55es3afclinicpharmacy@gmail.com",
-     to: "zeinaayman666@gmail.com",
-     subject: "Password restoration",
-     text: "Your new password is: 55Es3afACL",
-   };
+  //res.status(200).send('test')
 
-   transporter.sendMail(mailOptions, (error, info) => {
-     if (error) {
-       console.error(error);
-     } else {
-       console.log("Email sent: " + info.response);
-       res.status.send("done");
-     }
-   });
+  //  const transporter = nodemailer.createTransport({
+  //    service: "gmail",
+  //    auth: {
+  //      user: "55es3afclinicpharmacy@gmail.com",
+  //      pass: "55Es3afACL",
+  //    },
+  //  });
 
-   User.findOne({username: username, email: email})
-   .exec()
-   .then((result) => {
-     if(!result) {res.status.send('username or email is wrong')}
-     else{
+  //  const mailOptions = {
+  //    from: "55es3afclinicpharmacy@gmail.com",
+  //    to: "zeinaayman666@gmail.com",
+  //    subject: "Password restoration",
+  //    text: "Your new password is: 55Es3afACL",
+  //  };
 
-     }
-   })
-   .catch((err) => {console.error(err)})
+  //  transporter.sendMail(mailOptions, (error, info) => {
+  //    if (error) {
+  //      console.error(error);
+  //    } else {
+  //      console.log("Email sent: " + info.response);
+  //      res.status.send("done");
+  //    }
+  //  });
+
+  const user = await User.findOne({username: username, email: email})
+  console.log(`username: ${username}, email: ${email}`)
+  //console.log(user)
+
+  if(!user) res.status(200).send('username or email is wrong')
+  else{
+    await User.findByIdAndUpdate(user._id.valueOf(), {password: newPassword})
+    console.log('updated')
+    res.status(200).send('updated')
+  }
+
+
+
+
 };
 
 module.exports = {

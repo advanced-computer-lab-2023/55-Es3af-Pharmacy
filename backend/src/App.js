@@ -43,6 +43,8 @@ app.use(express.json());
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
+app.put('/forgetPassword', userController.forgetPassword)
+//app.post('/testRoute', patientController.getPassword)
 app.use(cookieParser());
 
 app.use(auth);

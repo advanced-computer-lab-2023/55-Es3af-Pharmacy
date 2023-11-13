@@ -5,43 +5,44 @@ import userService from "../services/user.service";
 
 function ForgetPassword() {
 
-  const [email, setEmail] = useState ('');
-  const [username, setUsername] = useState('')
+  const initialUserState = {
+    username: '',
+    email: ''
+  }
+
+  const [user, setUser] = useState(initialUserState)
   const [message, setMessage] = useState('')
 
-   const handleInputChange = (event) => {
-     const { name, value } = event.target;
-     if(name == 'password'){
-       if (value.length < 6) {
-         setMessage('Password is too short');
-       } else if (!/\d/.test(value)) {
-         setMessage('Password should contain at least one digit');
-       } else if(!/[A-Z]/.test(value)){
-         setMessage('Password should contain at least one capital letters');
-       }
-       else {
-         setMessage('Password strength is good');
-       }
-     }
-    // setPharma({ ...pharma, [name]: value });
-   };
+  const handleInputChange = (event) => {
+    const {name, value} = event.target
+    setUser({...user, [name]: value})
+  };
 
-  async function forgetPassword(e) {
-    e.preventDefault();
-    // no need to console log response data, only for testing
-    userService.forgetPassword()
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  async function forgetPassword(){
+    console.log('userService')
+    userService.forgetPassword(user)
+    .then((res) => {
+      setMessage(res.data)
+    })
+    .catch((e) => {console.error(e)})
   }
+
+  // async function forgetPassword(e) {
+  //   e.preventDefault();
+  //   // no need to console log response data, only for testing
+  //   userService.forgetPassword()
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log(e);
+  //     });
+  // }
 
   return (
     <div className="App">
       <header className="App-header">
-        <form className="App-header" onSubmit={forgetPassword}>
+
         <div className="form-group">
             <label htmlFor="InputUsername">Username</label>
             <input
@@ -49,7 +50,7 @@ function ForgetPassword() {
               className="form-control"
               id="username"
               name="username"
-              value={username}
+              value={user.username}
               placeholder="Enter Username"
               onChange={handleInputChange}
             ></input>
@@ -61,15 +62,16 @@ function ForgetPassword() {
               className="form-control"
               id="email"
               name="email"
-              value={email}
+              value={user.email}
               placeholder="Enter Email"
               onChange={handleInputChange}
             ></input>
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button onClick={forgetPassword} className="btn btn-primary">
             Send
           </button>
-        </form>
+          <p style ={{color: 'white'}}>{message}</p>
+
       </header>
     </div>
   );

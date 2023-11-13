@@ -21,8 +21,9 @@ class UserService {
     return http.delete(`/user/${id}`);
   }
 
-  forgetPassword(){
-    return http.get('/forgetPassword')
+  forgetPassword(user){
+    console.log('service')
+    return http.put('/forgetPassword', user)
   }
 }
 
