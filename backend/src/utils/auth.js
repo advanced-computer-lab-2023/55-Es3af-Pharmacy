@@ -3,7 +3,7 @@ const User = require("../Models/user.js");
 
 
 const reg=(req,res,next)=>{
-  console.log("hena");
+  
     next();
 }
 

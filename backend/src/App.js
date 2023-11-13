@@ -40,15 +40,19 @@ app.use(
 app.use(express.json());
 
 app.use("/login", userController.login);
-
+app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
+app.get('/forgetPassword', userController.forgetPassword)
 app.use(cookieParser());
-app.use(auth);
+
+
 app.use("/", router);
 
+app.use(auth);
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
 
-app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
+
 app.get("/users", userController.getUsers);
 app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
+
