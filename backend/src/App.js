@@ -9,7 +9,7 @@ const { auth, reg} = require("./utils/auth");
 
 const { router } = require("../src/routes/index");
 const MongoURI =
-"mongodb+srv://ebadajr:XpSO6KrL08tpJ02f@pharmacyacl.yvpafqw.mongodb.net/?retryWrites=true&w=majority";
+"mongodb+srv://55Es3af_Pharmacy:H2Wk2njprBuDdho2@55es3afpharmacy.ustsrxb.mongodb.net/";
 //App variables
 const app = express();
 const port = process.env.PORT || "8000";

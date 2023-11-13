@@ -168,6 +168,7 @@ const uploadImage = async (req, res) => {
 
     const Name = req.body.Name; 
     const image = {
+      name: file.originalname,
       data: fs.readFileSync(req.file.path),
       contentType: req.file.mimetype,
     };
