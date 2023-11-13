@@ -16,7 +16,7 @@ router.use("/patient", patientRoutes);
 
 router.use("/pharmacist", pharmacistRoutes);
 
-router.use("/pharmacist-requests", pharmacistRequestsRoutes);
+router.use("/requestPharmacist", pharmacistRequestsRoutes);
 
 router.get("/logout", userController.logout);
 
