@@ -36,7 +36,12 @@ class PatientService {
     removeMed(id){
       return http.post(`/patient/deleteMed?id=${id}`)
     }
-
+    async createSession(body){
+      return http.post("/patient/createSession", body)
+    }
+    async withdrawFromWallet(body){
+      return http.put("/patient/widrawFromWallet",body)
+    }
 
 }  
 

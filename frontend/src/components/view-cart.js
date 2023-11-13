@@ -72,7 +72,7 @@ const MyCart = (props) => {
       <div className="App-header">
      
             <button onClick={(user) =>checkout()}
-             className="btn btn-primary"> checkout </button>
+             className="btn btn-primary" disabled={users.length==0}> checkout </button>
          
         
 
@@ -89,7 +89,7 @@ const MyCart = (props) => {
                 
                 <div className="card-body">
                   <h3 className="card-title" style={{ color: "white" }}>
-                    {user.medID}
+                    {user.medName}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
                     {user.qty}
