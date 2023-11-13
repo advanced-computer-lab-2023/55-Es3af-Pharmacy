@@ -234,21 +234,21 @@ const checkout = async (req, res) => {
   res.send(newOrder);
 };
 
-async function getPassword(id, password){
-  var user = await patient.findById(id)
+// async function getPassword(id, password){
+//   var user = await patient.findById(id)
 
-  // const salt = await bcrypt.genSalt();
-  // const hashedPassword = await bcrypt.hash(password, salt);
-  // var newPassword = hashedPassword;
+//   // const salt = await bcrypt.genSalt();
+//   // const hashedPassword = await bcrypt.hash(password, salt);
+//   // var newPassword = hashedPassword;
 
-  console.log(`user password: ${user.password}`)
-  console.log(`old password: ${password}`)
+//   console.log(`user password: ${user.password}`)
+//   console.log(`old password: ${password}`)
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+//   const isPasswordValid = await bcrypt.compare(password, user.password);
 
-  if(isPasswordValid) return true
-  else return false
-}
+//   if(isPasswordValid) return true
+//   else return false
+// }
 
 // const getPassword = async (req, res) => {
 
@@ -285,55 +285,55 @@ async function getPassword(id, password){
 //   //res.status(200).send(user.password);
 // };
 
-const changePassword = async (req, res) => {
-  //const currPassword = req.body.password
-  const token = req.cookies.jwt;
-  var id = ''
-  jwt.verify(token, "supersecret", (err, decodedToken) => {
-    if (err) {
-      console.log('You are not logged in.');
-      // res send status 401 you are not logged in
-      res.status(401).json({ message: "You are not logged in." });
-      // res.redirect('/login');
-    } else {
-      id = decodedToken.name;
-      console.log('got the id')
-    }
-  });
+// const changePassword = async (req, res) => {
+//   //const currPassword = req.body.password
+//   const token = req.cookies.jwt;
+//   var id = ''
+//   jwt.verify(token, "supersecret", (err, decodedToken) => {
+//     if (err) {
+//       console.log('You are not logged in.');
+//       // res send status 401 you are not logged in
+//       res.status(401).json({ message: "You are not logged in." });
+//       // res.redirect('/login');
+//     } else {
+//       id = decodedToken.name;
+//       console.log('got the id')
+//     }
+//   });
 
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
-  var newPassword = hashedPassword;
+//   const salt = await bcrypt.genSalt();
+//   const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
+//   var newPassword = hashedPassword;
 
-  console.log(`current password: ${req.body.oldPassword}`)
+//   console.log(`current password: ${req.body.oldPassword}`)
 
-  var message = ''
+//   var message = ''
 
-  var correct = await getPassword(id, req.body.oldPassword)
+//   var correct = await getPassword(id, req.body.oldPassword)
 
-  if(correct) {
-    console.log('correct current password')
-    const isPasswordValid = await bcrypt.compare(req.body.oldPassword, req.body.newPassword);
-    if(isPasswordValid) {
-      console.log('same same')
-      message = 'new password is the same as the current'
-    }
-    else{
-      try {
-        await patient.findByIdAndUpdate(id, { password: newPassword });
-        message = "Password updated successfully"
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-  else {
-    console.log('wrong current password')
-    message = 'wrong current password'
-  }
+//   if(correct) {
+//     console.log('correct current password')
+//     const isPasswordValid = await bcrypt.compare(req.body.oldPassword, req.body.newPassword);
+//     if(isPasswordValid) {
+//       console.log('same same')
+//       message = 'new password is the same as the current'
+//     }
+//     else{
+//       try {
+//         await patient.findByIdAndUpdate(id, { password: newPassword });
+//         message = "Password updated successfully"
+//       } catch (err) {
+//         console.error(err);
+//       }
+//     }
+//   }
+//   else {
+//     console.log('wrong current password')
+//     message = 'wrong current password'
+//   }
 
-  res.status(200).send(message)
-};
+//   res.status(200).send(message)
+// };
 
 
 const addDelivery = async (req, res) => {
@@ -498,14 +498,12 @@ module.exports = {
   addToCart,
   removeItem,
   checkout,
-  getPassword,
   addItem,
   addDelivery,
   viewOrder,
   cancelOrder,
   dropdown,
   removeMed,
-  changePassword,
   checkoutSession,
   withdrawFromWallet,
   orderAddress

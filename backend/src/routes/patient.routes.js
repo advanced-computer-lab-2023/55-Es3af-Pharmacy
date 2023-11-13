@@ -3,6 +3,7 @@ const patientController = require('../controllers/patientController')
 const RegisterPatientController= require('../controllers/RegisterPatientController')
 const patient = require('../Models/patient')
 const patientRoutes = new Router()
+const userController = require('../controllers/userController')
 
 //patientRoutes.post('/updatePassword', patientController.getPassword)
 
@@ -42,6 +43,6 @@ patientRoutes.post("/selectAddress", patientController.orderAddress);
 
 
 
-patientRoutes.put('/updatePassword', patientController.changePassword)
+patientRoutes.put('/updatePassword', userController.changePassword)
 
 module.exports = { patientRoutes };
