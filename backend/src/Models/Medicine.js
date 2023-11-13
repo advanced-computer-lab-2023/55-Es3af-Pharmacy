@@ -28,6 +28,7 @@ const medicineSchema = new Schema(
       reqired: true,
     },
     image: {
+    name: String,
     data: Buffer,
     contentType: String
   }

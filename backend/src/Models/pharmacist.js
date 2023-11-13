@@ -29,6 +29,21 @@ const pharmacistSchema = new Schema({
     type: String,
     required: true,
   },
+  IDfile: {
+    name: String,
+    data: Buffer,
+    contentType: String
+  },
+  WorkingLicenses: [{
+    name: String,
+    data: Buffer,
+    contentType: String
+  }],
+  PharmacyDegree: {
+    name: String,
+    data: Buffer,
+    contentType: String
+  },
   
 });
 

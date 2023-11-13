@@ -38,14 +38,33 @@ function RegisterPatient() {
 
   async function registerPatient(e) {
     e.preventDefault();
-    // no need to console log response data, only for testing
-    RegisterPatientService.registerPatient(patient)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    try {
+      const response = await RegisterPatientService.registerPatient(patient);
+      console.log(response.data);
+      if (response.data.success) {
+        alert('Data saved successfully!');
+      } else {
+        alert('Error: This username is already taken. Please choose a different one.');
+      }
+    } catch (error) {
+      console.error(error);
+      if (error.response) {
+        if (
+          error.response.status === 409 &&
+          error.response.data.code === 11000 &&
+          error.response.data.keyPattern &&
+          error.response.data.keyPattern.username
+        ) {
+          alert('Error: This username is already taken. Please choose a different one.');
+        } else {
+          alert(`Error: ${error.response.data.message}`);
+        }
+      } else if (error.request) {
+        alert('Error: No response from the server');
+      } else {
+        alert(`Error: ${error.message}`);
+      }
+    }
   }
 
   return (
