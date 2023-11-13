@@ -10,6 +10,8 @@ patientRoutes.get("/patients", patientController.getPatients)
 
 patientRoutes.get("/Cart", patientController.viewCart );
 //patientRoutes.get('/:id', patientController.getPatient)
+patientRoutes.post("/createSession",patientController.checkoutSession)
+patientRoutes.put('/widrawFromWallet',patientController.withdrawFromWallet)
 
 patientRoutes.post("/checkout",patientController.checkout);
 
@@ -26,9 +28,11 @@ patientRoutes.post("/addDel" ,patientController.addDelivery);
 
 patientRoutes.get("/order", patientController.viewOrder);
 
+patientRoutes.get("/dropdown",patientController.dropdown)
+
 patientRoutes.delete("/cancel" , patientController.cancelOrder);
 
-patientRoutes.get("/dropdownOptions", patientController.dropdown);
+//patientRoutes.get("/dropdown",patientController.dropdown)
 
 patientRoutes.post("/deleteMed", patientController.removeMed);
 

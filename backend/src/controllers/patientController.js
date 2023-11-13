@@ -3,6 +3,7 @@ const patient = require("../Models/patient.js");
 const Order = require("../Models/order.js");
 const jwt = require("jsonwebtoken");
 const { pid } = require("process");
+const stripe= require('stripe')("sk_test_51NxqUnLoGRs62ex4Yxz9G8uKeNFYxSs27BlQznMivk0eBNxx7eZzj6X1Q2ZCYEhOmLOhbGwVLNMzLwMsV1Xf4fZv00ert3YhEW");
 const bcrypt = require("bcrypt");
 const getPatient = async (req, res) => {
   try {
@@ -66,7 +67,7 @@ const addToCart = async (req, res) => {
 
     if (exists == false) {
       p.cartTotal = p.cartTotal + med.Price;
-      p.cart.push({ medID: med._id, qty: 1 });
+      p.cart.push({ medID: med._id, qty: 1, medName:med.Name, medPrice:med.Price });
       p.save().catch((err) => res.send(err));
       res.status(200).send("Cart saved.");
     } else {
@@ -78,7 +79,7 @@ const addToCart = async (req, res) => {
     }
   } else {
     p.cartTotal = med.Price;
-    p.cart.push({ medID: med._id, qty: 1 });
+    p.cart.push({ medID: med._id, qty: 1, medName:med.Name, medPrice:med.Price });
     p.save().catch((err) => res.send(err));
     res.status(200).send("Cart saved.");
   }
@@ -224,6 +225,9 @@ const checkout = async (req, res) => {
     total: p.cartTotal,
   });
   newOrder.save().catch((err) => console.log(err));
+  p.cart=[];
+  p.cartTotal=0;
+  await p.save();
   res.send(newOrder);
 };
 
@@ -330,18 +334,21 @@ const changePassword = async (req, res) => {
 
 
 const addDelivery = async (req, res) => {
+  console.log("akhooya");
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
     if (err) {
       // console.log('You are not logged in.');
       // res send status 401 you are not logged in
+        console.log("here ");
       res.status(401).json({ message: "You are not logged in." });
       // res.redirect('/login');
     } else {
       id = decodedToken.name;
     }
   });
+    console.log("hiiii "+ id);
   const p = await patient.findById(id);
   p.delivery.push(req.body.delivery);
   p.save().catch((err) => console.log(err));
@@ -400,6 +407,54 @@ const dropdown = async (req, res) => {
   const p = await patient.findById(id);
   res.status(200).send(p.delivery);
 };
+    const withdrawFromWallet = async (req, res) => {
+      const token = req.cookies.jwt;
+      var patientID;
+      jwt.verify(token, 'supersecret', (err, decodedToken) => {
+          if (err) {
+            // console.log('You are not logged in.');
+            // res send status 401 you are not logged in
+            res.status(401).json({message:"You are not logged in."})
+            // res.redirect('/login');
+          } else {
+            
+            patientID= decodedToken.name;
+          }
+        });
+      const amountToWithdraw = req.body.amount;
+      try {
+        const patientt = await patient.findById(patientID).exec();
+        if (patientt.amountInWallet < amountToWithdraw) {
+          return res.status(200).send("Not suffecient funds in wallet");
+        } else {
+          patientt.amountInWallet -= amountToWithdraw;
+          await patientt.save();
+          return res.status(200).send("Amount deducted successfully");
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("An error occurred while withdrawing");
+      }
+    };
+    const checkoutSession = async (req,res)=>{
+      try{
+        const  lineItems  = req.body.lineItems;
+        const success_url=req.body.success_url;
+        const cancel_url= req.body.cancel_url;
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ['card'],
+          mode:'payment',
+          line_items: lineItems,
+          success_url:success_url,
+          cancel_url:cancel_url,
+        })
+        res.json({url:session.url})
+      }
+      catch (error){
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+      }
+    }
 
 module.exports = {
   getPatient,
@@ -416,4 +471,6 @@ module.exports = {
   dropdown,
   removeMed,
   changePassword,
+  checkoutSession,
+  withdrawFromWallet
 };

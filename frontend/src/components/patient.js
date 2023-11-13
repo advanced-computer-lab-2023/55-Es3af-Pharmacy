@@ -10,6 +10,7 @@ import AddDelivery from "./add-delivery";
 import CheckoutPage from "./checkout";
 import MyOrder from "./view-order";
 import UpdatePassword from "./updatePassword";
+import AllAddress from "./view-address";
 function PatientPage() {
   return (
     <Routes>
@@ -30,6 +31,8 @@ function PatientPage() {
      <Route path="/order" element={<MyOrder />}></Route>
      
      <Route path="/updatePassword" element={<UpdatePassword />}></Route>
+
+     <Route path="/dropdown" element={<AllAddress />}></Route>
 
 
     </Routes>
@@ -75,10 +78,13 @@ function PatientHome() {
         <div>
           <a href="/patient/updatePassword" rel="noopener noreferrer">
             <button className="btn btn-primary"> update password</button>
+          <a href="/patient/dropdown" rel="noopener noreferrer">
+            <button className="btn btn-primary"> view addresses </button>
           </a>
         </div>
       </header>
     </div>
+    
   );
 }
 

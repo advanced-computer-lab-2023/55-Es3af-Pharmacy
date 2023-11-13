@@ -40,6 +40,12 @@ const patientSchema = new Schema({
       type: mongoose.Types.ObjectId,
       ref: 'medicine',
     },
+    medName:{
+      type: String
+    },
+    medPrice:{
+      type:Number
+    },
     qty:{
       type:Number,
       required: true,
@@ -56,6 +62,10 @@ const patientSchema = new Schema({
     required: false,
     default: [],
   },
+  amountInWallet:{
+    type:Number,
+    default:0,
+  }
   
 
 });

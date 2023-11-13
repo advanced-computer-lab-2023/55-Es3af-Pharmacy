@@ -30,6 +30,10 @@ class PatientService {
     viewOrder(){
       return http.get("patient/order");
     }
+    viewAddress(){
+      console.log("hennnaa");
+      return http.get("patient/dropdown");
+    }
     cancelOrder(){
       return http.delete("patient/cancel");
     }
@@ -41,6 +45,12 @@ class PatientService {
     //   console.log('service')
     //   return http.post(`/patient/updatePassword`, password)
     // }
+    async createSession(body){
+      return http.post("/patient/createSession", body)
+    }
+    async withdrawFromWallet(body){
+      return http.put("/patient/widrawFromWallet",body)
+    }
 
     updatePassword(password){
       return http.put(`/patient/updatePassword`, password)

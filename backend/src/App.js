@@ -45,11 +45,9 @@ app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.put('/forgetPassword', userController.forgetPassword)
 //app.post('/testRoute', patientController.getPassword)
 app.use(cookieParser());
-
-
+app.use(auth);
 app.use("/", router);
 
-app.use(auth);
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
@@ -57,4 +55,3 @@ app.listen(port, () => {
 
 app.get("/users", userController.getUsers);
 app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
-
