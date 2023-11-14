@@ -11,12 +11,11 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
 const pharmacistReq = async (req, res) => {
-  //console.log(req.BODY);
   try {
-      
-      const salt = await bcrypt.genSalt();
-      const hashedPassword = await bcrypt.hash(req.body.password, salt);  
-      const newPharmacist = new pharmacistRequestModel({
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const newPharmacist = new pharmacistRequestModel({
       username: req.body.username,
       password: hashedPassword,
       name: req.body.name,
@@ -28,51 +27,61 @@ const pharmacistReq = async (req, res) => {
       status: req.body.status || "Pending",
     });
 
-    // Handle file uploads
-    //console.log("hi");
-    console.log(req.files);
-    //console.log("hi");
-    if (req.files) {
-      
-      if (req.files.IDfile) {
-        newPharmacist.IDfile = {
-          name: req.files.IDfile[0].originalname,
-          data: req.files.IDfile[0].buffer,
-          contentType: req.files.IDfile[0].mimetype,
-        };
-      }
-
-      if (req.files.WorkingLicenses) {
-        newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
-          name: license.originalname,
-          data: license.buffer,
-          contentType: license.mimetype,
-        }));
-      }
-
-      if (req.files.PharmacyDegree) {
-        newPharmacist.PharmacyDegree = {
-          name: req.files.PharmacyDegree[0].originalname,
-          data: req.files.PharmacyDegree[0].buffer,
-          contentType: req.files.PharmacyDegree[0].mimetype,
-        };
-      }
+    if (req.files && req.files.length > 0) {
+      req.files.forEach((file) => {
+        if (file.fieldname === "IDfile") {
+          newPharmacist.IDfile = {
+            name: file.originalname,
+            data: file.buffer,
+            contentType: file.mimetype,
+          };
+        } else if (file.fieldname === "WorkingLicenses") {
+          if (req.files && req.files.length > 0) {
+            req.files.forEach((file) => {
+              if (file.fieldname === "IDfile") {
+                newPharmacist.IDfile = {
+                  name: file.originalname,
+                  data: file.buffer,
+                  contentType: file.mimetype,
+                };
+              } else if (file.fieldname === "WorkingLicenses" && req.files.WorkingLicenses) {
+                newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
+                  name: license.originalname,
+                  data: license.buffer,
+                  contentType: license.mimetype,
+                }));
+              } else if (file.fieldname === "PharmacyDegree") {
+                newPharmacist.PharmacyDegree = {
+                  name: file.originalname,
+                  data: file.buffer,
+                  contentType: file.mimetype,
+                };
+              }
+            });
+          }
+        } else if (file.fieldname === "PharmacyDegree") {
+          newPharmacist.PharmacyDegree = {
+            name: file.originalname,
+            data: file.buffer,
+            contentType: file.mimetype,
+          };
+        }
+      });
     }
 
-  
-    newPharmacist.save().catch(err => console.log(err));
+    await newPharmacist.save();
     
     const token = createToken(newPharmacist._id);
     const maxAge = 3 * 24 * 60 * 60;
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(200).send(newPharmacist);
-    //res.status(200).send('Pharmacist registered successfully.');
   } catch (error) {
-    //console.error(error);
-    res.status(400).send({ error});
+    console.error("Error in pharmacistReq:", error);
+    res.status(400).send({ error: error.message || "An error occurred" });
   }
 };
+
 
   const getPharmacistReq = async (req, res) => {
     //retrieve all Pharmacist requests from the database
