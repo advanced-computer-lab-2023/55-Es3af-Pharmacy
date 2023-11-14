@@ -1,6 +1,6 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const PharmacistReq = () => {
@@ -55,51 +55,53 @@ const PharmacistReq = () => {
 
   const handleWorkingLicensesChange = (e) => {
     const files = e.target.files;
-  
+
     if (files.length > 0) {
-      setFileData((prevFileData) => ({
-        ...prevFileData,
-        WorkingLicenses: [...prevFileData.WorkingLicenses, ...files],
-      }));
+      setFileData({
+        ...fileData,
+        WorkingLicenses: [...fileData.WorkingLicenses, ...files],
+      });
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const form = new FormData();
-  
+
       // Append form data fields
       for (const key in formData) {
         form.append(key, formData[key]);
       }
-  
+
       // Append IDfile file
       if (fileData.IDfile) {
         form.append('IDfile', fileData.IDfile);
       }
-  
+
       // Append PharmacyDegree file
       if (fileData.PharmacyDegree) {
         form.append('PharmacyDegree', fileData.PharmacyDegree);
       }
-  
+
       // Append multiple WorkingLicenses files
-      for (const file of fileData.WorkingLicenses) {
+      fileData.WorkingLicenses.forEach((file) => {
         form.append('WorkingLicenses', file);
-      }
+      });
+
       console.log(formData);
-      const response = await axios.post('http://localhost:8000/requestPharmacist/', formData, {
+
+      const response = await axios.post('http://localhost:8000/requestPharmacist/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-  
+
       console.log(response.data); // Handle the response as needed
     } catch (error) {
       console.error('Error during registration:', error);
-  
+
       if (error.response) {
         // The request was made and the server responded with a status code
         console.error('Response data:', error.response.data);
@@ -255,7 +257,7 @@ const PharmacistReq = () => {
               name="PharmacyDegree"
               onChange={handleFileChange}
             />
-          </div>     
+          </div>   
 
 
 
