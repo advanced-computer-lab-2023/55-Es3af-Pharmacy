@@ -5,4 +5,5 @@ export default axios.create({
     "Content-type": "application/json",
   },
   withCredentials: true,
-});
+  credentials: 'include',
+})
