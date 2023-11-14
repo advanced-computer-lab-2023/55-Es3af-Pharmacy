@@ -39,6 +39,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/login", userController.login);
 app.post("/", PharmacistRequestsController.pharmacistReq);
@@ -46,7 +47,7 @@ app.post("/patient/createSession",patientController.checkoutSession)
 app.put('/forgetPassword', userController.forgetPassword)
 app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
 //app.post('/testRoute', patientController.getPassword)
-app.use(cookieParser());
+
 
 app.use(auth);
 app.use("/", router);
