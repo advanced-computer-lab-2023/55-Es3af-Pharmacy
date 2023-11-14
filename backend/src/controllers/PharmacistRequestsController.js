@@ -1,7 +1,4 @@
 const pharmacistRequestModel = require("../Models/PharmacistRequests.js");
-
-
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
@@ -17,8 +14,9 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
 const pharmacistReq = async (req, res) => {
+  //console.log(req.BODY);
   try {
-
+      
       const salt = await bcrypt.genSalt();
       const hashedPassword = await bcrypt.hash(req.body.password, salt);  
       const newPharmacist = new pharmacistRequestModel({
@@ -61,18 +59,18 @@ const pharmacistReq = async (req, res) => {
       }
     }
 
-    
+  
     newPharmacist.save().catch(err => console.log(err));
     
     const token = createToken(newPharmacist._id);
     const maxAge = 3 * 24 * 60 * 60;
 
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).send(newDoctor);
+    res.status(200).send(newPharmacist);
     //res.status(200).send('Pharmacist registered successfully.');
   } catch (error) {
-    console.error(error);
-    res.status(400).send({ error: 'Error during registration.' });
+    //console.error(error);
+    res.status(400).send({ error});
   }
 };
 
