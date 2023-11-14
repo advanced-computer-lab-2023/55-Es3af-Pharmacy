@@ -13,7 +13,8 @@ const MongoURI =
 //App variables
 const app = express();
 const port = process.env.PORT || "8000";
-
+const multer = require('multer');
+const upload =multer();
 const PharmacistRequestsController = require("./controllers/PharmacistRequestsController");
 const userController = require("./controllers/userController");
 const patientController = require("./controllers/patientController");
@@ -38,14 +39,15 @@ app.use(
   })
 );
 
-app.use(express.json());
-app.use(cookieParser());
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(upload.any());
 app.use("/login", userController.login);
-app.post("/", PharmacistRequestsController.pharmacistReq);
+app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
 app.put('/forgetPassword', userController.forgetPassword)
-app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
 //app.post('/testRoute', patientController.getPassword)
 
 
@@ -58,4 +60,4 @@ app.listen(port, () => {
 
 
 app.get("/users", userController.getUsers);
-
+app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);

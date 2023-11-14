@@ -12,6 +12,7 @@ const reg=(req,res,next)=>{
 const auth = (req, res, next) => {
   
   const token = req.cookies.jwt;
+  console.log("mazoon");
   
   // check json web token exists & is verified
   if (token) {

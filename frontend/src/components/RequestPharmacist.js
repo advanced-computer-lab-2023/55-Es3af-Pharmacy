@@ -89,8 +89,8 @@ const PharmacistReq = () => {
       for (const file of fileData.WorkingLicenses) {
         form.append('WorkingLicenses', file);
       }
-  
-      const response = await axios.post('http://localhost:8000/requestPharmacist/', form, {
+      console.log(formData);
+      const response = await axios.post('http://localhost:8000/requestPharmacist/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

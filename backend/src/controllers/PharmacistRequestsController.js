@@ -11,63 +11,65 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
 const pharmacistReq = async (req, res) => {
-    try {
-
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(req.body.password, salt);  
-        const newPharmacist = new pharmacistRequestModel({
-        username: req.body.username,
-        password: hashedPassword,
-        name: req.body.name,
-        email: req.body.email,
-        dateOfBirth: req.body.dateOfBirth,
-        hourlyRate: req.body.hourlyRate,
-        affiliation: req.body.affiliation,
-        educationBackground: req.body.educationBackground,
-        status: req.body.status || "Pending",
-      });
-  
-      // Handle file uploads
-      if (req.files) {
-        if (req.files.IDfile) {
-          newPharmacist.IDfile = {
-            name: req.files.IDfile[0].originalname,
-            data: req.files.IDfile[0].buffer,
-            contentType: req.files.IDfile[0].mimetype,
-          };
-        }
-  
-        if (req.files.WorkingLicenses) {
-          newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
-            name: license.originalname,
-            data: license.buffer,
-            contentType: license.mimetype,
-          }));
-        }
-  
-        if (req.files.PharmacyDegree) {
-          newPharmacist.PharmacyDegree = {
-            name: req.files.PharmacyDegree[0].originalname,
-            data: req.files.PharmacyDegree[0].buffer,
-            contentType: req.files.PharmacyDegree[0].mimetype,
-          };
-        }
-      }
-  
-      await newPharmacist.save();
-      newPharmacist.save().catch(err => console.log(err));
-      const token = createToken(newPharmacist._id);
-      const maxAge = 3 * 24 * 60 * 60;
-
-      res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-      res.status(200).send(newPharmacist);
+  //console.log(req.BODY);
+  try {
       
-    } catch (error) {
-      console.error(error);
-      res.status(400).send({ error: 'Error during registration.' });
-    }
-  };
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);  
+      const newPharmacist = new pharmacistRequestModel({
+      username: req.body.username,
+      password: hashedPassword,
+      name: req.body.name,
+      email: req.body.email,
+      dateOfBirth: req.body.dateOfBirth,
+      hourlyRate: req.body.hourlyRate,
+      affiliation: req.body.affiliation,
+      educationBackground: req.body.educationBackground,
+      status: req.body.status || "Pending",
+    });
 
+    // Handle file uploads
+    if (req.files) {
+      
+      if (req.files.IDfile) {
+        newPharmacist.IDfile = {
+          name: req.files.IDfile[0].originalname,
+          data: req.files.IDfile[0].buffer,
+          contentType: req.files.IDfile[0].mimetype,
+        };
+      }
+
+      if (req.files.WorkingLicenses) {
+        newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
+          name: license.originalname,
+          data: license.buffer,
+          contentType: license.mimetype,
+        }));
+      }
+
+      if (req.files.PharmacyDegree) {
+        newPharmacist.PharmacyDegree = {
+          name: req.files.PharmacyDegree[0].originalname,
+          data: req.files.PharmacyDegree[0].buffer,
+          contentType: req.files.PharmacyDegree[0].mimetype,
+        };
+      }
+    }
+
+  
+    newPharmacist.save().catch(err => console.log(err));
+    
+    const token = createToken(newPharmacist._id);
+    const maxAge = 3 * 24 * 60 * 60;
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+    res.status(200).send(newPharmacist);
+    //res.status(200).send('Pharmacist registered successfully.');
+  } catch (error) {
+    //console.error(error);
+    res.status(400).send({ error});
+  }
+};
 
   const getPharmacistReq = async (req, res) => {
     //retrieve all Pharmacist requests from the database
