@@ -1,7 +1,7 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import PatientService from "../services/patient.service";
+import UserService from "../services/user.service";
 import { useParams } from "react-router-dom";
 //import bcrypt from "bcrypt";
 
@@ -17,13 +17,22 @@ function UpdatePassword() {
     //     console.log(oldPassword)
     // })
     // .catch((err) => console.error(err))
-    let passwords = {
+    let initialPasswords = {
         oldPassword : '',
         newPassword : ''
     };
 
+    const currentURL = window.location.href
+    //console.log(currentURL)
+    const parts = currentURL.split('/')
+    //console.log(parts)
+    var userType = parts[3]
+    console.log(userType)
+    if(userType == 'admin') userType = 'user'
+
     const [currPassword, setCurrPassword] = useState('')
     const [password,setPassword] = useState('')
+    const [passwords, setPasswords] = useState(initialPasswords)
     const [message, setMessage] = useState('');
     const [message2, setMessage2] = useState('')
 
@@ -47,7 +56,8 @@ function UpdatePassword() {
 
     const handleInputChange2 = (event) => {
         setCurrPassword(event.target.value)
-        passwords.oldPassword = currPassword
+        console.log('handel input current')
+        //passwords.oldPassword = currPassword
         //let correct = false
         // PatientService.getPassword(currPassword)
         // .then((res) => {
@@ -70,7 +80,9 @@ function UpdatePassword() {
         if(currPassword === '' || password === ''){
             setMessage('current password or new password are empty')
         } else {
-            PatientService.updatePassword(passwords)
+          setPasswords({oldPassword: currPassword, newPassword: password})
+          console.log(currPassword)
+            UserService.updatePassword(passwords, userType)
             .then((res) =>{
                 console.log(res.data)
                 setMessage2(res.data)

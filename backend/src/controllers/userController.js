@@ -2,6 +2,7 @@ const User = require("../Models/user.js");
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 const nodemailer = require("nodemailer");
+const jwt = require('jsonwebtoken')
 
 const addAdmin = async (req, res) => {
   try {
@@ -81,10 +82,10 @@ const logout = (req, res) => {
 
 const forgetPassword = async (req, res) => {
   const { username, email } = req.body;
-  console.log('backend etnada')
+  console.log("backend etnada");
 
   const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash('55Es3afACL', salt);
+  const hashedPassword = await bcrypt.hash("55Es3afACL", salt);
   var newPassword = hashedPassword;
 
   //res.status(200).send('test')
@@ -113,20 +114,82 @@ const forgetPassword = async (req, res) => {
   //    }
   //  });
 
-  const user = await User.findOne({username: username, email: email})
-  console.log(`username: ${username}, email: ${email}`)
+  const user = await User.findOne({ username: username, email: email });
+  console.log(`username: ${username}, email: ${email}`);
   //console.log(user)
 
-  if(!user) res.status(200).send('username or email is wrong')
-  else{
-    await User.findByIdAndUpdate(user._id.valueOf(), {password: newPassword})
-    console.log('updated')
-    res.status(200).send('updated')
+  if (!user) res.status(200).send("username or email is wrong");
+  else {
+    await User.findByIdAndUpdate(user._id.valueOf(), { password: newPassword });
+    console.log("updated");
+    res.status(200).send("updated");
+  }
+};
+
+async function getPassword(id, password){
+  var user = await User.findById(id)
+
+  // const salt = await bcrypt.genSalt();
+  // const hashedPassword = await bcrypt.hash(password, salt);
+  // var newPassword = hashedPassword;
+
+  console.log(`user password: ${user.password}`)
+  console.log(`old password: ${password}`)
+
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if(isPasswordValid) return true
+  else return false
+}
+
+const changePassword = async (req, res) => {
+  //const currPassword = req.body.password
+  const token = req.cookies.jwt;
+  var id = ''
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+      console.log('got the id')
+    }
+  });
+
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
+  var newPassword = hashedPassword;
+
+  console.log(`current password: ${req.body.oldPassword}`)
+
+  var message = ''
+
+  var correct = await getPassword(id, req.body.oldPassword)
+
+  if(correct) {
+    console.log('correct current password')
+    const isPasswordValid = await bcrypt.compare(req.body.oldPassword, req.body.newPassword);
+    if(isPasswordValid) {
+      console.log('same same')
+      message = 'new password is the same as the current'
+    }
+    else{
+      try {
+        await User.findByIdAndUpdate(id, { password: newPassword });
+        message = "Password updated successfully"
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }
+  else {
+    console.log('wrong current password')
+    message = 'wrong current password'
   }
 
-
-
-
+  res.status(200).send(message)
 };
 
 module.exports = {
@@ -137,4 +200,5 @@ module.exports = {
   login,
   logout,
   forgetPassword,
+  changePassword,
 };

@@ -45,9 +45,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.any());
 app.use("/login", userController.login);
-app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
+app.post("/", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
 app.put('/forgetPassword', userController.forgetPassword)
+app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
 //app.post('/testRoute', patientController.getPassword)
 app.use(cookieParser());
 
@@ -60,4 +61,4 @@ app.listen(port, () => {
 
 
 app.get("/users", userController.getUsers);
-app.get("/getPharmReq" , PharmacistRequestsController.getPharmacistReq);
+

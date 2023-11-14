@@ -5,11 +5,8 @@ const multer = require('multer');
 const fs = require('fs');
 const path = require('path');
 const mongoose = require('mongoose');
-
 const storage = multer.memoryStorage();
-const uploads = multer({ storage: storage });
-//const docReq = require('../Models/RequestDoctor.js')
-
+const upload = multer({ storage: storage });
 const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
@@ -74,16 +71,18 @@ const pharmacistReq = async (req, res) => {
   }
 };
 
-const getPharmacistReq = async (req, res) => {
-  //retrieve all Doctor requests from the database
-  const PharmReq = await pharmacistRequestModel.find({});
- 
-  res.status(200).send(PharmReq);
-};
+  const getPharmacistReq = async (req, res) => {
+    //retrieve all Pharmacist requests from the database
+    const PharmReq = await pharmacistRequestModel.find({});
+   
+    res.status(200).send(PharmReq);
+  };
+  
+  module.exports = { pharmacistReq, getPharmacistReq };
 
-module.exports = { pharmacistReq, getPharmacistReq };
 
-// const requestPharmacist = async (req, res) => {
+
+  // const requestPharmacist = async (req, res) => {
 //   pharmacistRequestModel
 //     .findOne({ username: req.body.username })
 //     .exec()
