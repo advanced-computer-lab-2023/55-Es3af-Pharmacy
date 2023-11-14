@@ -21,6 +21,30 @@ const PharmacistRequestList = (props) => {
         console.log(e);
       });
   };
+  const acceptDoctor = (id) => {
+    RequestService.acceptRequest(id)
+      .then((response) => {
+        console.log(response.data);
+        window.location.reload(false);
+        // Update the UI if needed, e.g., remove the accepted doctor from the list
+        //retrieveMembers();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const rejectPharmacist = (id) => {
+    RequestService.rejectRequest(id)
+      .then((response) => {
+        //console.log(id);
+        window.location.reload(false);
+        // Update the UI if needed, e.g., remove the accepted doctor from the list
+        //retrieveMembers();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div>
@@ -52,6 +76,21 @@ const PharmacistRequestList = (props) => {
                   <h3 className="card-title" style={{ color: "white" }}>
                     Education Background: {request.educationBackground}
                   </h3>
+                  <button
+                  type="button"
+                  className="btn btn-success"
+                  onClick={() => acceptDoctor(request._id)}
+                >
+                  Accept pharmacist
+                </button>
+
+                <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => rejectPharmacist(request._id)}
+              >
+                Reject pharmacist
+              </button>
                 </div>
               </div>
             );

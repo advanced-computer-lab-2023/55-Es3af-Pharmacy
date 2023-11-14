@@ -18,7 +18,7 @@ patientRoutes.put('/widrawFromWallet',patientController.withdrawFromWallet)
 
 patientRoutes.post("/checkout",patientController.checkout);
 
-patientRoutes.post("/registerPatient", RegisterPatientController.registerPatient)
+
 
 
 patientRoutes.post("/addToCart",patientController.addToCart);

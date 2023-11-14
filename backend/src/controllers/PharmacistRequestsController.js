@@ -29,6 +29,9 @@ const pharmacistReq = async (req, res) => {
     });
 
     // Handle file uploads
+    //console.log("hi");
+    console.log(req.files);
+    //console.log("hi");
     if (req.files) {
       
       if (req.files.IDfile) {

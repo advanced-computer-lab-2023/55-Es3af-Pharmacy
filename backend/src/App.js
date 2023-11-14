@@ -15,9 +15,11 @@ const app = express();
 const port = process.env.PORT || "8000";
 const multer = require('multer');
 const upload =multer();
+
 const PharmacistRequestsController = require("./controllers/PharmacistRequestsController");
 const userController = require("./controllers/userController");
 const patientController = require("./controllers/patientController");
+const RegisterPatientController= require("./controllers/RegisterPatientController");
 
 mongoose
   .connect(MongoURI)
@@ -48,11 +50,20 @@ app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
 app.put('/forgetPassword', userController.forgetPassword)
+app.post("/patient/registerPatient", RegisterPatientController.registerPatient)
+app.put("/user/accept",userController.acceptPharmacist);
+app.delete("/user/reject",userController.rejectPharmacist)
+//app.delete("/user/reject",userController.rejectPharmacist);
+
+//app.post('/AcceptRequest/:id' , userController.acceptDoctorRequest);
 //app.post('/testRoute', patientController.getPassword)
+
+
 app.use(cookieParser());
 
 app.use(auth);
 app.use("/", router);
+
 
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);

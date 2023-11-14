@@ -3,7 +3,9 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 const nodemailer = require("nodemailer");
 const jwt = require('jsonwebtoken')
-
+//const pharmacistReq = require("../Models/PharmacistRequests.js")
+const pharmacist = require("../Models/pharmacist.js");
+const pharmacistReq = require("../Models/PharmacistRequests.js");
 const addAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -23,6 +25,59 @@ const addAdmin = async (req, res) => {
     res.status(400).send(e);
   }
 };
+const rejectPharmacist = async (req, res) => {
+  
+  try {
+    const reqID = req.body.id;
+   await pharmacistReq.findByIdAndDelete(reqID);
+    res
+      .status(200)
+      .json({ status: "success", message: "Doctor request rejected" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ status: "error", message: "Internal server error" });
+  }
+
+};
+const acceptPharmacist = async (req, res) => {
+  try {
+    const reqID = req.body.id;
+    const request = await pharmacistReq.findById(reqID);
+
+    if (!request) {
+      return res.status(404).json({ message: "pharmacist request not found" });
+    }
+
+    const newPharm = new pharmacist({
+      username: request.username,
+      password: request.password,
+      name: request.name,
+      email: request.email,
+      dateOfBirth: request.dateOfBirth,
+      hourlyRate: request.hourlyRate,
+      affiliation: request.affiliation,
+      educationBackground: request.educationBackground,
+      speciality: request.speciality,
+    });
+
+    await newPharm.save();
+    request.deleteOne();
+
+    res
+      .status(200)
+      .json({ status: "success", message: "Doctor request accepted" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({
+        status: "error",
+        message: "Internal server error",
+        error: error.message,
+      });
+  }
+};
+
 
 const listUsers = async (req, res) => {
   try {
@@ -46,6 +101,7 @@ const getUsers = async (req, res) => {
   //console.log(users);
   res.status(200).send(users);
 };
+
 
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -72,6 +128,11 @@ const login = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+
+
+
 
 const logout = (req, res) => {
   // Clear the JWT cookie to log the user out
@@ -201,4 +262,6 @@ module.exports = {
   logout,
   forgetPassword,
   changePassword,
+  acceptPharmacist,
+  rejectPharmacist
 };

@@ -2,11 +2,11 @@ import http from "./http-common";
 
 class RequestPharmacistService {
   getAll() {
-    return http.get("/pharmacist-requests/");
+    return http.get("/requestPharmacist/getPharmReq");
   }
 
   pharmacistReq(pharmacistReq) {
-    return http.post("/pharmacist-requests/newRequest", pharmacistReq);
+    return http.post("/requestPharmacist/newRequest", pharmacistReq);
   }
 }
 
