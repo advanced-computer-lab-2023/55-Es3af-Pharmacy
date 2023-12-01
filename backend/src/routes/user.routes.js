@@ -12,11 +12,11 @@ userRoutes.get("/", userController.listUsers);
 
 userRoutes.delete("/:id", userController.deleteUser);
 
-userRoutes.put('/forgetPassword', userController.forgetPassword)
+//userRoutes.post('/forgetPassword', userController.forgetPassword)
 
 userRoutes.put('/updatePassword', userController.changePassword)
 
-
+//userRoutes.put('/resetPassword', userController.resetPassword)
 
 //userRoutes.post('/acceptRequest/:id',userController.acceptDoctorRequest)
 

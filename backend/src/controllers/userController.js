@@ -6,6 +6,8 @@ const jwt = require('jsonwebtoken')
 //const pharmacistReq = require("../Models/PharmacistRequests.js")
 const pharmacist = require("../Models/pharmacist.js");
 const pharmacistReq = require("../Models/PharmacistRequests.js");
+
+
 const addAdmin = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -143,49 +145,49 @@ const logout = (req, res) => {
 
 const forgetPassword = async (req, res) => {
   const { username, email } = req.body;
-  console.log("backend etnada");
 
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash("55Es3afACL", salt);
-  var newPassword = hashedPassword;
-
-  //res.status(200).send('test')
-
-  //  const transporter = nodemailer.createTransport({
-  //    service: "gmail",
-  //    auth: {
-  //      user: "55es3afclinicpharmacy@gmail.com",
-  //      pass: "55Es3afACL",
-  //    },
-  //  });
-
-  //  const mailOptions = {
-  //    from: "55es3afclinicpharmacy@gmail.com",
-  //    to: "zeinaayman666@gmail.com",
-  //    subject: "Password restoration",
-  //    text: "Your new password is: 55Es3afACL",
-  //  };
-
-  //  transporter.sendMail(mailOptions, (error, info) => {
-  //    if (error) {
-  //      console.error(error);
-  //    } else {
-  //      console.log("Email sent: " + info.response);
-  //      res.status.send("done");
-  //    }
-  //  });
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "55es3afclinicpharmacy@gmail.com",
+      pass: "itqq jnfy kirk druf",
+    },
+  });
 
   const user = await User.findOne({ username: username, email: email });
-  console.log(`username: ${username}, email: ${email}`);
-  //console.log(user)
 
   if (!user) res.status(200).send("username or email is wrong");
   else {
-    await User.findByIdAndUpdate(user._id.valueOf(), { password: newPassword });
-    console.log("updated");
-    res.status(200).send("updated");
+    const info = await transporter.sendMail({
+      from: '"Pharmacy" <55es3afclinicpharmacy@gmail.com>', // sender address
+      to: email, // list of receivers
+      subject: "Password Reset", // Subject line
+      text: "Click on this link to reset your password", // plain text body
+      html: '<b>Click on this <a href = "http://localhost:3000/resetPassword">link</a> to reset your password</b>', // html body
+    });
+    res.status(200).send("an email has been sent");
   }
 };
+
+const resetPassword = async(req, res) => {
+  const { username, password } = req.body;
+
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+  var newPassword = hashedPassword;
+
+  const user = await User.findOne({ username: username });
+
+  if(!user) res.status(200).send('Username is incorrect')
+  else{
+    await User.findByIdAndUpdate(user._id.valueOf(), {
+      password: newPassword,
+    });
+    res.status(200).send("Password updated successfully!");
+  }
+}
+
+
 
 async function getPassword(id, password){
   var user = await User.findById(id)
@@ -263,5 +265,6 @@ module.exports = {
   forgetPassword,
   changePassword,
   acceptPharmacist,
-  rejectPharmacist
+  rejectPharmacist,
+  resetPassword,
 };

@@ -22,15 +22,16 @@ class UserService {
   }
 
   forgetPassword(user){
-    console.log('service')
-    return http.put('/forgetPassword', user)
+    return http.post('/forgetPassword', user)
   }
 
   updatePassword(password, type){
-    console.log('service')
     return http.put(`/${type}/updatePassword`, password)
   }
-  
+
+  resetPassword(user){
+    return http.put('/resetPassword', user)
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

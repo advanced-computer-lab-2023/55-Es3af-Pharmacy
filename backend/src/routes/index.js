@@ -20,4 +20,8 @@ router.use("/requestPharmacist", pharmacistRequestsRoutes);
 
 router.get("/logout", userController.logout);
 
+router.post('/forgetPassword', userController.forgetPassword)
+
+router.put('/resetPassword', userController.resetPassword)
+
 module.exports = { router };
