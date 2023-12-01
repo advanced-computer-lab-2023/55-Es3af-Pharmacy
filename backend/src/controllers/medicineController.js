@@ -2,6 +2,8 @@ const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
 const medicineModel = require("../Models/Medicine.js");
+const pharmacistModel = require('../Models/pharmacist.js')
+const nodemailer = require('nodemailer')
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -183,6 +185,44 @@ const uploadImage = async (req, res) => {
   });
 };
 
+async function medicineOutOfStock () {
+  var emails = ''
+  pharmacistModel.find({}, {email: 1})
+  .exec()
+  .then((result) => {
+    for(var mail of result){
+      emails += mail.email + ', '
+    }
+  })
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "55es3afclinicpharmacy@gmail.com",
+      pass: "itqq jnfy kirk druf",
+    },
+  });
+
+  medicineModel.find({Quantity: {$lte: 0}}, {Name: 1, Quantity: 1})
+  .exec()
+  .then(async (result) => {
+    if(result.length != 0){
+      var medNames = ''
+      for(var quantity of result){
+        medNames += quantity.Name + ', '
+      }
+      const info = await transporter.sendMail({
+        from: '"Pharmacy" <55es3afclinicpharmacy@gmail.com>', // sender address
+        to: emails, // list of receivers
+        subject: "Medicine out of stock", // Subject line
+        text: `These are the medicine out of stock: ${medNames}`, // plain text body
+        html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
+      });
+    }
+  })
+
+}
+
 module.exports = {
   addMedicine,
   listMedicine,
@@ -192,4 +232,5 @@ module.exports = {
   searchMedicinebyName,
   filterMedicinebyUse,
   uploadImage,
+  medicineOutOfStock,
 };
