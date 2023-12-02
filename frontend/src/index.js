@@ -31,7 +31,7 @@ root.render(
       <Route path="/patient/registerPatient/*" element={<RegisterPatient />} />
 
       <Route path="/forgetPassword" element={<ForgetPassword />} />
-      <Route path="/resetPassword" element={<ResetPassword />} />
+      <Route path="/resetPassword/:id" element={<ResetPassword />} />
 
       <Route path="/login" element={<Login />} />
     </Routes>

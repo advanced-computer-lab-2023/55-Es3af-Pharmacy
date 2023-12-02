@@ -51,7 +51,7 @@ app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
 app.post('/forgetPassword', userController.forgetPassword)
-app.put('/resetPassword', userController.resetPassword)
+app.put('/resetPassword/:id', userController.resetPassword)
 app.post("/patient/registerPatient", RegisterPatientController.registerPatient)
 app.put("/user/accept",userController.acceptPharmacist);
 app.delete("/user/reject",userController.rejectPharmacist)
