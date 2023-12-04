@@ -11,6 +11,7 @@ import UpdatePassword from './updatePassword';
 import Navbar from "./navbar";
 import PharmacistWallet from "./view-walletP";
 import MedicinesPharm from "./list-medicineP";
+import Sales from "./salesReport";
 function PharmacistPage() {
   return (
     <Routes>
@@ -29,6 +30,8 @@ function PharmacistPage() {
       <Route path="/filterMedicine" element={<FilterMedicine />} />
 
       <Route path="/updatePassword" element={<UpdatePassword />} />
+
+      <Route path="/salesReport" element={<Sales />} />
     </Routes>
   );
 }
@@ -73,6 +76,12 @@ function PharmacistHome() {
         <div>
           <a href="/pharmacist/updatePassword" rel="noopener noreferrer">
             <button className="btn btn-primary"> Update Password </button>
+          </a>
+        </div>
+
+        <div>
+          <a href="/pharmacist/salesReport" rel="noopener noreferrer">
+            <button className="btn btn-primary"> View Sales </button>
           </a>
         </div>
       </header>

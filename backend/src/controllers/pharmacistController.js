@@ -12,13 +12,12 @@ const getPharmacist = async (req, res) => {
 
 
 const getWallet = async (req, res) => {
-  //console.log("hi");
+ 
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
     if (err) {
-      // console.log('You are not logged in.');
-      // res send status 401 you are not logged in
+      
       res.status(401).json({ message: "You are not logged in." });
       // res.redirect('/login');
     } else {
