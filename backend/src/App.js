@@ -20,6 +20,7 @@ const PharmacistRequestsController = require("./controllers/PharmacistRequestsCo
 const userController = require("./controllers/userController");
 const patientController = require("./controllers/patientController");
 const RegisterPatientController= require("./controllers/RegisterPatientController");
+const medicineController = require('./controllers/medicineController');
 const pharmacistController= require("./controllers/pharmacistController");
 mongoose
   .connect(MongoURI)
@@ -50,15 +51,19 @@ app.use(upload.any());
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
 app.post("/patient/createSession",patientController.checkoutSession)
-app.put('/forgetPassword', userController.forgetPassword)
+app.post('/forgetPassword', userController.forgetPassword)
+app.put('/resetPassword/:id', userController.resetPassword)
 app.post("/patient/registerPatient", RegisterPatientController.registerPatient)
 app.put("/user/accept",userController.acceptPharmacist);
 app.delete("/user/reject",userController.rejectPharmacist)
 
 
+
+medicineController.medicineOutOfStock()
+
 app.use(cookieParser());
 
-//app.use(auth);
+app.use(auth);
 app.use("/", router);
 
 
