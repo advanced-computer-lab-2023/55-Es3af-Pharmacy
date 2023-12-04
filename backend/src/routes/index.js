@@ -14,10 +14,11 @@ router.use("/user", userRoutes);
 
 router.use("/patient", patientRoutes);
 
-router.use("/pharmacist", pharmacistRoutes);
+router.use("/pharmacist" , pharmacistRoutes);
 
 router.use("/requestPharmacist", pharmacistRequestsRoutes);
 
 router.get("/logout", userController.logout);
+
 
 module.exports = { router };

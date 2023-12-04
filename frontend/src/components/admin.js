@@ -11,6 +11,7 @@ import FilterMedicine from "./filter-medicine";
 import MedicinesList from "./list-medicines";
 import Navbar from "./navbar";
 import UpdatePassword from "./updatePassword";
+import Sales from "./salesReport";
 
 function AdminPage() {
   return (
@@ -34,6 +35,8 @@ function AdminPage() {
       <Route path="/allMedicine" element={<MedicinesList />} />
 
       <Route path="/updatePassword" element={<UpdatePassword />} />
+
+      <Route path="/salesReport" element={<Sales />} />
     </Routes>
   );
 }
@@ -90,6 +93,12 @@ function AdminHome() {
         <div>
           <a href="/admin/updatePassword" rel="noopener noreferrer">
             <button className="btn btn-primary"> Update Password </button>
+          </a>
+        </div>
+
+        <div>
+          <a href="/admin/salesReport" rel="noopener noreferrer">
+            <button className="btn btn-primary"> View sales </button>
           </a>
         </div>
       </header>

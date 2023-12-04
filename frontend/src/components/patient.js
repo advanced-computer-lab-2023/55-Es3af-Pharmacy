@@ -11,6 +11,7 @@ import CheckoutPage from "./checkout";
 import MyOrder from "./view-order";
 import UpdatePassword from "./updatePassword";
 import AllAddress from "./view-address";
+import ViewWallet from "./view-wallet";
 function PatientPage() {
   return (
     <Routes>
@@ -34,6 +35,8 @@ function PatientPage() {
 
      <Route path="/dropdown" element={<AllAddress />}></Route>
 
+    
+
 
     </Routes>
   );
@@ -44,6 +47,7 @@ function PatientHome() {
     <div className="App">
       <Navbar />
       <header className="App-header">
+      <ViewWallet />
         <div>
           <a href="/patient/medicines" rel="noopener noreferrer">
             <button className="btn btn-primary"> view Medicines </button>
@@ -85,6 +89,7 @@ function PatientHome() {
             <button className="btn btn-primary"> view addresses </button>
           </a>
         </div>
+        
       </header>
     </div>
     

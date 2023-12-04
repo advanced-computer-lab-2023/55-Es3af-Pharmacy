@@ -25,6 +25,7 @@ const pharmacistReq = async (req, res) => {
       affiliation: req.body.affiliation,
       educationBackground: req.body.educationBackground,
       status: req.body.status || "Pending",
+      amountInWallet : 50,
     });
 
     if (req.files && req.files.length > 0) {

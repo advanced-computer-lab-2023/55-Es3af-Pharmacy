@@ -31,6 +31,10 @@ const medicineSchema = new Schema(
     name: String,
     data: Buffer,
     contentType: String
+  },
+  archived:{
+    type: Boolean,
+    default:false,
   }
   },
   { timestamps: true }

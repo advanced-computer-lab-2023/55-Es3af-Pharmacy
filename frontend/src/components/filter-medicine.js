@@ -37,7 +37,9 @@ function FilterMedicine() {
           <p>results</p>
           {results.length > 0 ? (
           results.map((result) => {
+            if (!result.archived) {
             return (
+              
               <div
                 className="card"
                 key={result._id}
@@ -51,13 +53,17 @@ function FilterMedicine() {
                   </div>
               </div>
             );
+             } else{
+              return null
+            }
           })
+       
         ) : (
           <div>
             <h2>No medicines found</h2>
           </div>
         )}
-          
+       
         </form>
       </header>
     </div>

@@ -30,6 +30,9 @@ class UserService {
     console.log('service')
     return http.put(`/${type}/updatePassword`, password)
   }
+  getSales(){
+    return http.get("/user/salesRep");
+  }
   
 }
 

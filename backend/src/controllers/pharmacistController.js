@@ -1,5 +1,6 @@
 const pharmacist = require("../Models/pharmacist.js");
-
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const getPharmacist = async (req, res) => {
   try {
    
@@ -8,6 +9,52 @@ const getPharmacist = async (req, res) => {
     res.status(400).send(e);
   }
 };
+
+
+const getWallet = async (req, res) => {
+  //console.log("hi");
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      // console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+    }
+  });
+
+  const p = await pharmacist.findById(id);
+  console.log("hi");
+  console.log(p);
+  res.status(200).json(p.amountInWallet);
+};
+
+
+const addtoWallet = async (req, res) => {
+ // console.log("hi");
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      // console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+    }
+  });
+  const p = await pharmacist.findById(id);
+  p.amountInWallet+=100;
+  p.save().catch((err) => res.send(err));
+  res.status(200).json(p.amountInWallet);
+};
+
+
+
 const addPharm = async (req, res) => {
   try {
     const { hourlyRate, affiliation, educationBackground } = req.body;
@@ -25,4 +72,4 @@ const listPharmacists = async (req, res) => {
   }
 };
 
-module.exports = { getPharmacist, addPharm , listPharmacists};
+module.exports = { getPharmacist, addPharm , listPharmacists, getWallet, addtoWallet};

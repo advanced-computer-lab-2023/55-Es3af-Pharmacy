@@ -37,6 +37,7 @@ function SearchMedicine() {
           <p>Results</p>
           {results.length > 0 ? (
           results.map((result) => {
+            if (!result.archived) {
             return (
               <div
                 className="card"
@@ -53,7 +54,11 @@ function SearchMedicine() {
 
               </div>
             );
+            }else{
+              return null
+            }
           })
+        
         ) : (
           <div>
             <h2>No medicines found</h2>

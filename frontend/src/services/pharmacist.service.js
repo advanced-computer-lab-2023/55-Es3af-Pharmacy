@@ -4,6 +4,19 @@ class PharmacistService {
     getAll() {
       return http.get("/pharmacist");
     }
+    archive(name){
+      const res= {Name:name};
+      console.log(res);
+      return http.post("/medicine/archiveMedicine",res);
+    }
+    unarchive(name){
+      const res= {Name:name};
+      console.log(res);
+      return http.post("/medicine/unarchiveMedicine",res);
+    }
+    getWallet(){
+      return http.get("pharmacist/wallet");
+    }
 }  
 
 export default new PharmacistService();

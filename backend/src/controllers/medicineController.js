@@ -11,6 +11,7 @@ const addMedicine = async (req, res) => {
   var Price = req.body.Price;
   var ActiveIngredients = req.body.ActiveIngredients;
   var medicalUse=req.body.medicalUse;
+
   const med = medicineModel
     .findOne({ Name: Name })
     .exec()
@@ -30,7 +31,8 @@ const addMedicine = async (req, res) => {
           Price: Price,
           ActiveIngredients: ActiveIngredients,
           Sales: 0,
-          medicalUse:medicalUse
+          medicalUse:medicalUse,
+          archived: true,
         });
         res.send("Medicine with name "+Name+" is added successfully");
         newMed.save().catch((err) => console.log(err));
@@ -182,6 +184,30 @@ const uploadImage = async (req, res) => {
       });
   });
 };
+const archiveMedicine = async (req, res) => {
+  
+  
+  const m= await medicineModel.findOne({Name: req.body.Name});
+  if(m==null){
+    res.status(400).send("medicine not found");
+    return;
+  }
+  m.archived = true;
+  m.save().catch((err) => res.send(err));
+  res.status(200).json(m);
+};
+
+const unarchiveMedicine = async (req, res) => {
+  
+  const m= await medicineModel.findOne({Name: req.body.Name});
+  if(m==null){
+    res.status(400).send("medicine not found");
+    return;
+  }
+  m.archived = false;
+  m.save().catch((err) => res.send(err));
+  res.status(200).json(m);
+};
 
 module.exports = {
   addMedicine,
@@ -192,4 +218,6 @@ module.exports = {
   searchMedicinebyName,
   filterMedicinebyUse,
   uploadImage,
+  archiveMedicine,
+  unarchiveMedicine,
 };

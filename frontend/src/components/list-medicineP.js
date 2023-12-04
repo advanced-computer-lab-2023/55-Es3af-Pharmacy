@@ -4,9 +4,9 @@ import React, { useState, useEffect } from "react";
 import MedsService from "../services/medicine.service";
 
 
-import patientService from "../services/patient.service";
+import pharmacistService from "../services/pharmacist.service";
 
-const MedicinesList = (props) => {
+const MedicinesPharm = (props) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -33,10 +33,22 @@ const MedicinesList = (props) => {
         console.log(e);
       });
   };
-  const addToCart = (event) => {
+  const archive = (event) => {
     const { name } = event.target;
     
-    patientService.addToCart(name)
+    pharmacistService.archive(name)
+      .then((response) => {
+        console.log(response.data);
+        window.location.reload(false);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const unarchive = (event) => {
+    const { name } = event.target;
+    
+    pharmacistService.unarchive(name)
       .then((response) => {
         console.log(response.data);
         window.location.reload(false);
@@ -50,7 +62,7 @@ const MedicinesList = (props) => {
       <div className="App-header">
         {users.length > 0 ? (
           users.map((user) => {
-            if(!user.archived){
+            
             return (
 
               <div
@@ -79,19 +91,27 @@ const MedicinesList = (props) => {
                 </div>
               )}
                   <button
-                    style={{ backgroundColor: "blue" }}
-                    name={user._id}
-                    onClick={(user) => addToCart(user)}
+                    style={{ backgroundColor: "white" }}
+                    name={user.Name}
+                    onClick={(user) => archive(user)}
+                    disabled={user.archived==true}
                   >
-                    add to cart
+                    archive medicine
+                  </button>
+                  <button
+                    style={{ backgroundColor: "white" }}
+                    name={user.Name}
+                    onClick={(user) => unarchive(user)}
+                    disabled={user.archived==false}
+                  >
+
+                    unarchive medicine
                   </button>
                   
                 </div>
               </div>
             );
-                  }else{
-                    return null
-                  }
+                  
           })
         ) : (
           <div>
@@ -103,4 +123,4 @@ const MedicinesList = (props) => {
   );
 
 }
-export default MedicinesList;
+export default MedicinesPharm;
