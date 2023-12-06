@@ -47,7 +47,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(upload.any());
 
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
