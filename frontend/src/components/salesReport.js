@@ -8,6 +8,7 @@ const Sales = (props) => {
   const [requests, setRequests] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
   const [medicineOptions, setMedicineOptions] = useState([]);
+  const [dateOptions, setDateOptions] = useState([]);
   const [selectedMedicine, setSelectedMedicine] = useState("");
   const [selectedTimeframe, setSelectedTimeframe] = useState("");
 
@@ -23,6 +24,8 @@ const Sales = (props) => {
         setFilteredRequests(response.data);
         const uniqueMedicineNames = Array.from(new Set(response.data.map(request => request.medicineName)));
         setMedicineOptions(uniqueMedicineNames);
+        const uniqueDates = Array.from(new Set(response.data.map(request =>new Date(request.createdAt).toLocaleDateString())));
+        setDateOptions(uniqueDates);
       })
       .catch((e) => {
         console.log(e);
@@ -42,6 +45,21 @@ const Sales = (props) => {
       setFilteredRequests(filtered);
     }
   };
+  const handleFilter2 = (e) => {
+    const value = e.target.value;
+    setSelectedTimeframe(value);
+
+    if (value === "All") {
+      setFilteredRequests(requests);
+    } else {
+      const filtered = requests.filter(request =>
+        new Date(request.createdAt).toLocaleDateString() === value
+      );
+      
+      setFilteredRequests(filtered);
+    }
+  };
+
   
 
   return (
@@ -50,6 +68,16 @@ const Sales = (props) => {
         <select value={selectedMedicine} onChange={handleFilter}>
           <option value="All">All Medicines</option>
           {medicineOptions.map((medicine, index) => (
+            <option key={index} value={medicine}>
+              {medicine}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <select value={selectedMedicine} onChange={handleFilter2}>
+          <option value="All">Any time</option>
+          {dateOptions.map((medicine, index) => (
             <option key={index} value={medicine}>
               {medicine}
             </option>

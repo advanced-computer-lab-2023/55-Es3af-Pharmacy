@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+
 import patientService from '../services/patient.service';
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";

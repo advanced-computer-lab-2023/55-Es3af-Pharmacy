@@ -46,7 +46,7 @@ function EditMedicine() {
     formData.append('Name', medicine.Name);
 
     try {
-      await axios.post('http://localhost:8000/medicine/uploadImage', formData, {
+      await axios.post('http://localhost:7000/medicine/uploadImage', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

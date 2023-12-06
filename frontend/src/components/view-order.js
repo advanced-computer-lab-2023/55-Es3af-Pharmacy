@@ -10,6 +10,7 @@ const MyOrder = (props) => {
     retrieveUsers();
   }, []);
 
+var id;
   const retrieveUsers = () => {
     
     PatientService.viewOrder()
@@ -25,10 +26,11 @@ const MyOrder = (props) => {
   };
   const cancel = (event) => {
     const { name } = event.target;
-    console.log(name);
-    PatientService.cancelOrder()
+    
+    const orderid = { id: name };
+    
+    PatientService.cancel(orderid)
       .then((response) => {
-        
         window.location.reload(false);
       })
       .catch((e) => {
@@ -48,6 +50,7 @@ const MyOrder = (props) => {
               <div
                 className="card"
                 key={user._id}
+                
                 style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
               >
                 
@@ -55,6 +58,7 @@ const MyOrder = (props) => {
                   <h3 className="card-title" style={{ color: "white" }}>
                     Your order's total is  
                     {" "+user.total}
+                   
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
                     Your order's is
@@ -72,7 +76,7 @@ const MyOrder = (props) => {
                 </div>
                 <button
                     style={{ backgroundColor: "red" }}
-                    name={user.medID}
+                    name={user._id}
                     onClick={(user) => cancel(user)}
                     disabled={user.status=="CANCELLED"}
                   >

@@ -1,4 +1,5 @@
 const express = require("express");
+const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 //mongoose.set('strictQuery', false);
 const cors = require("cors");
@@ -9,10 +10,11 @@ const { auth, reg} = require("./utils/auth");
 
 const { router } = require("../src/routes/index");
 const MongoURI =
-"mongodb+srv://55Es3af_Pharmacy:H2Wk2njprBuDdho2@55es3afpharmacy.ustsrxb.mongodb.net/";
+"mongodb+srv://55Es3af:SVH8v8XKZSxU1J6p@cluster0.zqasadb.mongodb.net/Clinic?retryWrites=true&w=majority";
 //App variables
 const app = express();
-const port = process.env.PORT || "8000";
+
+const port = process.env.PORT || "7000";
 const multer = require('multer');
 const upload =multer();
 
@@ -37,7 +39,7 @@ app.get("/home", (req, res) => {
 // #Routing to userController here
 app.use(
   cors({
-    origin: 'http://localhost:3000', // Replace with the actual origin of your React app
+    origin: 'http://localhost:4000', // Replace with the actual origin of your React app
     credentials: true,
   })
 );
@@ -45,6 +47,7 @@ app.use(
 
 
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(upload.any());
 

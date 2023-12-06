@@ -92,7 +92,7 @@ const PharmacistReq = () => {
 
       console.log(formData);
 
-      const response = await axios.post('http://localhost:8000/requestPharmacist/', form, {
+      const response = await axios.post('http://localhost:7000/requestPharmacist/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

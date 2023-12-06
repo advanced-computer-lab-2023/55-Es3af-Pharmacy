@@ -2,8 +2,6 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import MedsService from "../services/medicine.service";
-
-
 import pharmacistService from "../services/pharmacist.service";
 
 const MedicinesPharm = (props) => {

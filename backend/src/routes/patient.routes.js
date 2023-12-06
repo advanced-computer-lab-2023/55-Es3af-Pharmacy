@@ -31,7 +31,7 @@ patientRoutes.get("/order", patientController.viewOrder);
 
 patientRoutes.get("/dropdown",patientController.dropdown)
 
-patientRoutes.delete("/cancel" , patientController.cancelOrder);
+patientRoutes.get("/cancel" , patientController.cancelOrder);
 
 //patientRoutes.get("/dropdown",patientController.dropdown)
 

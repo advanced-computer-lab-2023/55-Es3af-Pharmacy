@@ -6,6 +6,7 @@ class RegisterPatientService {
   }
 
   registerPatient(patient) {
+   
     return http.post("/patient/registerPatient", patient);
   }
 }

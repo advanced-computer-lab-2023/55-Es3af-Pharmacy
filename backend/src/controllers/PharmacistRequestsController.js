@@ -11,6 +11,7 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
 const pharmacistReq = async (req, res) => {
+  
   try {
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
