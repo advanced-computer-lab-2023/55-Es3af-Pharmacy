@@ -28,6 +28,13 @@
   color: #61dafb;
 }
 
+.notification-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Align to the right */
+  margin-right: 20px; /* Adjust margin as needed */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

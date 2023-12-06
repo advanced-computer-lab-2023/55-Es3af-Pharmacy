@@ -60,7 +60,7 @@ app.delete("/user/reject",userController.rejectPharmacist)
 //app.post('/AcceptRequest/:id' , userController.acceptDoctorRequest);
 //app.post('/testRoute', patientController.getPassword)
 
-medicineController.medicineOutOfStock()
+//medicineController.medicineOutOfStock()
 
 app.use(cookieParser());
 

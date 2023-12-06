@@ -4,6 +4,7 @@ const fs = require('fs');
 const medicineModel = require("../Models/Medicine.js");
 const pharmacistModel = require('../Models/pharmacist.js')
 const nodemailer = require('nodemailer')
+const notificationModel = require('../Models/notifications.js')
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -187,11 +188,14 @@ const uploadImage = async (req, res) => {
 
 async function medicineOutOfStock () {
   var emails = ''
-  pharmacistModel.find({}, {email: 1})
+  var ids = []
+  pharmacistModel.find({}, {email: 1, _id: 1})
   .exec()
   .then((result) => {
+    console.log(result.email)
     for(var mail of result){
       emails += mail.email + ', '
+      ids.push(mail._id)
     }
   })
 
@@ -218,6 +222,11 @@ async function medicineOutOfStock () {
         text: `These are the medicine out of stock: ${medNames}`, // plain text body
         html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
       });
+      const newNotif = new notificationModel({
+        receivers: ids,
+        message: `These are the medicine out of stock: ${medNames}`
+      })
+      newNotif.save().catch((err) => console.error(err))
     }
   })
 
