@@ -6,6 +6,7 @@ const { pid } = require("process");
 const stripe= require('stripe')("sk_test_51NxqUnLoGRs62ex4Yxz9G8uKeNFYxSs27BlQznMivk0eBNxx7eZzj6X1Q2ZCYEhOmLOhbGwVLNMzLwMsV1Xf4fZv00ert3YhEW");
 const bcrypt = require("bcrypt");
 const sales = require("../Models/sales.js");
+const { medicineOutOfStock } = require("./medicineController.js");
 
 const getPatient = async (req, res) => {
   try {
@@ -290,6 +291,7 @@ const checkout = async (req, res) => {
   p.cart=[];
   p.cartTotal=0;
   await p.save();
+  medicineOutOfStock()
   res.send(newOrder);
 
 

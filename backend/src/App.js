@@ -60,7 +60,7 @@ app.delete("/user/reject",userController.rejectPharmacist)
 
 
 
-//medicineController.medicineOutOfStock()
+medicineController.medicineOutOfStock()
 
 
 

@@ -270,7 +270,7 @@ const getNotifications = async(req, res) => {
       // res.redirect('/login');
     } else {
       id = decodedToken.name;
-      console.log('got the id')
+      //console.log('got the id')
     }
   });
 
@@ -278,12 +278,18 @@ const getNotifications = async(req, res) => {
   .exec()
   .then((result) => {
     var userNotification = []
-    for(var notif of result){
-      if(notif.receivers.includes(id)){
-        userNotification.push(notif)
+    //console.log(result)
+    var notifID = 0
+    for(var notifController of result){
+      if(notifController.receivers.includes(id)){
+        //console.log(notifController)
+        notifID++
+        var message = notifController.message
+        userNotification.push({notifID, message})
       }
     }
-    console.log(userNotification)
+    if(userNotification.length == 0) userNotification.push({notifID, message:'You have no notifications yet'})
+    //console.log(userNotification)
     res.status(200).send(userNotification)
   })
   .catch((err) => console.error(err))
