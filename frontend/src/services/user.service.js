@@ -35,6 +35,10 @@ class UserService {
   resetPassword(user, id){
     return http.put(`/resetPassword/${id}`, user)
   }
+
+  getNotification(type){
+    return http.get(`/${type}`)
+  }
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export

@@ -4,6 +4,7 @@ const fs = require('fs');
 const medicineModel = require("../Models/Medicine.js");
 const pharmacistModel = require('../Models/pharmacist.js')
 const nodemailer = require('nodemailer')
+const notificationModel = require('../Models/notifications.js')
 
 const upload = multer({ dest: 'uploads/' });
 
@@ -163,37 +164,36 @@ const filterMedicinebyUse = async(req, res) => {
 }
 
 const uploadImage = async (req, res) => {  
-  upload.single('image')(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      return res.status(500).json(err);
-    } else if (err) {
-      return res.status(500).json(err);
-    }
+    try {
+      const Name = req.body.Name; 
+      const image = {
+        name: req.file.originalname,
+        data: fs.readFileSync(req.file.path),
+        contentType: req.file.mimetype,
+      };
 
-    const Name = req.body.Name; 
-    const image = {
-      name: file.originalname,
-      data: fs.readFileSync(req.file.path),
-      contentType: req.file.mimetype,
-    };
-
-    medicineModel.findOneAndUpdate({ Name: Name }, { image: image }, { new: true })
-      .then(doc => {
-        return res.status(200).send("Image uploaded for " + Name);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  });
+      medicineModel.findOneAndUpdate({ Name: Name }, { image: image }, { new: true })
+        .then(doc => {
+          res.status(200).send("Image uploaded for " + Name);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    } catch (error) {
+      console.log(error)
+    }  
 };
 
 async function medicineOutOfStock () {
   var emails = ''
-  pharmacistModel.find({}, {email: 1})
+  var ids = []
+  pharmacistModel.find({}, {email: 1, _id: 1})
   .exec()
   .then((result) => {
+    console.log(result.email)
     for(var mail of result){
       emails += mail.email + ', '
+      ids.push(mail._id)
     }
   })
 
@@ -220,6 +220,11 @@ async function medicineOutOfStock () {
         text: `These are the medicine out of stock: ${medNames}`, // plain text body
         html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
       });
+      const newNotif = new notificationModel({
+        receivers: ids,
+        message: `These are the medicine out of stock: ${medNames}`
+      })
+      newNotif.save().catch((err) => console.error(err))
     }
   })
 

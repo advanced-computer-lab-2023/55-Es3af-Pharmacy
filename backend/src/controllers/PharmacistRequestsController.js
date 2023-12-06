@@ -38,29 +38,15 @@ const pharmacistReq = async (req, res) => {
             contentType: file.mimetype,
           };
         } else if (file.fieldname === "WorkingLicenses") {
-          if (req.files && req.files.length > 0) {
-            req.files.forEach((file) => {
-              if (file.fieldname === "IDfile") {
-                newPharmacist.IDfile = {
-                  name: file.originalname,
-                  data: file.buffer,
-                  contentType: file.mimetype,
-                };
-              } else if (file.fieldname === "WorkingLicenses" && req.files.WorkingLicenses) {
-                newPharmacist.WorkingLicenses = req.files.WorkingLicenses.map((license) => ({
-                  name: license.originalname,
-                  data: license.buffer,
-                  contentType: license.mimetype,
-                }));
-              } else if (file.fieldname === "PharmacyDegree") {
-                newPharmacist.PharmacyDegree = {
-                  name: file.originalname,
-                  data: file.buffer,
-                  contentType: file.mimetype,
-                };
-              }
-            });
+          if (!newPharmacist.WorkingLicenses) {
+            newPharmacist.WorkingLicenses = [];
           }
+    
+          newPharmacist.WorkingLicenses.push({
+            name: file.originalname,
+            data: file.buffer,
+            contentType: file.mimetype,
+          });
         } else if (file.fieldname === "PharmacyDegree") {
           newPharmacist.PharmacyDegree = {
             name: file.originalname,

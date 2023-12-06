@@ -1,6 +1,11 @@
 const { Router } = require("express");
 const medicineController = require("../controllers/medicineController");
 
+const multer = require('multer');
+
+
+const upload = multer({ dest: 'uploads/' });
+
 const medicineRoutes = new Router();
 medicineRoutes.post('/unarchiveMedicine', medicineController.unarchiveMedicine);
 medicineRoutes.post("/", medicineController.addMedicine);
@@ -17,7 +22,7 @@ medicineRoutes.get("/filter", medicineController.filterMedicinebyUse);
 
 medicineRoutes.delete("/", medicineController.deleteMedicine);
 
-medicineRoutes.post('/uploadImage', medicineController.uploadImage);
+medicineRoutes.post('/uploadImage', upload.single('image'), medicineController.uploadImage);
 
 medicineRoutes.post('/archiveMedicine', medicineController.archiveMedicine);
 

@@ -48,8 +48,8 @@ app.use(
 
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
-app.use(upload.any());
 
 app.use("/login", userController.login);
 app.post("/requestPharmacist", PharmacistRequestsController.pharmacistReq);
@@ -62,11 +62,11 @@ app.delete("/user/reject",userController.rejectPharmacist)
 
 
 
-medicineController.medicineOutOfStock()
+//medicineController.medicineOutOfStock()
 
-app.use(cookieParser());
 
-app.use(auth);
+
+//app.use(auth);
 app.use("/", router);
 
 

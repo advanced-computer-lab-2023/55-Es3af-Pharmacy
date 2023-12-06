@@ -16,6 +16,9 @@ userRoutes.delete("/:id", userController.deleteUser);
 
 userRoutes.put('/updatePassword', userController.changePassword)
 
+userRoutes.get('/', userController.getNotifications)
+
+//userRoutes.put('/resetPassword', userController.resetPassword)
 userRoutes.get("/salesRep" , patientController.getSales);
 
 //userRoutes.post('/acceptRequest/:id',userController.acceptDoctorRequest)

@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 //const pharmacistReq = require("../Models/PharmacistRequests.js")
 const pharmacist = require("../Models/pharmacist.js");
 const pharmacistReq = require("../Models/PharmacistRequests.js");
+const notificationModel = require('../Models/notifications.js')
 
 
 const addAdmin = async (req, res) => {
@@ -258,6 +259,37 @@ const changePassword = async (req, res) => {
   res.status(200).send(message)
 };
 
+const getNotifications = async(req, res) => {
+  const token = req.cookies.jwt;
+  var id = ''
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+      console.log('got the id')
+    }
+  });
+
+  await notificationModel.find({})
+  .exec()
+  .then((result) => {
+    var userNotification = []
+    for(var notif of result){
+      if(notif.receivers.includes(id)){
+        userNotification.push(notif)
+      }
+    }
+    console.log(userNotification)
+    res.status(200).send(userNotification)
+  })
+  .catch((err) => console.error(err))
+  
+}
+
 module.exports = {
   addAdmin,
   deleteUser,
@@ -270,4 +302,5 @@ module.exports = {
   acceptPharmacist,
   rejectPharmacist,
   resetPassword,
+  getNotifications,
 };
