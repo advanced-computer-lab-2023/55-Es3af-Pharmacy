@@ -44,6 +44,10 @@ const pharmacistSchema = new Schema({
     data: Buffer,
     contentType: String
   },
+  amountInWallet:{
+    type:Number,
+    required: true,
+  }
   
 });
 

@@ -16,6 +16,7 @@ const registerPatient = async (req, res) => {
       mobile: req.body.mobile,
       emergencyContactName: req.body.emergencyContactName,
       emergencyContactMobile: req.body.emergencyContactMobile,
+      amountInWallet: 0,
     });
 
     newPatient.save().catch((err) => console.log(err));

@@ -28,6 +28,9 @@ class UserService {
   updatePassword(password, type){
     return http.put(`/${type}/updatePassword`, password)
   }
+  getSales(){
+    return http.get("/user/salesRep");
+  }
 
   resetPassword(user, id){
     return http.put(`/resetPassword/${id}`, user)

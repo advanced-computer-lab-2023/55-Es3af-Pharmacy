@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const orderSchema = new Schema(
+const pastOrderSchema = new Schema(
   {
     pID: {
         type: mongoose.Types.ObjectId,
@@ -9,7 +9,7 @@ const orderSchema = new Schema(
     },
     status: {
         type: String,
-        enum: ["pending", "on the way", "delivered","CANCELLED"],
+        enum: ["delivered","CANCELLED"],
         required: false,
     },
     total:{
@@ -25,5 +25,5 @@ const orderSchema = new Schema(
   { timestamps: true }
 );
 
-const order = mongoose.model("order", orderSchema);
-module.exports = order;
+const pastOrders = mongoose.model("pastOrder", pastOrderSchema);
+module.exports = pastOrders;

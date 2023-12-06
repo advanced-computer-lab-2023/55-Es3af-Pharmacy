@@ -67,6 +67,10 @@ const pharmacistRequestSchema = new Schema({
     data: Buffer,
     contentType: String
   },
+  amountInWallet:{
+    type:Number,
+    default: 0,
+  }
 });
 
 const pharmacistReq = mongoose.model("pharmacistRequests", pharmacistRequestSchema);

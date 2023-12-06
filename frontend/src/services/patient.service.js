@@ -1,6 +1,9 @@
 import http from "./http-common";
 
 class PatientService {
+  getWallet(){
+    return http.get("patient/wallet");
+  }
     getAll() {
       return http.get("/patient/patients");
     }
@@ -24,6 +27,7 @@ class PatientService {
       
       return http.post("patient/addDel",address);
     }
+   
     checkout(){
       return http.post("patient/checkout")
     }
@@ -31,7 +35,7 @@ class PatientService {
       return http.get("patient/order");
     }
     viewAddress(){
-      console.log("hennnaa");
+      
       return http.get("patient/dropdown");
     }
     cancelOrder(){
@@ -59,6 +63,7 @@ class PatientService {
     updatePassword(password){
       return http.put(`/patient/updatePassword`, password)
     }
+
 
 } 
 

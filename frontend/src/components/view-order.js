@@ -57,12 +57,16 @@ const MyOrder = (props) => {
                     {" "+user.total}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
-                    Your order's status is
+                    Your order's is
                     {" "+user.status}
                   </h3>
                   <h3 className="card-title" style={{ color: "white" }}>
                     Your order's address is
                     {" "+user.address}
+                  </h3>
+                  <h3 className="card-title" style={{ color: "white" }}>
+                    Date: 
+                    {" "+user.createdAt}
                   </h3>
                  
                 </div>
@@ -70,6 +74,7 @@ const MyOrder = (props) => {
                     style={{ backgroundColor: "red" }}
                     name={user.medID}
                     onClick={(user) => cancel(user)}
+                    disabled={user.status=="CANCELLED"}
                   >
                     cancel my order
                   </button>

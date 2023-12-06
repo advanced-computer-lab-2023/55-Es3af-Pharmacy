@@ -5,12 +5,51 @@ const jwt = require("jsonwebtoken");
 const { pid } = require("process");
 const stripe= require('stripe')("sk_test_51NxqUnLoGRs62ex4Yxz9G8uKeNFYxSs27BlQznMivk0eBNxx7eZzj6X1Q2ZCYEhOmLOhbGwVLNMzLwMsV1Xf4fZv00ert3YhEW");
 const bcrypt = require("bcrypt");
+const sales = require("../Models/sales.js");
+
 const getPatient = async (req, res) => {
   try {
     res.send(await patient.findById(req.params.id));
   } catch (e) {
     res.status(400).send(e);
   }
+};
+
+const getWallet = async (req, res) => {
+  //console.log("hi");
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      // console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+    }
+  });
+  const p = await patient.findById(id);
+  res.status(200).json(p.amountInWallet);
+};
+const addtoWallet = async (req, res) => {
+ // console.log("hi");
+  const token = req.cookies.jwt;
+  var id;
+  jwt.verify(token, "supersecret", (err, decodedToken) => {
+    if (err) {
+      // console.log('You are not logged in.');
+      // res send status 401 you are not logged in
+      res.status(401).json({ message: "You are not logged in." });
+      // res.redirect('/login');
+    } else {
+      id = decodedToken.name;
+    }
+  });
+  const p = await patient.findById(id);
+  p.amountInWallet+=100;
+  p.save().catch((err) => res.send(err));
+  res.status(200).json(p.amountInWallet);
 };
 
 const getPatients = async (req, res) => {
@@ -228,113 +267,33 @@ const checkout = async (req, res) => {
 
   });
   newOrder.save().catch((err) => console.log(err));
+  
+  for (const cartItem of p.cart) {
+    var m = cartItem.medID.toString();
+    const med = await medicine.findById(m);
+   med.Quantity-=cartItem.qty;
+   med.save().catch((err) => console.log(err));
+
+   newSale = await sales.create({
+
+    medid: med._id,
+    medicineName: med.Name,
+    Quantity: cartItem.qty,
+    boughtBy: p._id,
+    patientName: p.name,
+
+   });
+   newSale.save().catch((err) => console.log(err));
+  }
+
+
   p.cart=[];
   p.cartTotal=0;
   await p.save();
   res.send(newOrder);
+
+
 };
-
-// async function getPassword(id, password){
-//   var user = await patient.findById(id)
-
-//   // const salt = await bcrypt.genSalt();
-//   // const hashedPassword = await bcrypt.hash(password, salt);
-//   // var newPassword = hashedPassword;
-
-//   console.log(`user password: ${user.password}`)
-//   console.log(`old password: ${password}`)
-
-//   const isPasswordValid = await bcrypt.compare(password, user.password);
-
-//   if(isPasswordValid) return true
-//   else return false
-// }
-
-// const getPassword = async (req, res) => {
-
-//   //getting id
-//   const token = req.cookies.jwt;
-//   var id = '6550ca7d9bb5cfdbc3cfa9c6'
-//   // jwt.verify(token, "supersecret", (err, decodedToken) => {
-//   //   if (err) {
-//   //     console.log('You are not logged in.');
-//   //     // res send status 401 you are not logged in
-//   //     res.status(401).json({ message: "You are not logged in." });
-//   //     // res.redirect('/login');
-//   //   } else {
-//   //     id = decodedToken.name;
-//   //     console.log('got the id')
-//   //   }
-//   // });
-
-//   //hashing input password
-//   console.log(req.body)
-//   const salt = await bcrypt.genSalt();
-//   const hashedPassword = await bcrypt.hash(req.body, salt);
-
-//   var newPassword = hashedPassword;
-
-//   //getting user from db
-//   var user = await patient.findById(id);
-//   console.log(user)
-
-//   //check if the typed current password is correct or not
-//   if(newPassword === user.password) res.status(200).send(true)
-//   else res.status(200).send(false)
-
-//   //res.status(200).send(user.password);
-// };
-
-// const changePassword = async (req, res) => {
-//   //const currPassword = req.body.password
-//   const token = req.cookies.jwt;
-//   var id = ''
-//   jwt.verify(token, "supersecret", (err, decodedToken) => {
-//     if (err) {
-//       console.log('You are not logged in.');
-//       // res send status 401 you are not logged in
-//       res.status(401).json({ message: "You are not logged in." });
-//       // res.redirect('/login');
-//     } else {
-//       id = decodedToken.name;
-//       console.log('got the id')
-//     }
-//   });
-
-//   const salt = await bcrypt.genSalt();
-//   const hashedPassword = await bcrypt.hash(req.body.newPassword, salt);
-//   var newPassword = hashedPassword;
-
-//   console.log(`current password: ${req.body.oldPassword}`)
-
-//   var message = ''
-
-//   var correct = await getPassword(id, req.body.oldPassword)
-
-//   if(correct) {
-//     console.log('correct current password')
-//     const isPasswordValid = await bcrypt.compare(req.body.oldPassword, req.body.newPassword);
-//     if(isPasswordValid) {
-//       console.log('same same')
-//       message = 'new password is the same as the current'
-//     }
-//     else{
-//       try {
-//         await patient.findByIdAndUpdate(id, { password: newPassword });
-//         message = "Password updated successfully"
-//       } catch (err) {
-//         console.error(err);
-//       }
-//     }
-//   }
-//   else {
-//     console.log('wrong current password')
-//     message = 'wrong current password'
-//   }
-
-//   res.status(200).send(message)
-// };
-
 
 const addDelivery = async (req, res) => {
   
@@ -394,8 +353,10 @@ const addDelivery = async (req, res) => {
         }
       });
     const p = await patient.findById(id);
-    const order= await Order.findOne({pID: id});
-    order.deleteOne();
+    const order= await Order.findOne({pID: id, status:"on the way"});
+    order.status = "CANCELLED";
+    
+    order.save().catch((err) => console.log(err));
     res.status(200).send("Order cancelled succesfully");
   };
 
@@ -416,7 +377,7 @@ const addDelivery = async (req, res) => {
         }
       });
     const p = await patient.findById(id);
-    const order= await Order.findOne({pID: id});
+    const order= await Order.findOne({pID: id, status:"pending"});
     //console.log(order);
     order.address = req.body.address;
     order.status = "on the way"
@@ -441,6 +402,21 @@ const dropdown = async (req, res) => {
   const p = await patient.findById(id);
   res.status(200).send(p.delivery);
 };
+
+const getSales = async (req, res) => {
+  
+  const meds = await sales.find();
+  res.send(meds);
+};
+
+
+const listReports = async (req, res) => {
+  const meds = await sales.find({medicineName: req.body.name});
+  res.send(meds);
+};
+
+
+
     const withdrawFromWallet = async (req, res) => {
       const token = req.cookies.jwt;
       var patientID;
@@ -506,5 +482,9 @@ module.exports = {
   removeMed,
   checkoutSession,
   withdrawFromWallet,
-  orderAddress
+  orderAddress,
+  getWallet,
+  addtoWallet,
+  getSales,
+  listReports,
 };

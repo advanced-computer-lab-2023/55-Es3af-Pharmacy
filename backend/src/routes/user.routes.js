@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const userController = require("../controllers/userController");
-
+const patientController = require("../controllers/patientController");
 const userRoutes = new Router();
 
 
@@ -19,6 +19,7 @@ userRoutes.put('/updatePassword', userController.changePassword)
 userRoutes.get('/', userController.getNotifications)
 
 //userRoutes.put('/resetPassword', userController.resetPassword)
+userRoutes.get("/salesRep" , patientController.getSales);
 
 //userRoutes.post('/acceptRequest/:id',userController.acceptDoctorRequest)
 
