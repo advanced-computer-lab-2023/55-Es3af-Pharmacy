@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import AddDelivery from "./add-delivery";
 
 const AllAddress = (props) => {
   const [users, setUsers] = useState([]);
@@ -20,7 +21,7 @@ const AllAddress = (props) => {
         console.log(e);
       });
   };
-
+  let navigate = useNavigate();
   const handleAddressChange = (event) => {
     const selectedAddress = event.target.value;
     setSelectedAddress(selectedAddress);
@@ -28,22 +29,27 @@ const AllAddress = (props) => {
     const addressObject = { address: selectedAddress };
     PatientService.selectAdd(addressObject)
     .then((response) => {
-      console.log(response.data);
+
       setUsers(response.data);
+      navigate("../order", { replace: true });
     })
     .catch((e) => {
       
       console.log(e);
     });
-    //axios.post("http://localhost:8000/patient/selectAddress",addressObject);
+    //axios.post("http://localhost:7000/patient/selectAddress",addressObject);
     // You can add additional logic here if needed
   };
 
   return (
     <div>
+    
+     
       <div className="App-header">
+       
         {users.length > 0 ? (
           <div>
+            
             <label htmlFor="addressSelect">Select an address:</label>
             <select
               id="addressSelect"
@@ -59,6 +65,7 @@ const AllAddress = (props) => {
                 </option>
               ))}
             </select>
+            <AddDelivery />
           </div>
         ) : (
           <div>

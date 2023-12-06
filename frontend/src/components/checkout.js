@@ -85,8 +85,8 @@ function CheckoutPage() {
     }
     if(user.paymentMethod.localeCompare("CoD")==0){
       PatientService.checkout();
-      alert("Order Placed Successfully");
-      history("/patient/order")
+      alert("Please choose an address to your order");
+      history("/patient/dropdown")
     }
     else if(user.paymentMethod.localeCompare("Wallet")==0){
       setUser(async (prevUser)=>{
@@ -126,8 +126,8 @@ function CheckoutPage() {
           quantity: users[i].qty,
         });
       }
-      updatedBody.success_url="http://localhost:3000/patient/order";
-      updatedBody.cancel_url="http://localhost:3000/patient/"
+      updatedBody.success_url="http://localhost:4000/patient/dropdown";
+      updatedBody.cancel_url="http://localhost:4000/patient/"
       setBody(updatedBody);
       console.log(updatedBody);
       try{

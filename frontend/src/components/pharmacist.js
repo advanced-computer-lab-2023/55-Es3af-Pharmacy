@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Routes, Route } from "react-router-dom";
 import AddMedicine from "./add-medicine";
-import MedicinesList from "./list-medicines";
+
 import Medicine from "./eachMedicine";
 import EditMedicine from "./edit-medicine";
 import SearchMedicine from "./search-medicine";

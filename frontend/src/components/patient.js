@@ -69,11 +69,7 @@ function PatientHome() {
             <button className="btn btn-primary"> view cart </button>
           </a>
         </div>
-        <div>
-          <a href="/patient/addDel" rel="noopener noreferrer">
-            <button className="btn btn-primary"> add delivery address </button>
-          </a>
-        </div>
+        
         <div>
           <a href="/patient/order" rel="noopener noreferrer">
             <button className="btn btn-primary"> view my orders </button>
@@ -84,11 +80,7 @@ function PatientHome() {
             <button className="btn btn-primary"> update password</button>
             </a>
             </div>
-            <div>
-          <a href="/patient/dropdown" rel="noopener noreferrer">
-            <button className="btn btn-primary"> view addresses </button>
-          </a>
-        </div>
+            
         
       </header>
     </div>

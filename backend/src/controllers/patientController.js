@@ -341,6 +341,7 @@ const addDelivery = async (req, res) => {
   };
 
   const cancelOrder = async (req, res) => {
+   
     const token = req.cookies.jwt;
     var id;
     jwt.verify(token, 'supersecret', (err, decodedToken) => {
@@ -355,7 +356,7 @@ const addDelivery = async (req, res) => {
         }
       });
     const p = await patient.findById(id);
-    const order= await Order.findOne({pID: id, status:"on the way"});
+    const order= await Order.findById(req.body.id);
     order.status = "CANCELLED";
     
     order.save().catch((err) => console.log(err));

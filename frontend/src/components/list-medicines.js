@@ -60,6 +60,7 @@ const MedicinesList = (props) => {
               >
                 
                 <div className="card-body">
+                  
                   <h3 className="card-title" style={{ color: "white" }}>
                    name: {user.Name}
                   </h3>

@@ -17,8 +17,7 @@ function Login(props) {
     setUser({ ...user, [name]: value });
   };
 
-  let navigate = useNavigate();
-
+ 
   async function login(e) {
     e.preventDefault();
 
@@ -73,17 +72,22 @@ function Login(props) {
           </div>
 
           <button className="btn btn-primary" type="submit">
-            Submit
+            Login
           </button>
+          
           <a href="/forgetpassword" rel="noopener noreferrer">
               Forgot your password?
             </a>
+          
           <a href="/pharmacist-requests/newRequest" rel="noopener noreferrer">
             Register as Pharmacist
           </a>
           <a href="/patient/registerPatient" rel="noopener noreferrer">
             Register as Patient
           </a>
+          <a href="http://localhost:3000" rel="noopener noreferrer">
+              Go to Clinic
+            </a>
         </form>
       </div>
     </div>

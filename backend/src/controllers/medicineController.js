@@ -164,28 +164,24 @@ const filterMedicinebyUse = async(req, res) => {
 }
 
 const uploadImage = async (req, res) => {  
-  upload.single('image')(req, res, function (err) {
-    if (err instanceof multer.MulterError) {
-      return res.status(500).json(err);
-    } else if (err) {
-      return res.status(500).json(err);
-    }
+    try {
+      const Name = req.body.Name; 
+      const image = {
+        name: req.file.originalname,
+        data: fs.readFileSync(req.file.path),
+        contentType: req.file.mimetype,
+      };
 
-    const Name = req.body.Name; 
-    const image = {
-      name: file.originalname,
-      data: fs.readFileSync(req.file.path),
-      contentType: req.file.mimetype,
-    };
-
-    medicineModel.findOneAndUpdate({ Name: Name }, { image: image }, { new: true })
-      .then(doc => {
-        return res.status(200).send("Image uploaded for " + Name);
-      })
-      .catch(err => {
-        return res.status(500).json(err);
-      });
-  });
+      medicineModel.findOneAndUpdate({ Name: Name }, { image: image }, { new: true })
+        .then(doc => {
+          res.status(200).send("Image uploaded for " + Name);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
+    } catch (error) {
+      console.log(error)
+    }  
 };
 
 async function medicineOutOfStock () {
