@@ -280,20 +280,31 @@ const getNotifications = async(req, res) => {
     var userNotification = []
     //console.log(result)
     var notifID = 0
-    for(var notifController of result){
-      if(notifController.receivers.includes(id)){
+    for(var notifi of result){
+      if(notifi.receivers.includes(id)){
         //console.log(notifController)
         notifID++
-        var message = notifController.message
-        userNotification.push({notifID, message})
+        var message = notifi.message
+        var date = properDateAndTime(notifi.createdAt)
+        userNotification.push({notifID, message, date})
       }
     }
-    if(userNotification.length == 0) userNotification.push({notifID, message:'You have no notifications yet'})
+    if(userNotification.length == 0) userNotification.push({notifID, message:'You have no notifications yet', date: ''})
     //console.log(userNotification)
     res.status(200).send(userNotification)
   })
   .catch((err) => console.error(err))
   
+}
+
+function properDateAndTime(dateAndTime){
+  const date = new Date(dateAndTime)
+  const day = date.getDate()
+  const month = date.getMonth()
+  const year = date.getFullYear()
+  const hour = date.getUTCHours()
+  const minute = date.getMinutes()
+  return `${day}/${month}/${year} at ${hour}:${minute}`
 }
 
 module.exports = {
