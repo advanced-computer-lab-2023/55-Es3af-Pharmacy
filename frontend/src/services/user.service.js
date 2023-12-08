@@ -37,7 +37,8 @@ class UserService {
   }
 
   getNotification(type){
-    return http.get(`/${type}`)
+    //console.log('service')
+    return http.get(`/user/notifi`)
   }
 }
 

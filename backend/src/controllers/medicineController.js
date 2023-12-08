@@ -190,7 +190,7 @@ async function medicineOutOfStock () {
   pharmacistModel.find({}, {email: 1, _id: 1})
   .exec()
   .then((result) => {
-    console.log(result.email)
+    //console.log(result.email)
     for(var mail of result){
       emails += mail.email + ', '
       ids.push(mail._id)
@@ -209,22 +209,48 @@ async function medicineOutOfStock () {
   .exec()
   .then(async (result) => {
     if(result.length != 0){
+      //console.log(result)
       var medNames = ''
       for(var quantity of result){
         medNames += quantity.Name + ', '
       }
-      const info = await transporter.sendMail({
-        from: '"Pharmacy" <55es3afclinicpharmacy@gmail.com>', // sender address
-        to: emails, // list of receivers
-        subject: "Medicine out of stock", // Subject line
-        text: `These are the medicine out of stock: ${medNames}`, // plain text body
-        html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
-      });
+      var message = `These are the medicine out of stock: ${medNames}`
+
       const newNotif = new notificationModel({
         receivers: ids,
-        message: `These are the medicine out of stock: ${medNames}`
+        message: message
       })
-      newNotif.save().catch((err) => console.error(err))
+      await notificationModel.findOne({message: message})
+      .then(async (result) => {
+        if(!result){
+          console.log(result)
+          newNotif.save().catch((err) => console.error(err))
+          const info = await transporter.sendMail({
+          from: '"Pharmacy" <55es3afclinicpharmacy@gmail.com>', // sender address
+          to: emails, // list of receivers
+          subject: "Medicine out of stock", // Subject line
+          text: `These are the medicine out of stock: ${medNames}`, // plain text body
+          html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
+          });
+        }
+        else{
+          const receivers = result.receivers
+          const difference = ids.filter(element => !receivers.includes(element))
+          if(difference.length != 0){
+            await notificationModel.findByIdAndUpdate(result._id, { receivers: ids})
+            newNotif.save().catch((err) => console.error(err))
+            const info = await transporter.sendMail({
+            from: '"Pharmacy" <55es3afclinicpharmacy@gmail.com>', // sender address
+            to: emails, // list of receivers
+            subject: "Medicine out of stock", // Subject line
+            text: `These are the medicine out of stock: ${medNames}`, // plain text body
+            html: `<b>These are the medicine out of stock:<br> ${medNames}</b>`, // html body
+            });
+          }
+        }
+      })
+      .catch((err) => {console.error(err)})
+
     }
   })
 

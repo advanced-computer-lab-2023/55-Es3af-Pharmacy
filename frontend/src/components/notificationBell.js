@@ -6,21 +6,27 @@ import userService from "../services/user.service";
 const NotificationIcon = ({ hasNotifications }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const currentURL = window.location.href;
+  const [notifications, setNotifications] = useState([])
   //console.log(currentURL)
   const parts = currentURL.split("/");
   //console.log(parts)
   var userType = parts[3];
 
-  var notifications = [
-    // // Your list of notifications
-    // { id: 1, text: "Notification 1" },
-    // { id: 2, text: "Notification 2" },
-    // Add more notifications as needed
-  ];
+  // var notifications = [
+  //   // // Your list of notifications
+  //   { notifID: 1, message: "Notification 1" },
+  //   { notifID: 2, message: "Notification 2" },
+  //   // Add more notifications as needed
+  // ];
   const toggleNotifications = async () => {
     setShowNotifications(!showNotifications);
-    var response = await userService.getNotification(userType)
-    console.log(response.data)
+    await userService.getNotification(userType)
+    .then((result) => {
+      setNotifications(result.data)
+      //console.log(notifications)
+    })
+    .catch((err) => console.error(err))
+    
   };
 
 
@@ -55,7 +61,7 @@ const NotificationIcon = ({ hasNotifications }) => {
         <div style={{ border: "1px solid #ccc", marginTop: 10, padding: 10 }}>
           <h3>Notifications</h3>
           {notifications.map((notification) => (
-            <div>{notification.message}</div>
+            <div key={notification.notifID}>{notification.message}<br/> {notification.data}</div>
           ))}
         </div>
       )}
