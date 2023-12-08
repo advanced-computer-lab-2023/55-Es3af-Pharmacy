@@ -17,7 +17,7 @@ function Login(props) {
     setUser({ ...user, [name]: value });
   };
 
- 
+  let navigate = useNavigate();
   async function login(e) {
     e.preventDefault();
 
