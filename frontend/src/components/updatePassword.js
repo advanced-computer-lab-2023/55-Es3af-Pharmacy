@@ -7,16 +7,6 @@ import { useParams } from "react-router-dom";
 
 
 function UpdatePassword() {
-    //const temp = {password: ''};
-    //const { id } = useParams()
-
-    // var oldPassword = ''
-    // PatientService.getPassword()
-    // .then((res) => {
-    //     oldPassword = res.data
-    //     console.log(oldPassword)
-    // })
-    // .catch((err) => console.error(err))
     let initialPasswords = {
         oldPassword : '',
         newPassword : ''
@@ -56,24 +46,7 @@ function UpdatePassword() {
 
     const handleInputChange2 = (event) => {
         setCurrPassword(event.target.value)
-        console.log('handel input current')
-        //passwords.oldPassword = currPassword
-        //let correct = false
-        // PatientService.getPassword(currPassword)
-        // .then((res) => {
-        //     if(res.status == 200){
-        //         correct = res.data
-        //         console.log(correct)
-        //     }
-        //     else console.error(res)
-        // })
-        // .catch((err) => console.error(err))
-
-        // if(!correct){
-        //     setMessage2('current password is wrong')
-        // } else if(correct){
-        //     setMessage2('Current password is correct')
-        // }
+        //console.log('handel input current')
     }
 
     const updatePassword = () => {
@@ -81,14 +54,27 @@ function UpdatePassword() {
             setMessage('current password or new password are empty')
         } else {
           setPasswords({oldPassword: currPassword, newPassword: password})
-          console.log(currPassword)
-            UserService.updatePassword(passwords, userType)
-            .then((res) =>{
-                console.log(res.data)
-                setMessage2(res.data)
-            })
+          // console.log(currPassword)
+          //   UserService.updatePassword(passwords, userType)
+          //   .then((res) =>{
+          //       console.log(res.data)
+          //       setMessage2(res.data)
+          //   })
         }
     };
+
+    useEffect(() => {
+      //console.log(passwords)
+      if(currPassword == '') setMessage2('')
+      else{
+        UserService.updatePassword(passwords, userType)
+        .then((res) =>{
+            //console.log(res.data)
+            setMessage2(res.data)
+        })
+    }
+
+    }, [passwords])
 
     return (
         <div className="App">
