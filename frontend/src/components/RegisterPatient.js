@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import RegisterPatientService from "../services/RegisterPatientService";
-
+import { useNavigate } from "react-router-dom";
 function RegisterPatient() {
   const initialUserState = {
     name: "",
@@ -18,7 +18,7 @@ function RegisterPatient() {
 
   const [patient, setPatient] = useState(initialUserState);
   const [message, setMessage] = useState('')
-
+  let navigate = useNavigate();
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     if(name == 'password'){
@@ -44,7 +44,8 @@ function RegisterPatient() {
       if (response.data.success) {
         alert('Data saved successfully!');
       } else {
-        alert('Error: This username is already taken. Please choose a different one.');
+        alert('Welcome to our platform, login now');
+        navigate("../", { replace: true });
       }
     } catch (error) {
       console.error(error);
@@ -55,7 +56,7 @@ function RegisterPatient() {
           error.response.data.keyPattern &&
           error.response.data.keyPattern.username
         ) {
-          alert('Error: This username is already taken. Please choose a different one.');
+         // alert('Error: This username is already taken. Please choose a different one.');
         } else {
           alert(`Error: ${error.response.data.message}`);
         }

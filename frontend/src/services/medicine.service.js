@@ -9,6 +9,7 @@ class MedsService {
     return http.get(`/medicine?Name=${query}`);
   }
   filter(query){
+    console.log(query);
     return http.get(`/medicine?medicalUse=${query}`);
   }
 

@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import MedsService from "../services/medicine.service";
-
+import Home from "./gohome";
 function SearchMedicine() {
   const [results, setResults] = useState([]);
 
@@ -18,6 +18,7 @@ function SearchMedicine() {
 
   return (
     <div className="App">
+      <Home />
       <header className="App-header">
         <form className="App-header" onSubmit={search}>
           <div className="form-group">

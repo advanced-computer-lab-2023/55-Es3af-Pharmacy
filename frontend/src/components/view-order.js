@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
-
+import Home from "./gohome";
 const MyOrder = (props) => {
   const [users, setUsers] = useState([]);
 
@@ -32,6 +32,7 @@ var id;
     PatientService.cancel(orderid)
       .then((response) => {
         window.location.reload(false);
+        alert("order cancelled");
       })
       .catch((e) => {
         console.log(e);
@@ -40,6 +41,7 @@ var id;
 
   return (
     <div>
+      <Home />
       <div className="App-header">
          
         {users.length > 0 ? (

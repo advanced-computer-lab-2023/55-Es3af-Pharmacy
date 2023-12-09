@@ -2,6 +2,8 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
+import Home from "./gohome";
+import { Carousel } from "react-bootstrap";
 
 const UsersList = (props) => {
   const [users, setUsers] = useState([]);
@@ -36,35 +38,37 @@ const UsersList = (props) => {
 
   return (
     <div>
+      <Home />
       <div className="App-header">
         {users.length > 0 ? (
-             users
-            .filter(user => user.__t === "patient" || user.__t === "pharmacist") // Filter out admin users
-            .map((user) => {
-              return (
-              <div
-                className="card"
-                key={user._id}
-                style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
-              >
-                <div className="card-body">
-                  <h3 className="card-title" style={{ color: "white" }}>
-                    {user.username}
-                  </h3>
-                  <h3 className="card-title" style={{ color: "white" }}>
-                    {user.__t}
-                  </h3>
-                  <button
-                    style={{ backgroundColor: "red" }}
-                    name={user._id}
-                    onClick={(user) => deleteUser(user)}
+          <Carousel>
+            {users
+              .filter(user => user.__t === "patient" || user.__t === "pharmacist")
+              .map((user) => (
+                <Carousel.Item key={user._id}>
+                  <div
+                    className="card"
+                    style={{ width: "600px", backgroundColor: "#282c34", margin: "auto" }}
                   >
-                    Delete
-                  </button>
-                </div>
-              </div>
-            );
-          })
+                    <div className="card-body">
+                      <h3 className="card-title" style={{ color: "white" }}>
+                        {user.username}
+                      </h3>
+                      <h3 className="card-title" style={{ color: "white" }}>
+                        {user.__t}
+                      </h3>
+                      <button
+                        style={{ backgroundColor: "red" }}
+                        name={user._id}
+                        onClick={(event) => deleteUser(event)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </Carousel.Item>
+              ))}
+          </Carousel>
         ) : (
           <div>
             <h2>No users</h2>

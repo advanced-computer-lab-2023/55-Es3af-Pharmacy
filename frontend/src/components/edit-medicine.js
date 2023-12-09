@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import axios from 'axios';
 import MedsService from "../services/medicine.service";
-
+import Home from "./gohome";
 function EditMedicine() {
   const initialUserState = {
     Name: "",
@@ -60,6 +60,7 @@ function EditMedicine() {
 
   return (
     <div className="App">
+      <Home />
       <header className="App-header">
         <form className="App-header" onSubmit={update}>
           <div className="form-group">

@@ -50,7 +50,7 @@ const acceptPharmacist = async (req, res) => {
     if (!request) {
       return res.status(404).json({ message: "pharmacist request not found" });
     }
-    console.log(request.amountInWallet);
+    
     const newPharm = new pharmacist({
       username: request.username,
       password: request.password,

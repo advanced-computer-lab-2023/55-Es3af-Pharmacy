@@ -22,7 +22,8 @@ function AddDelivery() {
     const deliveryobj = { delivery: user.delivery };
     PatientService.addDel(deliveryobj)
       .then((response) => {
-       
+        alert('added!');
+        window.location.reload(false);
         console.log(response.data);
         
       })

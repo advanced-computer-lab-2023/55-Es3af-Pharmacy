@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import userService from "../services/user.service";
-
+import Home from "./gohome";
 function ForgetPassword() {
 
   const initialUserState = {
@@ -30,6 +30,7 @@ function ForgetPassword() {
 
   return (
     <div className="App">
+      <Home />
       <header className="App-header">
 
         <div className="form-group">

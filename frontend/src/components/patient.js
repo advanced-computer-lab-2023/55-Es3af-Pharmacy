@@ -25,7 +25,7 @@ function PatientPage() {
 
      <Route path="/cart" element={<MyCart />}></Route>
 
-     <Route path="/addDel" element={<AddDelivery />}></Route>
+     
 
      <Route path="/checkout" element={<CheckoutPage />}></Route>
 
@@ -33,7 +33,7 @@ function PatientPage() {
      
      <Route path="/updatePassword" element={<UpdatePassword />}></Route>
 
-     <Route path="/dropdown" element={<AllAddress />}></Route>
+    
 
     
 

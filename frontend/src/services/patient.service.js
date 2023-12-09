@@ -38,13 +38,10 @@ class PatientService {
       
       return http.get("patient/dropdown");
     }
-    cancelOrder(id){
-      console.log( id);
-     var m = id.id;
-      return http.delete("patient/cancel", m);
-    }
+   
     cancel(id){
-      return http.get("/patient/cancel",id);
+      console.log(id.id);
+      return http.get(`/patient/cancel?id=${id.id}`);
     }
     removeMed(id){
       return http.post(`/patient/deleteMed?id=${id}`)
