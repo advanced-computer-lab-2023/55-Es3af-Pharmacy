@@ -17,6 +17,8 @@ const app = express();
 const port = process.env.PORT || "7000";
 const multer = require('multer');
 const upload =multer();
+const http = require("http");
+const { Server } = require("socket.io");
 
 const PharmacistRequestsController = require("./controllers/PharmacistRequestsController");
 const userController = require("./controllers/userController");
@@ -70,8 +72,36 @@ medicineController.medicineOutOfStock()
 app.use("/", router);
 
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
+});
+
+const socketIO = new Server(server, {
+  cors: {
+    origin: "http://localhost:4000"
+}
+});
+
+
+socketIO.on("connection", (socket) => {
+  console.log(`User Connected:  ${socket.id}`);
+
+
+  socket.on("join", async (senderId, receiverId) => {
+    // Join a room with a unique identifier for the conversation
+    const room = `${senderId}-${receiverId}`;
+    console.log(room)
+    await socket.join(room);
+    console.log(`User ${senderId} joined the chat with ${receiverId}`);
+  });
+  
+
+  socket.on("send_message", data => {
+    console.log(data.senderId, data.receiverId, data.inputMessage, data.room , "in backend");
+    console.log(data.room, "in send")
+    // Emit the message to the specific room
+    socket.to(data.room).emit("receive_message", { senderId: data.senderId, receiverId: data.receiverId, message: data.inputMessage });
+  });
 });
 
 
