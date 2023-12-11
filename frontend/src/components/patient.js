@@ -12,12 +12,18 @@ import MyOrder from "./view-order";
 import UpdatePassword from "./updatePassword";
 import AllAddress from "./view-address";
 import ViewWallet from "./view-wallet";
+import SelectorPage from "./pharmacist-selector";
+import PatientChat from "./patient-chat";
+
 import PatientNav from "./patientNav";
 function PatientPage() {
   return (
     <Routes>
       <Route path="/" element={<PatientHome />} />
-
+      <Route path="/pharmacistSelector" element={<SelectorPage />} />
+      
+      <Route path="/patientChat" element={<PatientChat />} />
+      
       <Route path="/medicines" element={<MedicinesList />} />
 
       <Route path="/searchMedicine" element={<SearchMedicine />} />
@@ -74,6 +80,11 @@ function PatientHome() {
         <div>
           <a href="/patient/order" rel="noopener noreferrer">
             <button className="btn btn-primary"> view my orders </button>
+          </a>
+        </div>
+        <div>
+          <a href="/patient/pharmacistSelector" rel="noopener noreferrer">
+            <button className="btn btn-primary"> Select Pharmacist to Chat With </button>
           </a>
         </div>
         <div>
