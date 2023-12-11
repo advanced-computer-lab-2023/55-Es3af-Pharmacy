@@ -12,6 +12,7 @@ import MyOrder from "./view-order";
 import UpdatePassword from "./updatePassword";
 import AllAddress from "./view-address";
 import ViewWallet from "./view-wallet";
+import PatientNav from "./patientNav";
 function PatientPage() {
   return (
     <Routes>
@@ -45,7 +46,7 @@ function PatientPage() {
 function PatientHome() {
   return (
     <div className="App">
-      <Navbar />
+     <PatientNav />
       <header className="App-header">
       <ViewWallet />
         <div>

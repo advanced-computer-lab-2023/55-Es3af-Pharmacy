@@ -35,7 +35,16 @@ const PatientList = (props) => {
               <Carousel.Item key={request._id}>
                 <div
                   className="card"
-                  style={{ width: 450, backgroundColor: "#282c34", margin: 10 }}
+                  style={{
+                    width: "800px", // Adjusted width
+                    backgroundColor: "#282c34",
+                    margin: "auto",
+                    padding: "20px", // Added padding
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center"
+                  }}
                 >
                   <div className="card-body">
                     <h3 className="card-title" style={{ color: "white" }}>
