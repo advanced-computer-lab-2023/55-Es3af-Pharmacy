@@ -8,6 +8,7 @@ import { Carousel } from 'react-bootstrap';
 
 // mot complete
 const PatientList = (props) => {
+  const [loading, setLoading] = useState(false);
   const [requests, setRequests] = useState([]);
 
   useEffect(() => {
@@ -15,6 +16,7 @@ const PatientList = (props) => {
   }, []);
 
   const retrievePatients = () => {
+    setLoading(true);
     PatientService.getAll()
       .then((response) => {
         console.log(response.data);
@@ -22,12 +24,29 @@ const PatientList = (props) => {
       })
       .catch((e) => {
         console.log(e);
+      })
+      .finally(() => {
+        setLoading(false); 
       });
   };
 
   return (
     <div>
       <Home />
+      {loading ? (
+        <div class="preloader">
+            <div class="loader">
+                <div class="loader-outter"></div>
+                <div class="loader-inner"></div>
+
+                <div class="indicator"> 
+                    <svg width="16px" height="12px">
+                        <polyline id="back" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                        <polyline id="front" points="1 6 4 6 6 11 10 1 12 6 15 6"></polyline>
+                    </svg>
+                </div>
+            </div>
+        </div>      ) : (
       <div className="App-header">
         {requests.length > 0 ? (
           <Carousel>
@@ -73,6 +92,7 @@ const PatientList = (props) => {
           </div>
         )}
       </div>
+      )}
     </div>
   );
 };
