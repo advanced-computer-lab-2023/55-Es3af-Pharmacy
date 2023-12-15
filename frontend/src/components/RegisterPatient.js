@@ -40,12 +40,8 @@ function RegisterPatient() {
     e.preventDefault();
     try {
       const response = await RegisterPatientService.registerPatient(patient);
-      console.log(response.data);
-      if (response.data.success) {
-        alert('Data saved successfully!');
-      } else {
-        alert('Error: This username is already taken. Please choose a different one.');
-      }
+      //console.log(response.data);
+      alert(response.data)
     } catch (error) {
       console.error(error);
       if (error.response) {
@@ -55,7 +51,7 @@ function RegisterPatient() {
           error.response.data.keyPattern &&
           error.response.data.keyPattern.username
         ) {
-          alert('Error: This username is already taken. Please choose a different one.');
+          //alert('Error: This username is already taken. Please choose a different one.');
         } else {
           alert(`Error: ${error.response.data.message}`);
         }

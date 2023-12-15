@@ -1,6 +1,6 @@
 import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import UserService from "../services/user.service";
 import { useParams } from "react-router-dom";
 //import bcrypt from "bcrypt";
