@@ -26,14 +26,13 @@ const getWallet = async (req, res) => {
   });
 
   const p = await pharmacist.findById(id);
-  console.log("hi");
-  console.log(p);
+ 
   res.status(200).json(p.amountInWallet);
 };
 
 
 const addtoWallet = async (req, res) => {
- // console.log("hi");
+
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {

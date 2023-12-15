@@ -2,10 +2,10 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import MedsService from "../services/medicine.service";
-
-
+import { useNavigate } from "react-router-dom";
+import Home from "./gohome";
 import patientService from "../services/patient.service";
-
+import { Carousel } from "react-bootstrap";
 const MedicinesList = (props) => {
   const [users, setUsers] = useState([]);
 
@@ -45,8 +45,11 @@ const MedicinesList = (props) => {
         console.log(e);
       });
   };
+ 
   return (
+    
     <div>
+      <Home />
       <div className="App-header">
         {users.length > 0 ? (
           users.map((user) => {

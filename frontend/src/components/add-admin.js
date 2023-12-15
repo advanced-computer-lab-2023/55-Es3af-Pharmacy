@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import UserService from "../services/user.service";
-
+import Home from "./gohome";
 function AddAdmin() {
   const initialUserState = {
     username: "",
@@ -22,6 +22,7 @@ function AddAdmin() {
     UserService.addAdmin(user)
       .then((response) => {
         console.log(response.data);
+        alert('admin added succesfully');
         
       })
       .catch((e) => {
@@ -32,6 +33,7 @@ function AddAdmin() {
 
   return (
     <div className="App">
+      <Home />
       <header className="App-header">
         <form className="App-header" onSubmit={addAdmin}>
           <div className="form-group">

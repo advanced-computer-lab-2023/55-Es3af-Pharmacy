@@ -31,6 +31,7 @@ const AllAddress = (props) => {
     .then((response) => {
 
       setUsers(response.data);
+      alert('order placed successfully!')
       navigate("../order", { replace: true });
     })
     .catch((e) => {
@@ -65,13 +66,14 @@ const AllAddress = (props) => {
                 </option>
               ))}
             </select>
-            <AddDelivery />
+           
           </div>
         ) : (
           <div>
             <h2>You have no addresses</h2>
           </div>
         )}
+         <AddDelivery />
       </div>
     </div>
   );

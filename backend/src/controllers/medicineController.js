@@ -35,7 +35,7 @@ const addMedicine = async (req, res) => {
           ActiveIngredients: ActiveIngredients,
           Sales: 0,
           medicalUse:medicalUse,
-          archived: true,
+          archived: false,
         });
         res.send("Medicine with name "+Name+" is added successfully");
         newMed.save().catch((err) => console.log(err));
@@ -48,7 +48,7 @@ const addMedicine = async (req, res) => {
 };
 
 const listMedicine = async (req, res) => {
-  
+  console.log(req.query);
   const meds = await medicineModel.find(req.query);
   res.send(meds);
 };

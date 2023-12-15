@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
 import MedsService from "../services/medicine.service";
-
+import Home from "./gohome";
 function AddMedicine() {
   const initialUserState = {
     Name: "",
@@ -32,6 +32,7 @@ function AddMedicine() {
     MedsService.addMedicine(med)
       .then((response) => {
         console.log(response.data);
+        alert(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -40,6 +41,7 @@ function AddMedicine() {
 
   return (
     <div className="App">
+      <Home />
       <header className="App-header">
         <form className="App-header" onSubmit={addMedicine}>
           <div className="form-group">

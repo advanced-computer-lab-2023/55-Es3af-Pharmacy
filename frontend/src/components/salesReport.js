@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import userService from "../services/user.service";
-
+import Home from "./gohome";
 
 const Sales = (props) => {
   const [requests, setRequests] = useState([]);
@@ -64,6 +64,7 @@ const Sales = (props) => {
 
   return (
     <div>
+      <Home />
          <div>
         <select value={selectedMedicine} onChange={handleFilter}>
           <option value="All">All Medicines</option>

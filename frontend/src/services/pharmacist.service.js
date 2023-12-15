@@ -2,7 +2,7 @@ import http from "./http-common";
 
 class PharmacistService {
     getAll() {
-      return http.get("/pharmacist");
+      return http.get("/pharmacist/pharmacists");
     }
     archive(name){
       const res= {Name:name};

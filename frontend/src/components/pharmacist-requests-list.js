@@ -2,7 +2,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import RequestService from "../services/requests.service";
-
+import Home from "./gohome";
 // mot complete
 const PharmacistRequestList = (props) => {
   const [requests, setRequests] = useState([]);
@@ -48,6 +48,7 @@ const PharmacistRequestList = (props) => {
 
   return (
     <div>
+      <Home />
       <div className="App-header">
         {requests.length > 0 ? (
           requests.map((request) => {

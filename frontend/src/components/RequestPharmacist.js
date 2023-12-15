@@ -2,7 +2,7 @@ import "../App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from "react-router-dom";
 const PharmacistReq = () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -22,6 +22,7 @@ const PharmacistReq = () => {
   });
 
   const [message, setMessage] = useState('');
+  let navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -113,6 +114,9 @@ const PharmacistReq = () => {
       });
 
       console.log(response.data); // Handle the response as needed
+      alert('We will review your request, stay tuned');
+        navigate("../", { replace: true });
+
     } catch (error) {
       console.error('Error during registration:', error);
 

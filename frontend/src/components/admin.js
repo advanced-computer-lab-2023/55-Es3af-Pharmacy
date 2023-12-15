@@ -12,7 +12,7 @@ import MedicinesList from "./list-medicines";
 import Navbar from "./navbar";
 import UpdatePassword from "./updatePassword";
 import Sales from "./salesReport";
-
+import AdminNav from "./adminNav";
 function AdminPage() {
   return (
     <Routes>
@@ -37,6 +37,7 @@ function AdminPage() {
       <Route path="/updatePassword" element={<UpdatePassword />} />
 
       <Route path="/salesReport" element={<Sales />} />
+      
     </Routes>
   );
 }
@@ -44,7 +45,7 @@ function AdminPage() {
 function AdminHome() {
   return (
     <div className="App">
-      <Navbar />
+      <AdminNav />
       <header className="App-header">
         <div>
           <a href="/admin/add-admin" rel="noopener noreferrer">

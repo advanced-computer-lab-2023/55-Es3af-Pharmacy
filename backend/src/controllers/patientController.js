@@ -8,6 +8,13 @@ const bcrypt = require("bcrypt");
 const sales = require("../Models/sales.js");
 const { medicineOutOfStock } = require("./medicineController.js");
 
+//const Prescriptions = require('C:/Users/asus/OneDrive/Desktop/JR/55-Es3af-Clinic/src/Models/Prescriptions');
+//NOTE : TO USE PERSCRIPTIONS IN PHARMACY COPY THE PATH FROM CLINIC AND PASTE IT HERE INSTEAD OF THE PRESENT PATH
+// THIS IS A TEMPORARY SOLUTION TILL I FIND OUT HOW TO USE MODELS FROM BOTH PROJECTS WITHOUT CREATING THE MODEL HERE
+// EFTAH CLINIC, FEL MODELS FOLDER HATLA2Y PERSCRIOTIONS.JS, COPY AS PATH, W PASTE EL PATH HENA.
+
+
+
 const getPatient = async (req, res) => {
   try {
     res.send(await patient.findById(req.params.id));
@@ -17,7 +24,7 @@ const getPatient = async (req, res) => {
 };
 
 const getWallet = async (req, res) => {
-  //console.log("hi");
+ 
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
@@ -34,7 +41,7 @@ const getWallet = async (req, res) => {
   res.status(200).json(p.amountInWallet);
 };
 const addtoWallet = async (req, res) => {
- // console.log("hi");
+ 
   const token = req.cookies.jwt;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
@@ -272,7 +279,11 @@ const checkout = async (req, res) => {
   for (const cartItem of p.cart) {
     var m = cartItem.medID.toString();
     const med = await medicine.findById(m);
-   med.Quantity-=cartItem.qty;
+    console.log(med);
+    console.log(cartItem);
+    //med.Quantity = med.Quantity - cartItem.qty;
+    med.Quantity = med.Quantity - cartItem.qty;
+    console.log(med.Quantity+ " new quantity");
    med.save().catch((err) => console.log(err));
 
    newSale = await sales.create({
@@ -341,7 +352,6 @@ const addDelivery = async (req, res) => {
   };
 
   const cancelOrder = async (req, res) => {
-   
     const token = req.cookies.jwt;
     var id;
     jwt.verify(token, 'supersecret', (err, decodedToken) => {
@@ -356,8 +366,12 @@ const addDelivery = async (req, res) => {
         }
       });
     const p = await patient.findById(id);
-    const order= await Order.findById(req.body.id);
+
+    const order= await Order.findById(req.query.id);
+
     order.status = "CANCELLED";
+    // return his money if wallet paid
+    //increase medicine quantity
     
     order.save().catch((err) => console.log(err));
     res.status(200).send("Order cancelled succesfully");

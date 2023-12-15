@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
 import PatientService from "../services/patient.service";
 import { useNavigate } from "react-router-dom";
-
+import Home from "./gohome";
 const MyCart = (props) => {
   const [users, setUsers] = useState([]);
 
@@ -70,6 +70,7 @@ const MyCart = (props) => {
 
   return (
     <div>
+      <Home />
       <div className="App-header">
      
             <button onClick={(user) =>checkout()}
