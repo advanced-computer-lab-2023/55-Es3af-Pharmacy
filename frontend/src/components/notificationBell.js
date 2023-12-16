@@ -2,6 +2,7 @@ import React from "react";
 import { FaBell } from "react-icons/fa"; // Assuming you want to use a bell icon
 import { useState } from "react";
 import userService from "../services/user.service";
+import './NotificationIcon.css'
 
 const NotificationIcon = ({ hasNotifications }) => {
   const [showNotifications, setShowNotifications] = useState(false);
@@ -33,38 +34,30 @@ const NotificationIcon = ({ hasNotifications }) => {
 
   return (
     <div>
+      <div className="notification-icon-container">
       {hasNotifications ? (
-        <div
-          style={{
-            position: "relative",
-            color: showNotifications ? "#cccccc" : "white",
-          }}
-          onClick={toggleNotifications}
-        >
+        <div className={`notification-icon ${showNotifications ? "active" : ""}`} onClick={toggleNotifications}>
           <FaBell size={30} />
-          <div
-            style={{
-              position: "absolute",
-              top: -5,
-              right: -5,
-              background: "red",
-              borderRadius: "50%",
-              width: 10,
-              height: 10,
-            }}
-          />
+          <div className="notification-badge"/>
         </div>
       ) : (
         <FaBell size={30} />
       )}
       {showNotifications && (
-        <div style={{ border: "1px solid #ccc", marginTop: 10, padding: 10 }}>
+        <div className="notification-dropdown">
           <h3>Notifications</h3>
-          {notifications.map((notification) => (
-            <div key={notification.notifID}>{notification.message}<br/> {notification.data}</div>
-          ))}
+          <ul>
+            {notifications.map((notification) => (
+              <li key={notification.notifID}>
+                {notification.message}
+                <br />
+                {notification.date}
+              </li>
+            ))}
+          </ul>
         </div>
       )}
+      </div>
     </div>
   );
 };

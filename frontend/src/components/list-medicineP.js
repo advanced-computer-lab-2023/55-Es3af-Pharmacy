@@ -1,10 +1,10 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import React, { useState, useEffect } from "react";
 import MedsService from "../services/medicine.service";
 import pharmacistService from "../services/pharmacist.service";
 import Home from "./gohome";
 import { Carousel } from "react-bootstrap"; // Import Carousel from React Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState, useEffect } from "react";
 
 const MedicinesPharm = (props) => {
   const [medicines, setMedicines] = useState([]);

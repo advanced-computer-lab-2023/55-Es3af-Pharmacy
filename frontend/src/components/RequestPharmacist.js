@@ -74,7 +74,7 @@ const PharmacistReq = () => {
       // Append form data fields
       for (const key in formData) {
         form.append(key, formData[key]);
-        console.log(form)
+        //console.log(form)
       }
       //console.log(formData)
 
