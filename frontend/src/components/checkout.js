@@ -84,7 +84,8 @@ function CheckoutPage() {
       totalAmount+=users[i].medPrice*users[i].qty;
     }
     if(user.paymentMethod.localeCompare("CoD")==0){
-      PatientService.checkout();
+      var string= "cod"
+      PatientService.checkout(string);
       alert("Please choose an address to your order");
       history("/patient/dropdown")
     }
@@ -97,10 +98,12 @@ function CheckoutPage() {
         try{
           const response = await PatientService.withdrawFromWallet(updatedUser);
           if(response.data.localeCompare("Amount deducted successfully")==0){
-            PatientService.checkout();
+            var string= "wallet";
+            PatientService.checkout(string);
             history("/patient/order")
           }
           alert(response.data + "\nTotal Order Amount: "+totalAmount+" EGP");
+           history("/patient/dropdown");
         }
         catch (e) {
           console.log(e);
@@ -148,7 +151,8 @@ function CheckoutPage() {
         const jsonResponse = await response.json();
         const { url } = jsonResponse;
         window.location = url;
-        PatientService.checkout();
+        var string="c"
+        PatientService.checkout(string);
      }
       catch (e) {
       console.log(e);
