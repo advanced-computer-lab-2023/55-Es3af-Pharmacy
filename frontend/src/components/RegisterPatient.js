@@ -40,6 +40,8 @@ function RegisterPatient() {
     e.preventDefault();
     try {
       const response = await RegisterPatientService.registerPatient(patient);
+      //console.log(response.data);
+      alert(response.data)
       console.log(response.data);
       if (response.data.success) {
         alert('Data saved successfully!');

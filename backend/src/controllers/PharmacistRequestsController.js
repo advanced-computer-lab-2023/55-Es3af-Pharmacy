@@ -11,10 +11,12 @@ const bcrypt = require("bcrypt");
 const { createToken } = require("../utils/auth.js");
 
 const pharmacistReq = async (req, res) => {
-  
+  const salt = await bcrypt.genSalt();
+  console.log(salt)
+  console.log(req)
+  const hashedPassword = await bcrypt.hash(req.body.password, salt);
   try {
-    const salt = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
 
     const newPharmacist = new pharmacistRequestModel({
       username: req.body.username,
@@ -28,6 +30,7 @@ const pharmacistReq = async (req, res) => {
       status: req.body.status || "Pending",
       amountInWallet : 50,
     });
+    console.log(req.body.password)
 
     if (req.files && req.files.length > 0) {
       req.files.forEach((file) => {

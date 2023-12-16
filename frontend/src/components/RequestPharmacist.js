@@ -58,10 +58,10 @@ const PharmacistReq = () => {
     const files = e.target.files;
 
     if (files.length > 0) {
-      setFileData({
+      setFileData((fileData) => ({
         ...fileData,
         WorkingLicenses: [...fileData.WorkingLicenses, ...files],
-      });
+      }));
     }
   };
 
@@ -74,7 +74,9 @@ const PharmacistReq = () => {
       // Append form data fields
       for (const key in formData) {
         form.append(key, formData[key]);
+        console.log(form)
       }
+      //console.log(formData)
 
       // Append IDfile file
       if (fileData.IDfile) {
@@ -87,12 +89,24 @@ const PharmacistReq = () => {
       }
 
       // Append multiple WorkingLicenses files
-      fileData.WorkingLicenses.forEach((file) => {
+      // fileData.WorkingLicenses.forEach((file) => {
+      //   form.append('WorkingLicenses', file);
+      // });
+
+      for(const file of fileData.WorkingLicenses){
         form.append('WorkingLicenses', file);
-      });
+      }
 
-      console.log(formData);
+      //console.log(formData);
 
+      // const response = await axios.post('http://localhost:7000/requestPharmacist/', form, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
+      for (let pair of form.entries()) {
+        console.log(pair[0] + ', ' + pair[1]);
+      }
       const response = await axios.post('http://localhost:7000/requestPharmacist/', form, {
         headers: {
           'Content-Type': 'multipart/form-data',

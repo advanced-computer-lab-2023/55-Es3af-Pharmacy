@@ -19,14 +19,18 @@ const registerPatient = async (req, res) => {
       emergencyContactMobile: req.body.emergencyContactMobile,
       amountInWallet: 0,
     });
-
-    newPatient.save().catch((err) => console.log(err));
-
-    const token = createToken(newPatient._id);
-    const maxAge = 3 * 24 * 60 * 60;
-
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
-    res.status(200).send(newPatient);
+    const checkPatient = await patientModel.find({username: req.body.username})
+    //console.log(checkPatient)
+    if(checkPatient.length != 0){
+      res.status(200).send('Username is already taken')
+    }
+    else{
+      newPatient.save().catch((err) => console.log(err));
+      const token = createToken(newPatient._id);
+      const maxAge = 3 * 24 * 60 * 60;
+      res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
+      res.status(200).send('New patient added successfully');
+    }
   } catch (error) {
     console.log({ error });
     res.status(400).send(error);
