@@ -91,14 +91,7 @@ const MedicinesList = (props) => {
                   >
                     add to cart
                   </button>
-                  <button
-                    style={{ backgroundColor: "blue" }}
-                    name={user._id}
-                    onClick={(user) => addToCart(user)}
-                   
-                  >
-                    add by perscription
-                  </button>
+                  
                   
                 </div>
               </div>
