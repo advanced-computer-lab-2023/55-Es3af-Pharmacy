@@ -28,8 +28,9 @@ class PatientService {
       return http.post("patient/addDel",address);
     }
    
-    checkout(){
-      return http.post("patient/checkout")
+    checkout(string){
+      console.log(string);
+      return http.post(`patient/checkout?string=${string}`);
     }
     viewOrder(){
       return http.get("patient/order");

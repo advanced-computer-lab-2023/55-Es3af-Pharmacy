@@ -40,6 +40,7 @@ function PatientPage() {
      
      <Route path="/updatePassword" element={<UpdatePassword />}></Route>
 
+     <Route path="/dropdown" element={<AllAddress />}></Route>
     
 
     

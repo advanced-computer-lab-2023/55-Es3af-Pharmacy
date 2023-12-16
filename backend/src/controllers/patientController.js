@@ -160,7 +160,7 @@ const addToCart = async (req, res) => {
       existingInCart.qty += 1;
       p.cartTotal += med.Price;
       p.save().catch((err) => res.send(err));
-      newpers.save()
+      //newpers.save()
       res.status(200).send("Medicine added.");
     }
   } else {
@@ -297,6 +297,7 @@ const addItem = async (req, res) => {
 
 const checkout = async (req, res) => {
   const token = req.cookies.jwt;
+  var i = false;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
     if (err) {
@@ -309,12 +310,16 @@ const checkout = async (req, res) => {
     }
   });
   const p = await patient.findById(id);
+  if(req.query.string === "wallet"){
+      i = true;
+  }
   const newOrder = await Order.create({
     
     pID: p._id,
     status: "pending",
     total: p.cartTotal,
     address:" ",
+    wallet:i,
 
   });
   newOrder.save().catch((err) => console.log(err));
@@ -413,9 +418,9 @@ const addDelivery = async (req, res) => {
     const order= await Order.findById(req.query.id);
 
     order.status = "CANCELLED";
-    // return his money if wallet paid
-    //increase medicine quantity
-    
+    if(order.wallet == true){
+    p.amountInWallet += order.total; 
+    }
     order.save().catch((err) => console.log(err));
     res.status(200).send("Order cancelled succesfully");
   };
