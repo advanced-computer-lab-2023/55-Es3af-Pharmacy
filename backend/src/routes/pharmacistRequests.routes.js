@@ -6,7 +6,7 @@ const upload = multer({ storage: storage });
 const pharmacistRequestsController = require("../controllers/PharmacistRequestsController");
 
 const pharmacistRequestsRoutes = new Router();
- //pharmacistRequestsRoutes.get("/getPharmReq",pharmacistRequestsController.getPharmacistReq);
+ pharmacistRequestsRoutes.get("/getPharmReq",pharmacistRequestsController.getPharmacistReq);
 
 //pharmacistRequestsRoutes.post("/newRequest", pharmacistRequestsController.pharmacistReq);
 
