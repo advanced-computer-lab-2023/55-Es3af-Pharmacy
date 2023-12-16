@@ -41,7 +41,7 @@ app.get("/home", (req, res) => {
 // #Routing to userController here
 app.use(
   cors({
-    origin: 'http://localhost:4000', // Replace with the actual origin of your React app
+    origin: ['http://localhost:4000', 'http://localhost:3000'], // Replace with the actual origin of your React app
     credentials: true,
   })
 );

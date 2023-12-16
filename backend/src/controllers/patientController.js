@@ -8,10 +8,10 @@ const bcrypt = require("bcrypt");
 const sales = require("../Models/sales.js");
 const { medicineOutOfStock } = require("./medicineController.js");
 
+const prescription = require("../Models/Prescriptions.js");
 //const Prescriptions = require('C:/Users/asus/OneDrive/Desktop/JR/55-Es3af-Clinic/src/Models/Prescriptions');
-//NOTE : TO USE PERSCRIPTIONS IN PHARMACY COPY THE PATH FROM CLINIC AND PASTE IT HERE INSTEAD OF THE PRESENT PATH
-// THIS IS A TEMPORARY SOLUTION TILL I FIND OUT HOW TO USE MODELS FROM BOTH PROJECTS WITHOUT CREATING THE MODEL HERE
-// EFTAH CLINIC, FEL MODELS FOLDER HATLA2Y PERSCRIOTIONS.JS, COPY AS PATH, W PASTE EL PATH HENA.
+//const prescription = require("C:/Users/asus/OneDrive/Desktop/JR/55-Es3af-Clinic/src/Models/Prescriptions");
+
 
 
 
@@ -87,6 +87,8 @@ const viewCart = async (req, res) => {
 
 const addToCart = async (req, res) => {
   const token = req.cookies.jwt;
+  var canBeAdded= false;
+  var allfilled=true;
   var id;
   jwt.verify(token, "supersecret", (err, decodedToken) => {
     if (err) {
@@ -99,10 +101,46 @@ const addToCart = async (req, res) => {
     }
   });
 
+
+  var newpers;
   const med = await medicine.findById(req.query.id);
   const p = await patient.findById(id);
+  if(med.overTheCounter==false){
+        const pid = p._id.toString();
+        var pers = await prescription.find({});
+        for(let i = 0 ; i<pers.length ; i++){
+          if(pers[i].patient.toString() === pid && pers[i].status === "unfilled"  ){
+            for(let j= 0 ; j<pers[i].medicine.length ; j++){
+              if(pers[i].medicine[j].medID.toString() === med._id.toString()){
+                canBeAdded= true;
+                pers[i].medicine[j].filled= true;
+              }
+            }
+          }
+        }
+        for(let i = 0 ; i<pers.length ; i++){
+
+          if(pers[i].patient.toString() === pid ){
+            
+          for(let j= 0 ; j<pers[i].medicine.length ; j++){
+            if(pers[i].medicine.filled == false){
+              allfilled=false;
+            }
+          }
+        
+        if(allfilled){
+          pers[i].status= "filled";
+          newpers= pers[i];
+        }
+      }
+        }
+        
+
+  }
   var exists = false;
   var s = 0;
+  if((med.overTheCounter==false && canBeAdded == true) || med.overTheCounter ){
+   
   if (p.cart.length > 0) {
     for (let i = 0; i < p.cart.length; i++) {
       if (p.cart[i].medID.toString() === med._id.toString()) {
@@ -116,19 +154,24 @@ const addToCart = async (req, res) => {
       p.cartTotal = p.cartTotal + med.Price;
       p.cart.push({ medID: med._id, qty: 1, medName:med.Name, medPrice:med.Price });
       p.save().catch((err) => res.send(err));
-      res.status(200).send("Cart saved.");
+      res.status(200).send("Medicine added.");
     } else {
       existingInCart = p.cart[s];
       existingInCart.qty += 1;
       p.cartTotal += med.Price;
       p.save().catch((err) => res.send(err));
-      res.status(200).send("Cart saved.");
+      newpers.save()
+      res.status(200).send("Medicine added.");
     }
   } else {
     p.cartTotal = med.Price;
     p.cart.push({ medID: med._id, qty: 1, medName:med.Name, medPrice:med.Price });
     p.save().catch((err) => res.send(err));
-    res.status(200).send("Cart saved.");
+    res.status(200).send("Medicine added.");
+  }
+  }else{
+    res.status(200).send("You can't add this medicine to your cart without a prescription");
+   
   }
 };
 
@@ -146,7 +189,7 @@ const removeItem = async (req, res) => {
     }
   });
 
-  console.log(req.query.id + " mazen");
+  
   const med = await medicine.findById(req.query.id);
   const p = await patient.findById(id);
   var exists = false;

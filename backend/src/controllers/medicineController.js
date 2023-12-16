@@ -36,6 +36,7 @@ const addMedicine = async (req, res) => {
           Sales: 0,
           medicalUse:medicalUse,
           archived: false,
+          overTheCounter: false,
         });
         res.send("Medicine with name "+Name+" is added successfully");
         newMed.save().catch((err) => console.log(err));

@@ -18,7 +18,12 @@ patientRoutes.post("/checkout",patientController.checkout);
 
 
 
+
+
 patientRoutes.post("/addToCart",patientController.addToCart);
+
+
+
 
 patientRoutes.post("/removeItem",patientController.removeItem);
 
