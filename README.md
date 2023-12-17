@@ -23,7 +23,10 @@ Endpoints are logically structured, following the HTTP methods and routes patter
 The codebase integrates middleware functions, such as those handling authentication using JWT tokens, seamlessly into the Express.js framework. These mechanisms indicate a focus on security, ensuring that requests are authenticated before processing, enhancing the overall robustness of the application.
 Screenshots: 
 
-
+![WhatsApp Image 2023-12-17 at 05 34 32_d8513947](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/4943f069-119c-48f2-be50-04eccedde6ae)
+![WhatsApp Image 2023-12-17 at 05 34 50_d54d9a75](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/44fa2af9-46db-40d6-9609-a2e74c61b41f)
+![WhatsApp Image 2023-12-17 at 05 35 15_0c2328f0](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/b61399ab-9041-4517-a7f4-c8fc0202893c)
+![WhatsApp Image 2023-12-17 at 05 37 25_b04c9e38](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/595053)
 
 
 
@@ -154,7 +157,9 @@ Securely add funds to the pharmacist's wallet.
 
 
 Code examples: 
-
+![WhatsApp Image 2023-12-17 at 05 52 04_765e3ffa](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/a1c4f24f-87ca-4a83-bc3d-8b983954d0c6)
+![WhatsApp Image 2023-12-17 at 05 52 44_d69d38d6](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/5a59dc66-d8fd-4286-8077-5c03592af57f)
+![WhatsApp Image 2023-12-17 at 05 53 35_b4a6997a](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/450015e9-2252-448c-9cf5-9405ae5f0c89)
 
 
 
@@ -257,7 +262,9 @@ PUT: Replace information
 PATCH: Update certain information
 DELETE: Delete information
 Examples:
-
+![WhatsApp Image 2023-12-17 at 05 23 46_1faa16b7](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/1aa17249-6b4b-4f0c-86ac-54e824f25e72)
+![WhatsApp Image 2023-12-17 at 05 23 59_52c84673](https://github.com/advanced-computer-lab-2023/55-Es3af-Pharmacy/assets/59505346/afd13e43-15df-41d0-9626-8dbed0e3a38e)
+46/2dd74ab7-0321-4d35-a2e2-85c83ba482d3)
 
 
 How to Use (2 marks)
