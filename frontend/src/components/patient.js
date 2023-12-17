@@ -1,6 +1,7 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
+import { FaComments, FaCamera } from "react-icons/fa";
 import MedicinesList from "./list-medicines";
 import SearchMedicine from "./search-medicine";
 import FilterMedicine from "./filter-medicine";
@@ -83,18 +84,18 @@ function PatientHome() {
             <button className="btn btn-primary"> view my orders </button>
           </a>
         </div>
-        <div>
-          <a href="/patient/pharmacistSelector" rel="noopener noreferrer">
-            <button className="btn btn-primary"> Select Pharmacist to Chat With </button>
-          </a>
-        </div>
+
+
+
         <div>
           <a href="/patient/updatePassword" rel="noopener noreferrer">
             <button className="btn btn-primary"> update password</button>
             </a>
             </div>
             
-        
+          <Link to="/patient/pharmacistSelector" className="chat-button">
+          <FaComments size={24} color="white" />
+          </Link>
       </header>
     </div>
     
